@@ -8462,8 +8462,12 @@ code, kbd, pre, samp {
     top: 14px
 }
 
+/*.ivu-card-body {*/
+    /*padding: 16px*/
+/*}*/
+
 .ivu-card-body {
-    padding: 16px
+    padding: 70px
 }
 
 .ivu-message {

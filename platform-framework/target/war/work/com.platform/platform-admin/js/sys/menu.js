@@ -52,7 +52,7 @@ TreeGrid.initColumn = function () {
             field: 'type',
             align: 'center',
             valign: 'middle',
-            width: '60px',
+            width: '80px',
             formatter: function (item) {
                 if (item.type === 0) {
                     return '<span class="label label-primary">目录</span>';
