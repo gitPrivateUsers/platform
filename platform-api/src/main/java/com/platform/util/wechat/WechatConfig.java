@@ -13,11 +13,11 @@ public class WechatConfig {
     /**
      * 商户id
      */
-    public static String appId = "appId";
+    public static String appId = "wxbc649f25caf7512e";
     /**
      * 商户号
      */
-    public static String mchId = "mchId";
+    public static String mchId = "1496716192";
     /**
      * 交易类型
      */
@@ -25,7 +25,7 @@ public class WechatConfig {
     /**
      * 签名
      */
-    public static String paySignKey = "paySignKey";
+    public static String paySignKey = "726520f78a6d5cc0127e7da9fb778ff4";
     /**
      * 证书名称，对应不同的商户号
      */
