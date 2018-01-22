@@ -22,8 +22,8 @@ public class ApiUserUtils {
     //获取code的请求地址
     public static String Get_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=STAT#wechat_redirect";
 
-    public static String APPID = "APPID";
-    public static String SECRET = "SECRET";
+    public static String APPID = "wxbc649f25caf7512e";
+    public static String SECRET = "726520f78a6d5cc0127e7da9fb778ff4";
     private static final String EMPTY = "";
 
     //替换字符串

@@ -22,5 +22,4 @@ public class VelocityShiro {
         Subject subject = SecurityUtils.getSubject();
         return subject != null && subject.isPermitted(permission);
     }
-
 }

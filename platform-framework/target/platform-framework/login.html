@@ -59,6 +59,11 @@
                 <div>
                     <i-button type="primary" @click="login" style="width: 200px;">登录</i-button>
                 </div>
+                <!--添加网站计时器-->
+                <div style="margin-top: 50px;">
+                    <p style="color: #3A4459">© 2017-2018 拓语商城 版权所有&nbsp;&nbsp;&nbsp;&nbsp;<span id="showsectime"></span></p>
+                </div>
+                <!--添加网站计时器-->
             </Card>
         </div>
     </div>
@@ -74,6 +79,7 @@
 <script src="statics/libs/iview.min.js"></script>
 <script src="statics/libs/bootstrap.min.js"></script>
 <script src="statics/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="statics/libs/jquery.particleground.min.js"></script>
 <script src="statics/libs/fastclick.min.js"></script>
 <script type="text/javascript">
     var vm = new Vue({
@@ -124,6 +130,46 @@
             }
         }
     });
+
+   //添加网站计时器，暂时使用原始JavaScript实现
+    $(function() {
+        //粒子背景特效,页面布局暂时有问题
+//        $("body").particleground({
+//            dotColor : '#5cbdaa',
+//            lineColor : '#5cbdaa'
+//        });
+        //网站计时器
+        showsectime();
+    })
+
+    //网站计时器
+    function NewDate(str) {
+        str = str.split('-');
+        var date = new Date();
+        date.setUTCFullYear(str[0], str[1] - 1, str[2]);
+        date.setUTCHours(0, 0, 0, 0);
+        return date;
+    }
+    function showsectime() {
+        var birthDay = NewDate("2017-11-27");
+        var today = new Date();
+        var timeold = today.getTime() - birthDay.getTime();
+
+        var sectimeold = timeold / 1000
+        var secondsold = Math.floor(sectimeold);
+        var msPerDay = 24 * 60 * 60 * 1000;
+
+        var e_daysold = timeold / msPerDay;
+        var daysold = Math.floor(e_daysold);
+        var e_hrsold = (daysold - e_daysold) * -24;
+        var hrsold = Math.floor(e_hrsold);
+        var e_minsold = (hrsold - e_hrsold) * -60;
+        var minsold = Math.floor((hrsold - e_hrsold) * -60);
+
+        var seconds = Math.floor((minsold - e_minsold) * -60).toString();
+        document.getElementById("showsectime").innerHTML = "网站运行：" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒";
+        setTimeout(showsectime, 1000);
+    }
 </script>
 </body>
 </html>
