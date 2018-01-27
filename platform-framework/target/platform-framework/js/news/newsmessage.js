@@ -18,7 +18,8 @@ $(function () {
 			{label: '评论次数', name: 'commentCount', index: 'comment_count', width: 80},
 			{label: '更新时间', name: 'updateTime', index: 'update_time', width: 80},
 			{label: '更新者', name: 'updateBy', index: 'update_by', width: 80},
-			{label: '标识索引备注', name: 'identify', index: 'identify', width: 80}],
+			//{label: '标识索引备注', name: 'identify', index: 'identify', width: 80}
+		],
 		viewrecords: true,
         height: 385,
         rowNum: 10,

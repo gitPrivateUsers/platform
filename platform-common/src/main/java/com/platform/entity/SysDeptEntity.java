@@ -95,7 +95,7 @@ public class SysDeptEntity implements Serializable {
 	public List<?> getList() {
 		return list;
 	}
-
+	
 	public void setList(List<?> list) {
 		this.list = list;
 	}

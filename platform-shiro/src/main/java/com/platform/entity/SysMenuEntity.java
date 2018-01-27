@@ -57,6 +57,10 @@ public class SysMenuEntity extends Tree {
      * 状态
      */
     private Integer status;
+    /**
+     * 后添加的 身份标识
+     */
+    private long identify;
 
     public void setMenuId(Long menuId) {
         this.menuId = menuId;
@@ -186,5 +190,13 @@ public class SysMenuEntity extends Tree {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public long getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(long identify) {
+        this.identify = identify;
     }
 }

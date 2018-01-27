@@ -69,14 +69,16 @@ TreeGrid.initColumn = function () {
         {title: '菜单URL', field: 'url', align: 'center', valign: 'middle', width: '200px'},
         {title: '授权标识', field: 'perms', align: 'center', valign: 'middle'},
         {
-            title: '状态', field: 'status', align: 'center', valign: 'middle', width: '80px',
+            title: '状态', field: 'status', align: 'center', valign: 'middle', width: '60px',
             formatter: function (item) {
                 if (item.status === 1) {
                     return '<span class="label label-danger">无效</span>';
                 }
                 return '<span class="label label-success">有效</span>';
             }
-        }];
+        },
+        {title: '身份标识', field: 'identify', align: 'center', valign: 'middle', width: '80px'}
+    ];
     return columns;
 };
 

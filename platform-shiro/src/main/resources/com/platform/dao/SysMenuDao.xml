@@ -18,7 +18,8 @@
 			`type`, 
 			`icon`, 
 			`order_num`,
-			`status`
+			`status`,
+			`identify`
 		)
 		values
 		(
@@ -30,7 +31,8 @@
 			#{type}, 
 			#{icon}, 
 			#{orderNum},
-			#{status}
+			#{status},
+			#{identify}
 		)
 	</insert>
 
@@ -94,6 +96,7 @@
             <if test="icon != null">`icon` = #{icon},</if>
             <if test="orderNum != null">`order_num` = #{orderNum},</if>
             <if test="status != null">`status` = #{status}</if>
+            <if test="identify != null">`identify` = #{identify}</if>
         </set>
         where menu_id = #{menuId}
     </update>
