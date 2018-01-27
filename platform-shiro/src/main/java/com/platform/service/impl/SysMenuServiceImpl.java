@@ -33,7 +33,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		
 		List<SysMenuEntity> userMenuList = new ArrayList<>();
 		for(SysMenuEntity menu : menuList){
-			if(menuIdList.contains(menu.getMenuId())){
+			if(menuIdList.contains(menu.getMenuId())){//todo 这里判断菜单是否与用户的最高级部门一致的数据
 				userMenuList.add(menu);
 			}
 		}
