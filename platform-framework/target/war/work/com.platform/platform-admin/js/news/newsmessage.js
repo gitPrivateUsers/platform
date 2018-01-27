@@ -5,8 +5,8 @@ $(function () {
         colModel: [
 			{label: 'id', name: 'id', index: 'id', key: true, hidden: true},
 			{label: '新闻标题', name: 'title', index: 'title', width: 80},
-			{label: '', name: 'details', index: 'details', width: 80},
-			{label: '新闻内容', name: 'author', index: 'author', width: 80},
+			{label: '新闻内容', name: 'details', index: 'details', width: 80},
+			{label: '新闻作者', name: 'author', index: 'author', width: 80},
 			{label: '发布日期', name: 'releaseDate', index: 'release_date', width: 80},
 			{label: '类型id', name: 'typeId', index: 'type_id', width: 80},
 			{label: '点击量', name: 'clickRate', index: 'click_rate', width: 80},

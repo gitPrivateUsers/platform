@@ -9,7 +9,7 @@ $(function () {
 			{label: '评论时间', name: 'commentTime', index: 'comment_time', width: 80},
 			{label: '用户的ip地址', name: 'commentIp', index: 'comment_ip', width: 80},
 			{label: '用户id', name: 'commentUid', index: 'comment_uid', width: 80},
-			{label: '', name: 'anonymityInfo', index: 'anonymity_info', width: 80},
+			{label: '匿名信息', name: 'anonymityInfo', index: 'anonymity_info', width: 80},
 			{label: '标识索引备注', name: 'identify', index: 'identify', width: 80}],
 		viewrecords: true,
         height: 385,
