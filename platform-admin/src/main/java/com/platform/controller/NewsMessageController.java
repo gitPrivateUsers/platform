@@ -33,6 +33,8 @@ public class NewsMessageController extends AbstractController{
     @RequiresPermissions("newsmessage:list")
     @ResponseBody
     public R list(@RequestParam Map<String, Object> params) {
+        params.put("identify",getOneDeptId());
+//        params.put("_search",true);
         //查询列表数据
         Query query = new Query(params);
 
