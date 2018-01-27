@@ -45,7 +45,7 @@ public class NewsMessageEntity implements Serializable {
     private Date updateTime;
     //更新者
     private String updateBy;
-    //标识索引备注
+    //身份标识
     private Long identify;
 
     /**

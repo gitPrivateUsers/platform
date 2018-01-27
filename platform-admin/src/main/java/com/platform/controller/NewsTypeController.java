@@ -23,7 +23,7 @@ import com.platform.utils.R;
  */
 @Controller
 @RequestMapping("newstype")
-public class NewsTypeController {
+public class NewsTypeController extends AbstractController {
     @Autowired
     private NewsTypeService newsTypeService;
 
@@ -34,6 +34,7 @@ public class NewsTypeController {
     @RequiresPermissions("newstype:list")
     @ResponseBody
     public R list(@RequestParam Map<String, Object> params) {
+        params.put("identify",getOneDeptId());
         //查询列表数据
         Query query = new Query(params);
 
@@ -64,6 +65,7 @@ public class NewsTypeController {
     @RequiresPermissions("newstype:save")
     @ResponseBody
     public R save(@RequestBody NewsTypeEntity newsType) {
+        newsType.setIdentify(getDeptId());
         newsTypeService.save(newsType);
 
         return R.ok();

@@ -23,7 +23,7 @@ import com.platform.utils.R;
  */
 @Controller
 @RequestMapping("newscomment")
-public class NewsCommentController {
+public class NewsCommentController extends AbstractController{
     @Autowired
     private NewsCommentService newsCommentService;
 
@@ -34,6 +34,7 @@ public class NewsCommentController {
     @RequiresPermissions("newscomment:list")
     @ResponseBody
     public R list(@RequestParam Map<String, Object> params) {
+        params.put("identify",getOneDeptId());
         //查询列表数据
         Query query = new Query(params);
 
@@ -64,6 +65,7 @@ public class NewsCommentController {
     @RequiresPermissions("newscomment:save")
     @ResponseBody
     public R save(@RequestBody NewsCommentEntity newsComment) {
+        newsComment.setIdentify(getOneDeptId());
         newsCommentService.save(newsComment);
 
         return R.ok();

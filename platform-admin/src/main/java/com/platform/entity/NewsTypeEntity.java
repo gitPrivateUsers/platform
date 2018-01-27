@@ -27,6 +27,8 @@ public class NewsTypeEntity implements Serializable {
     private Integer sortIndex;
     //备注
     private String remark;
+    //身份标识
+    private Long identify;
 
     /**
      * 设置：新闻类型id
@@ -105,5 +107,18 @@ public class NewsTypeEntity implements Serializable {
      */
     public String getRemark() {
         return remark;
+    }
+    /**
+     * 设置：身份标识
+     */
+    public void setIdentify(Long identify) {
+        this.identify = identify;
+    }
+
+    /**
+     * 获取：身份标识
+     */
+    public Long getIdentify() {
+        return identify;
     }
 }

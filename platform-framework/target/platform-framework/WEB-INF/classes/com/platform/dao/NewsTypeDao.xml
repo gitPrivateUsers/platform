@@ -19,7 +19,8 @@
 			`superior_id`,
 			`tier_id`,
 			`sort_index`,
-			`remark`
+			`remark`,
+			`identify`
 		from news_type
 		where id = #{id}
 	</select>
@@ -31,7 +32,8 @@
     		`superior_id`,
     		`tier_id`,
     		`sort_index`,
-    		`remark`
+    		`remark`,
+		    `identify`
 		from news_type
 		WHERE 1=1
 		<if test="name != null and name.trim() != ''">
@@ -65,14 +67,16 @@
 			`superior_id`,
 			`tier_id`,
 			`sort_index`,
-			`remark`)
+			`remark`,
+			`identify`)
 		values(
 			#{id},
 			#{typeName},
 			#{superiorId},
 			#{tierId},
 			#{sortIndex},
-			#{remark})
+			#{remark},
+			#{identify})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.NewsTypeEntity">
