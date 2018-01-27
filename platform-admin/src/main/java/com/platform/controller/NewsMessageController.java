@@ -1,18 +1,17 @@
 package com.platform.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 import com.platform.entity.NewsMessageEntity;
 import com.platform.service.NewsMessageService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 新闻资讯表Controller
@@ -23,7 +22,7 @@ import com.platform.utils.R;
  */
 @Controller
 @RequestMapping("newsmessage")
-public class NewsMessageController {
+public class NewsMessageController extends AbstractController{
     @Autowired
     private NewsMessageService newsMessageService;
 
@@ -64,6 +63,7 @@ public class NewsMessageController {
     @RequiresPermissions("newsmessage:save")
     @ResponseBody
     public R save(@RequestBody NewsMessageEntity newsMessage) {
+        newsMessage.setIdentify(getOneDeptId());
         newsMessageService.save(newsMessage);
 
         return R.ok();
