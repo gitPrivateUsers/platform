@@ -10,7 +10,7 @@
           <element id="archive" name="platform-common-1.0.0.jar">
             <element id="module-output" name="platform-common" />
           </element>
-          <element id="library" level="project" name="Maven: com.qiniu:qiniu-java-sdk:7.2.9" />
+          <element id="library" level="project" name="Maven: com.qiniu:qiniu-java-sdk:7.2.10" />
           <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.9.1" />
           <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.13.0" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.2" />

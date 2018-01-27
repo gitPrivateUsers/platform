@@ -55,7 +55,8 @@ public class GenUtils {
         tableEntity.setTableName(table.get("tableName"));
         tableEntity.setComments(table.get("tableComment"));
         //表名转换成Java类名
-        String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix"));
+        String className = tableToJava(tableEntity.getTableName());
+        //String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix"));
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
 
@@ -161,10 +162,14 @@ public class GenUtils {
     /**
      * 表名转换成Java类名
      */
-    public static String tableToJava(String tableName, String tablePrefix) {
-        if (StringUtils.isNotBlank(tablePrefix)) {
-            tableName = tableName.replace(tablePrefix, "");
-        }
+//    public static String tableToJava(String tableName, String tablePrefix) {
+//        if (StringUtils.isNotBlank(tablePrefix)) {
+//            tableName = tableName.replace(tablePrefix, "");
+//        }
+//        return columnToJava(tableName);
+//    }
+
+    public static String tableToJava(String tableName) {
         return columnToJava(tableName);
     }
 
@@ -189,36 +194,45 @@ public class GenUtils {
         }
 
         if (template.contains("Entity.java.vm")) {
-            return packagePath + "entity" + File.separator + className + "Entity.java";
+            return packagePath + "entity" + File.separator +className + "Entity.java";
         }
 
         if (template.contains("Dao.java.vm")) {
-            return packagePath + "dao" + File.separator + className + "Dao.java";
+            return packagePath + "dao" + File.separator +className + "Dao.java";
         }
 
         if (template.contains("Dao.xml.vm")) {
-            return packagePath + "dao" + File.separator + className + "Dao.xml";
+            return packagePath + "dao" + File.separator +className + "Dao.xml";
         }
 
         if (template.contains("Service.java.vm")) {
-            return packagePath + "service" + File.separator + className + "Service.java";
+            return packagePath + "service" + File.separator +className + "Service.java";
         }
 
         if (template.contains("ServiceImpl.java.vm")) {
-            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+            return packagePath + "service" + File.separator + "impl" + File.separator +className + "ServiceImpl.java";
         }
 
         if (template.contains("Controller.java.vm")) {
-            return packagePath + "controller" + File.separator + className + "Controller.java";
+            return packagePath + "controller" + File.separator +className + "Controller.java";
         }
+
+//        if (template.contains("list.html.vm")) {
+//            return "main" + File.separator + "webapp" + File.separator + "WEB-INF" + File.separator + "page"
+//                    + File.separator + "shop" + File.separator + className.toLowerCase() + ".html";
+//        }
+//
+//        if (template.contains("list.js.vm")) {
+//            return "main" + File.separator + "webapp" + File.separator + "js" + File.separator + "shop" + File.separator + className.toLowerCase() + ".js";
+//        }
 
         if (template.contains("list.html.vm")) {
             return "main" + File.separator + "webapp" + File.separator + "WEB-INF" + File.separator + "page"
-                    + File.separator + "shop" + File.separator + className.toLowerCase() + ".html";
+                    + File.separator + "news" + File.separator + className.toLowerCase() + ".html";
         }
 
         if (template.contains("list.js.vm")) {
-            return "main" + File.separator + "webapp" + File.separator + "js" + File.separator + "shop" + File.separator + className.toLowerCase() + ".js";
+            return "main" + File.separator + "webapp" + File.separator + "js" + File.separator + "news" + File.separator + className.toLowerCase() + ".js";
         }
 
         if (template.contains("menu.sql.vm")) {
