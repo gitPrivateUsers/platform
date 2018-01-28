@@ -39,7 +39,8 @@
 			`comment_count`,
 			`update_time`,
 			`update_by`,
-			`identify`
+			`identify`,
+			`user_id`
 		from news_message
 		where id = #{id}
 	</select>
@@ -61,7 +62,8 @@
     		`comment_count`,
     		`update_time`,
     		`update_by`,
-    		`identify`
+    		`identify`,
+			`user_id`
 		from news_message
 		WHERE 1=1
 		<if test="name != null and name.trim() != ''">
@@ -69,6 +71,9 @@
 		</if>
 		<if test="identify != null">
 			AND identify = #{identify}
+		</if>
+		<if test="userId != null">
+			AND user_id = #{userId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -108,7 +113,8 @@
 			`comment_count`,
 			`update_time`,
 			`update_by`,
-			`identify`)
+			`identify`,
+			`user_id`)
 		values(
 			#{id},
 			#{title},
@@ -125,7 +131,8 @@
 			#{commentCount},
 			#{updateTime},
 			#{updateBy},
-			#{identify})
+			#{identify},
+			#{userId})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.NewsMessageEntity">
@@ -146,6 +153,7 @@
 			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
 			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
 			<if test="identify != null">`identify` = #{identify}</if>
+			<if test="userId != null">`user_id` = #{userId}</if>
 		</set>
 		where id = #{id}
 	</update>
