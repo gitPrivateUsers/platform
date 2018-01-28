@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Map;
+
 /**
  * Controller公共组件
  *
@@ -39,6 +41,20 @@ public abstract class AbstractController {
     protected boolean validDept() {
         return sysDeptService.queryObject(getDeptId()).getParentId()==0;
     }
+
+    /**
+     * 查询条件 根据权限预览数据
+     * @param params
+     * @return
+     */
+    protected Map<String, Object> authorityParams(Map<String, Object> params) {
+        params.put("identify", getOneDeptId());
+        if (!validDept())//验证部门是否最高级
+            params.put("sysUserId", getUserId());
+        return params;
+
+    }
+
 
     /**
      *

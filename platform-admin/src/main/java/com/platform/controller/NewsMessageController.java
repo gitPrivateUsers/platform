@@ -33,9 +33,8 @@ public class NewsMessageController extends AbstractController{
     @RequiresPermissions("newsmessage:list")
     @ResponseBody
     public R list(@RequestParam Map<String, Object> params) {
-        params.put("identify",getOneDeptId());
-        if(!validDept())//验证部门是否最高级
-            params.put("sysUserId",getUserId());
+        //添加权限验证
+          params= authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
