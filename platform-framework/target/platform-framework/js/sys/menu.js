@@ -77,7 +77,7 @@ TreeGrid.initColumn = function () {
                 return '<span class="label label-success">有效</span>';
             }
         },
-        {title: '身份标识', field: 'identify', align: 'center', valign: 'middle', width: '80px'}
+        //{title: '身份标识', field: 'identify', align: 'center', valign: 'middle', width: '80px'}
     ];
     return columns;
 };

@@ -47,6 +47,8 @@ public class NewsMessageEntity implements Serializable {
     private String updateBy;
     //身份标识
     private Long identify;
+    //用户ID
+    private Long userId;
 
     /**
      * 设置：新闻id 
@@ -255,5 +257,18 @@ public class NewsMessageEntity implements Serializable {
      */
     public Long getIdentify() {
         return identify;
+    }
+    /**
+     * 设置:用户ID
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * 获取：用户ID
+     */
+    public Long getUserId() {
+        return userId;
     }
 }
