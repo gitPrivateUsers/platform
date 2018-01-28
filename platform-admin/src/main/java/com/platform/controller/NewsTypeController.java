@@ -34,7 +34,8 @@ public class NewsTypeController extends AbstractController {
     @RequiresPermissions("newstype:list")
     @ResponseBody
     public R list(@RequestParam Map<String, Object> params) {
-        params.put("identify",getOneDeptId());
+        //添加权限验证
+        params= authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -65,7 +66,8 @@ public class NewsTypeController extends AbstractController {
     @RequiresPermissions("newstype:save")
     @ResponseBody
     public R save(@RequestBody NewsTypeEntity newsType) {
-        newsType.setIdentify(getDeptId());
+        newsType.setIdentify(getOneDeptId());
+        newsType.setSysUserId(getUserId());
         newsTypeService.save(newsType);
 
         return R.ok();

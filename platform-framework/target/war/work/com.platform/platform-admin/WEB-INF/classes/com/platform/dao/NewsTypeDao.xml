@@ -10,6 +10,8 @@
         <result property="tierId" column="tier_id"/>
         <result property="sortIndex" column="sort_index"/>
         <result property="remark" column="remark"/>
+		<result property="identify" column="identify"/>
+		<result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.NewsTypeEntity">
@@ -20,7 +22,8 @@
 			`tier_id`,
 			`sort_index`,
 			`remark`,
-			`identify`
+			`identify`,
+			`sys_user_id`
 		from news_type
 		where id = #{id}
 	</select>
@@ -33,11 +36,18 @@
     		`tier_id`,
     		`sort_index`,
     		`remark`,
-		    `identify`
+		    `identify`,
+			`sys_user_id`
 		from news_type
 		WHERE 1=1
 		<if test="name != null and name.trim() != ''">
 			AND name LIKE concat('%',#{name},'%')
+		</if>
+		<if test="identify != null">
+			AND identify = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND sys_user_id = #{sysUserId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -68,7 +78,8 @@
 			`tier_id`,
 			`sort_index`,
 			`remark`,
-			`identify`)
+			`identify`,
+			`sys_user_id`)
 		values(
 			#{id},
 			#{typeName},
@@ -76,7 +87,8 @@
 			#{tierId},
 			#{sortIndex},
 			#{remark},
-			#{identify})
+			#{identify},
+			#{sysUserId})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.NewsTypeEntity">
@@ -87,6 +99,8 @@
 			<if test="tierId != null">`tier_id` = #{tierId}, </if>
 			<if test="sortIndex != null">`sort_index` = #{sortIndex}, </if>
 			<if test="remark != null">`remark` = #{remark}</if>
+			<if test="identify != null">`identify` = #{identify}</if>
+			<if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
 		</set>
 		where id = #{id}
 	</update>

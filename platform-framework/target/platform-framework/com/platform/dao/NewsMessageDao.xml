@@ -20,6 +20,7 @@
         <result property="updateTime" column="update_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="identify" column="identify"/>
+		<result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.NewsMessageEntity">
@@ -40,7 +41,7 @@
 			`update_time`,
 			`update_by`,
 			`identify`,
-			`user_id`
+			`sys_user_id`
 		from news_message
 		where id = #{id}
 	</select>
@@ -63,7 +64,7 @@
     		`update_time`,
     		`update_by`,
     		`identify`,
-			`user_id`
+			`sys_user_id`
 		from news_message
 		WHERE 1=1
 		<if test="name != null and name.trim() != ''">
@@ -72,8 +73,8 @@
 		<if test="identify != null">
 			AND identify = #{identify}
 		</if>
-		<if test="userId != null">
-			AND user_id = #{userId}
+		<if test="sysUserId != null">
+			AND sys_user_id = #{sysUserId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -114,7 +115,7 @@
 			`update_time`,
 			`update_by`,
 			`identify`,
-			`user_id`)
+			`sys_user_id`)
 		values(
 			#{id},
 			#{title},
@@ -132,7 +133,7 @@
 			#{updateTime},
 			#{updateBy},
 			#{identify},
-			#{userId})
+			#{sysUserId})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.NewsMessageEntity">
@@ -153,7 +154,7 @@
 			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
 			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
 			<if test="identify != null">`identify` = #{identify}</if>
-			<if test="userId != null">`user_id` = #{userId}</if>
+			<if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
 		</set>
 		where id = #{id}
 	</update>

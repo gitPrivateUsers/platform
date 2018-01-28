@@ -34,7 +34,8 @@ public class NewsCommentController extends AbstractController{
     @RequiresPermissions("newscomment:list")
     @ResponseBody
     public R list(@RequestParam Map<String, Object> params) {
-        params.put("identify",getOneDeptId());
+        //添加权限验证
+        params= authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -66,6 +67,7 @@ public class NewsCommentController extends AbstractController{
     @ResponseBody
     public R save(@RequestBody NewsCommentEntity newsComment) {
         newsComment.setIdentify(getOneDeptId());
+        newsComment.setSysUserId(getUserId());
         newsCommentService.save(newsComment);
 
         return R.ok();

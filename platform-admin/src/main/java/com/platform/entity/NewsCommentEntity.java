@@ -31,6 +31,8 @@ public class NewsCommentEntity implements Serializable {
     private Integer anonymityInfo;
     //标识索引备注
     private Long identify;
+    //用户ID
+    private Long sysUserId;
 
     /**
      * 设置：评论id
@@ -135,5 +137,18 @@ public class NewsCommentEntity implements Serializable {
      */
     public Long getIdentify() {
         return identify;
+    }
+    /**
+     * 设置:用户ID
+     */
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
+
+    /**
+     * 获取：用户ID
+     */
+    public Long getSysUserId() {
+        return sysUserId;
     }
 }
