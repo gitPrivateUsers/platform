@@ -34,6 +34,14 @@ public abstract class AbstractController {
 
     /**
      *
+     * @return 验证部门是否最高级
+     */
+    protected boolean validDept() {
+        return sysDeptService.queryObject(getDeptId()).getParentId()==0;
+    }
+
+    /**
+     *
      * @return 获取登录用户的最高级部门ID
      */
     protected Long getOneDeptId() {
