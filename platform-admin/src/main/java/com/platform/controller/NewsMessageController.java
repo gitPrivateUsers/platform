@@ -67,7 +67,7 @@ public class NewsMessageController extends AbstractController{
     @ResponseBody
     public R save(@RequestBody NewsMessageEntity newsMessage) {
         newsMessage.setIdentify(getOneDeptId());
-        newsMessage.setUserId(getUserId());
+        newsMessage.setSysUserId(getUserId());
         newsMessageService.save(newsMessage);
 
         return R.ok();
