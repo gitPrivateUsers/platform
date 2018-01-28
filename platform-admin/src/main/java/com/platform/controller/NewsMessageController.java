@@ -34,6 +34,8 @@ public class NewsMessageController extends AbstractController{
     @ResponseBody
     public R list(@RequestParam Map<String, Object> params) {
         params.put("identify",getOneDeptId());
+        if(!validDept())//验证部门是否最高级
+            params.put("sysUserId",5);
         //查询列表数据
         Query query = new Query(params);
 
@@ -65,6 +67,7 @@ public class NewsMessageController extends AbstractController{
     @ResponseBody
     public R save(@RequestBody NewsMessageEntity newsMessage) {
         newsMessage.setIdentify(getOneDeptId());
+        newsMessage.setUserId(getUserId());
         newsMessageService.save(newsMessage);
 
         return R.ok();
