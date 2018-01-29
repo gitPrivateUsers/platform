@@ -50,6 +50,10 @@ public class NewsMessageEntity implements Serializable {
     //用户ID
     private Long sysUserId;
 
+    //类型名称
+    private String typeName;
+
+
     /**
      * 设置：新闻id 
      */
@@ -270,5 +274,19 @@ public class NewsMessageEntity implements Serializable {
      */
     public Long getSysUserId() {
         return sysUserId;
+    }
+
+    /**
+     * 设置：类型名称
+     */
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    /**
+     * 获取：类型名称
+     */
+    public String getTypeName() {
+        return typeName;
     }
 }

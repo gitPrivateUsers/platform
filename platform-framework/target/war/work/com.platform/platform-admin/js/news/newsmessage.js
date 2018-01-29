@@ -12,7 +12,7 @@ $(function () {
                 return transDate(value);
             }
             },
-            {label: '类型id', name: 'typeId', index: 'type_id', width: 80},
+            {label: '新闻类型', name: 'typeName', index: 'type_id', width: 80},
             {label: '点击量', name: 'clickRate', index: 'click_rate', width: 80},
             {
                 label: '是否头条', name: 'showTop', index: 'show_top', width: 80,formatter:function(value){
@@ -24,21 +24,17 @@ $(function () {
                 return transIsNot(value);
             }
             },
-            {label: '新闻图片url', name: 'newsImageUrl', index: 'news_image_url', width: 80},
-            //{label: '最后评论者id', name: 'lastCommentId', index: 'last_comment_id', width: 80},
-            //{
-            //	label: '最后评论时间', name: 'lastCommentTime', index: 'last_comment_time', width: 80,formatter:function(value){
-            //		return transDate(value);
-            //	}
-            //},
-            //{label: '评论次数', name: 'commentCount', index: 'comment_count', width: 80},
+            {
+                label: '新闻图片', name: 'newsImageUrl', index: 'news_image_url', width: 80,formatter:function(value){
+                return transImg(value);
+            }
+            },
             {
                 label: '更新时间', name: 'updateTime', index: 'update_time', width: 80,formatter:function(value){
                 return transDate(value);
             }
             },
             {label: '更新者', name: 'updateBy', index: 'update_by', width: 80},
-           //{label: '标识索引备注', name: 'identify', index: 'identify', width: 80}
         ],
         viewrecords: true,
         height: 385,
@@ -75,44 +71,35 @@ $(function () {
         enableScript: false,
         imageButtons: ["floatImageLeft", "floatImageNone", "floatImageRight", "linkImage", "replaceImage", "removeImage"],
         allowedImageTypes: ["jpeg", "jpg", "png", "gif"],
-        imageUploadURL: '../sys/oss/upload',
+        //imageUploadURL: '../sys/oss/upload',
         imageUploadParams: {id: "edit"},
-        imagesLoadURL: '../sys/oss/queryAll'
+        //imagesLoadURL: '../sys/oss/queryAll'
     })
 });
 
-var setting = {
-    data: {
-        simpleData: {
-            enable: true,
-            idKey: "id",
-            pIdKey: "parentId",
-            rootPId: -1
-        },
-        key: {
-            url: "nourl"
-        }
-    }
-};
+//var setting = {
+//    data: {
+//        simpleData: {
+//            enable: true,
+//            idKey: "id",
+//            pIdKey: "parentId",
+//            rootPId: -1
+//        },
+//        key: {
+//            url: "nourl"
+//        }
+//    }
+//};
 var vm = new Vue({
     el: '#rrapp',
     data: {
         showList: true,
         title: null,
-        uploadList: [],
-        imgName: '',
         visible: false,
-        newsMessage: {},
-        newsTypes:{},
-        //news: {
-        //    listPicUrl: '',
-        //    isOnSale: 1,
-        //    isNew: 1,
-        //    isAppExclusive: 0,
-        //    isLimited: 0,
-        //    isHot: 0,
-        //    categoryName: ''
-        //},
+        newsMessage: {
+            listPicUrl: '',
+        },
+        newsTypes:[],
         ruleValidate: {
             name: [
                 {required: true, message: '名称不能为空', trigger: 'blur'}
@@ -129,22 +116,23 @@ var vm = new Vue({
         add: function () {
             vm.showList = false;
             vm.title = "新增";
-           // vm.uploadList = [];
-            vm.newsMessage = {showTop:'1',showHot:'1'};
-            vm.newsTypes = {};
-
+            vm.newsMessage = {
+                listPicUrl: '',
+                showTop:'1',
+                showHot:'1',
+            };
+            vm.newsTypes=[];
+            vm.getNewsTypes();
             $('#details').editable('setHTML', '');
 
-            this.getNewsTypes();
         },
         update: function (event) {
-            var id = getSelectedRow();
+            let id = getSelectedRow();
             if (id == null) {
                 return;
             }
             vm.showList = false;
             vm.title = "修改";
-            //vm.uploadList = [];
             vm.getInfo(id);
 
             this.getNewsTypes();
@@ -152,7 +140,6 @@ var vm = new Vue({
         saveOrUpdate: function (event) {
             var url = vm.newsMessage.id == null ? "../newsmessage/save" : "../newsmessage/update";
             vm.newsMessage.details = $('#details').editable('getHTML');
-            //vm.newsMessage.goodsImgList = vm.uploadList;
             $.ajax({
                 type: "POST",
                 url: url,
@@ -170,7 +157,7 @@ var vm = new Vue({
             });
         },
         del: function (event) {
-            var ids = getSelectedRows();
+            let ids = getSelectedRows();
             if (ids == null) {
                 return;
             }
@@ -216,30 +203,6 @@ var vm = new Vue({
             }).trigger("reloadGrid");
             vm.handleReset('formValidate');
         },
-        //handleView(name) {
-        //    this.imgName = name;
-        //    this.visible = true;
-        //},
-        //handleRemove(file) {
-        //    // 从 upload 实例删除数据
-        //    const fileList = this.uploadList;
-        //    this.uploadList.splice(fileList.indexOf(file), 1);
-        //},
-        //handleSuccess(res, file) {
-        //    // 因为上传过程为实例，这里模拟添加 url
-        //    file.imgUrl = res.url;
-        //    file.name = res.url;
-        //    vm.uploadList.add(file);
-        //},
-        //handleBeforeUpload() {
-        //    const check = this.uploadList.length < 5;
-        //    if (!check) {
-        //        this.$Notice.warning({
-        //            title: '最多只能上传 5 张图片。'
-        //        });
-        //    }
-        //    return check;
-        //},
         handleSubmit: function (name) {
             handleSubmitValidate(this, name, function () {
                 vm.saveOrUpdate()
@@ -260,25 +223,12 @@ var vm = new Vue({
         handleReset: function (name) {
             handleResetForm(this, name);
         },
-        handleSuccessPicUrl: function (res, file) {
-            vm.newsMessage.primaryPicUrl = file.response.url;
+        handleSuccessListPicUrl: function (res, file) {
+            vm.newsMessage.listPicUrl = file.response.url;
         },
-        //handleSuccessListPicUrl: function (res, file) {
-        //    vm.newsMessage.listPicUrl = file.response.url;
-        //},
-        eyeImagePicUrl: function () {
-            var url = vm.newsMessage.primaryPicUrl;
+        eyeImageListPicUrl: function () {
+            var url = vm.newsMessage.listPicUrl;
             eyeImage(url);
-        },
-        //eyeImageListPicUrl: function () {
-        //    var url = vm.newsMessage.listPicUrl;
-        //    eyeImage(url);
-        //},
-        //eyeImage: function (e) {
-        //    eyeImage($(e.target).attr('src'));
-        //}
+        }
     }
-    //mounted() {
-    //    this.uploadList = this.$refs.upload.fileList;
-    //}
 });

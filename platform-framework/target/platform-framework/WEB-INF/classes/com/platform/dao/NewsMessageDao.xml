@@ -48,33 +48,34 @@
 
 	<select id="queryList" resultType="com.platform.entity.NewsMessageEntity">
 		select
-    		`id`,
-    		`title`,
-    		`details`,
-    		`author`,
-    		`release_date`,
-    		`type_id`,
-    		`click_rate`,
-    		`show_top`,
-    		`show_hot`,
-    		`news_image_url`,
-    		`last_comment_id`,
-    		`last_comment_time`,
-    		`comment_count`,
-    		`update_time`,
-    		`update_by`,
-    		`identify`,
-			`sys_user_id`
+			news_message.id,
+			news_message.title,
+			news_message.details,
+			news_message.author,
+			news_message.release_date,
+			news_type.type_name,
+			news_message.click_rate,
+			news_message.show_top,
+			news_message.show_hot,
+			news_message.news_image_url,
+			news_message.last_comment_id,
+			news_message.last_comment_time,
+			news_message.comment_count,
+			news_message.update_time,
+			news_message.update_by,
+			news_message.identify,
+			news_message.sys_user_id
 		from news_message
+		LEFT JOIN news_type ON news_message.type_id = news_type.id
 		WHERE 1=1
 		<if test="name != null and name.trim() != ''">
 			AND name LIKE concat('%',#{name},'%')
 		</if>
 		<if test="identify != null">
-			AND identify = #{identify}
+			AND news_message.identify = #{identify}
 		</if>
 		<if test="sysUserId != null">
-			AND sys_user_id = #{sysUserId}
+			AND news_message.sys_user_id = #{sysUserId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
