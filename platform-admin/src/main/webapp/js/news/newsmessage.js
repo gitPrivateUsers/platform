@@ -118,7 +118,7 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.newsMessage = {
-                listPicUrl: '',
+                newsImageUrl:'',
                 showTop:'1',
                 showHot:'1',
                 typeId:'',
@@ -224,11 +224,11 @@ var vm = new Vue({
         handleReset: function (name) {
             handleResetForm(this, name);
         },
-        handleSuccessListPicUrl: function (res, file) {
-            vm.newsMessage.listPicUrl = file.response.url;
+        handleSuccessNewsImageUrl: function (res, file) {
+            vm.newsMessage.newsImageUrl = file.response.url;
         },
-        eyeImageListPicUrl: function () {
-            var url = vm.newsMessage.listPicUrl;
+        eyeNewsImageUrl: function () {
+            var url = vm.newsMessage.newsImageUrl;
             eyeImage(url);
         }
     }
