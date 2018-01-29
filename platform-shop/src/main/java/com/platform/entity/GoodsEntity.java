@@ -105,6 +105,27 @@ public class GoodsEntity implements Serializable {
     //品牌
     private String brandName;
 
+    //身份标识
+    private Long identify;
+    //用户ID
+    private Long sysUserId;
+
+    public Long getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(Long identify) {
+        this.identify = identify;
+    }
+
+    public Long getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
+
     public Long getCreateUserDeptId() {
         return createUserDeptId;
     }

@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("goods")
-public class GoodsController {
+public class GoodsController extends AbstractController{
     @Autowired
     private GoodsService goodsService;
 
@@ -31,6 +31,8 @@ public class GoodsController {
     @RequestMapping("/list")
     @RequiresPermissions("goods:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //添加权限验证
+        params= authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +62,9 @@ public class GoodsController {
     @RequestMapping("/save")
     @RequiresPermissions("goods:save")
     public R save(@RequestBody GoodsEntity goods) {
+        goods.setIsDelete(0);
+        goods.setIdentify(getOneDeptId());
+        goods.setSysUserId(getUserId());
         goodsService.save(goods);
 
         return R.ok();
@@ -108,6 +113,8 @@ public class GoodsController {
      */
     @RequestMapping("/historyList")
     public R historyList(@RequestParam Map<String, Object> params) {
+        //添加权限验证
+        params= authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
