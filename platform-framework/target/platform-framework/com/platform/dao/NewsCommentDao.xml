@@ -71,6 +71,12 @@
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
+		<if test="identify != null">
+			AND identify = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND sys_user_id = #{sysUserId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.NewsCommentEntity">

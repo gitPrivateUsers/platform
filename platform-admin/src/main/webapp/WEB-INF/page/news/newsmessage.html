@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>新闻资讯表</title>
+    <title></title>
     #parse("sys/header.html")
+
 </head>
 <body>
 <div id="rrapp" v-cloak>
@@ -46,6 +47,76 @@
                             <i-option v-for="newsType in newsTypes" :value="newsType.id" :key="newsType.id">{{newsType.typeName}}</i-option>
                         </i-select>
                     </Form-item>
+                        <Row>
+                            <i-col span="16">
+                                <Form-item label="新闻图片" prop="newsImageUrl">
+                                    <i-input v-model="newsMessage.newsImageUrl" placeholder="新闻图片" readonly/>
+                                </Form-item>
+                            </i-col>
+                            <i-col span="3">
+                                <Form-item :label-width="1">
+                                    <Upload style="width: 300px;" action="../sys/oss/upload" :format="['jpg','jpeg','png']"
+                                            max-size="2048"
+                                            :on-success="handleSuccessNewsImageUrl" :on-format-error="handleFormatError"
+                                            :show-upload-list="false"
+                                            :on-exceeded-size="handleMaxSize">
+                                        <i-button icon="ios-cloud-upload-outline">上传图片</i-button>
+                                    </Upload>
+                                </Form-item>
+                            </i-col>
+                            <i-col span="3">
+                                <Form-item :label-width="1">
+                                    <i-button icon="eye" @click="eyeNewsImageUrl">预览图片</i-button>
+                                </Form-item>
+                            </i-col>
+                        </Row>
+                </i-form>
+            </Tab-Pane>
+
+            <Tab-Pane label="新闻内容" name="name2">
+                <template>
+                    <div class="upload-list" v-for="item in uploadList">
+                        <template v-if="item.status === 'finished'">
+                            <img :src="item.imgUrl"/>
+                            <div class="upload-list-cover">
+                                <Icon type="ios-eye-outline" @click.native="handleView(item.imgUrl)"></Icon>
+                                <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                        </template>
+                    </div>
+                    <Upload
+                            ref="upload"
+                            :show-upload-list="false"
+                            :default-file-list="uploadList"
+                            :on-success="handleSuccess"
+                            :format="['jpg','jpeg','png']"
+                            :max-size="2048"
+                            :on-format-error="handleFormatError"
+                            :on-exceeded-size="handleMaxSize"
+                            :before-upload="handleBeforeUpload"
+                            multiple
+                            type="drag"
+                            action="../sys/oss/upload"
+                            style="display: inline-block;width:58px;">
+                        <div style="width: 58px;height:58px;line-height: 58px;">
+                            <Icon type="camera" size="20"></Icon>
+                        </div>
+                    </Upload>
+                    <Modal title="查看图片" v-model="visible">
+                        <img :src="imgName" v-if="visible" style="width: 100%"/>
+                    </Modal>
+                </template>
+                <div id="newsMessage"></div>
+            </Tab-Pane>
+
+             <Tab-Pane label="其他信息" name="name3">
+                <i-form ref="formValidate" :model="newsMessage" :rules="ruleValidate" :label-width="80">
+                    <Form-item label="更新时间" prop="updateTime">
+                        <Date-picker v-model="newsMessage.updateTime" placeholder="更新时间"/></Date-picker>
+                    </Form-item>
                     <Form-item label="是否头条:" prop="showTop">
                         <Radio-group v-model="newsMessage.showTop">
                             <Radio label="1">
@@ -65,42 +136,6 @@
                                 <span>否</span>
                             </Radio>
                         </Radio-group>
-                    </Form-item>
-                </i-form>
-            </Tab-Pane>
-
-            <Tab-Pane label="新闻内容" name="name2">
-                <i-form ref="formValidate" :model="newsMessage" :rules="ruleValidate" :label-width="80">
-                    <Row>
-                        <i-col span="16">
-                            <Form-item label="新闻图片" prop="newsImageUrl">
-                                <i-input v-model="newsMessage.newsImageUrl" placeholder="新闻图片" readonly/>
-                            </Form-item>
-                        </i-col>
-                        <i-col span="3">
-                            <Form-item :label-width="1">
-                                <Upload style="width: 300px;" action="../sys/oss/upload" :format="['jpg','jpeg','png']"
-                                        max-size="2048"
-                                        :on-success="handleSuccessNewsImageUrl" :on-format-error="handleFormatError"
-                                        :show-upload-list="false"
-                                        :on-exceeded-size="handleMaxSize">
-                                    <i-button icon="ios-cloud-upload-outline">上传图片</i-button>
-                                </Upload>
-                            </Form-item>
-                        </i-col>
-                        <i-col span="3">
-                            <Form-item :label-width="1">
-                                <i-button icon="eye" @click="eyeNewsImageUrl">预览图片</i-button>
-                            </Form-item>
-                        </i-col>
-                    </Row>
-                    <div id="details"></div>
-                </i-form>
-            </Tab-Pane>
-             <Tab-Pane label="其他信息" name="name3">
-                <i-form ref="formValidate" :model="newsMessage" :rules="ruleValidate" :label-width="80">
-                    <Form-item label="更新时间" prop="updateTime">
-                        <Date-picker v-model="newsMessage.updateTime" placeholder="更新时间"/></Date-picker>
                     </Form-item>
                 </i-form>
             </Tab-Pane>

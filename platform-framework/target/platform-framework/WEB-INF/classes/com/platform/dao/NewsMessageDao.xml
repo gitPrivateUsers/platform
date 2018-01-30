@@ -96,6 +96,12 @@
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
+		<if test="identify != null">
+			AND identify = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND sys_user_id = #{sysUserId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.NewsMessageEntity">
@@ -154,8 +160,8 @@
 			<if test="commentCount != null">`comment_count` = #{commentCount}, </if>
 			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
 			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
-			<if test="identify != null">`identify` = #{identify}</if>
-			<if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
+			<if test="identify != null">`identify` = #{identify},</if>
+			<if test="sysUserId != null">`sys_user_id` = #{sysUserId},</if>
 		</set>
 		where id = #{id}
 	</update>

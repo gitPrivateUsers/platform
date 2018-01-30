@@ -60,10 +60,10 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
-    $('#details').editable({
+    $('#goodsDesc').editable({
         inlineMode: false,
         alwaysBlank: true,
-        height: '500px', //高度
+        height: '450px', //高度
         minHeight: '200px',
         language: "zh_cn",
         spellcheck: false,
@@ -72,29 +72,31 @@ $(function () {
         imageButtons: ["floatImageLeft", "floatImageNone", "floatImageRight", "linkImage", "replaceImage", "removeImage"],
         allowedImageTypes: ["jpeg", "jpg", "png", "gif"],
         //imageUploadURL: '../sys/oss/upload',
-        imageUploadParams: {id: "edit"},
+        //imageUploadParams: {id: "edit"},
         //imagesLoadURL: '../sys/oss/queryAll'
     })
 });
+var ztree;
+var setting = {
+    data: {
+        simpleData: {
+            enable: true,
+            idKey: "id",
+            pIdKey: "parentId",
+            rootPId: -1
+        },
+        key: {
+            url: "nourl"
+        }
+    }
+};
 
-//var setting = {
-//    data: {
-//        simpleData: {
-//            enable: true,
-//            idKey: "id",
-//            pIdKey: "parentId",
-//            rootPId: -1
-//        },
-//        key: {
-//            url: "nourl"
-//        }
-//    }
-//};
 var vm = new Vue({
     el: '#rrapp',
     data: {
         showList: true,
         title: null,
+        uploadList: [],
         visible: false,
         newsMessage: {
             listPicUrl: '',
@@ -116,14 +118,15 @@ var vm = new Vue({
         add: function () {
             vm.showList = false;
             vm.title = "新增";
+            vm.uploadList = [];
             vm.newsMessage = {
-                listPicUrl: '',
+                newsImageUrl:'',
                 showTop:'1',
                 showHot:'1',
+                typeId:'',
             };
-            vm.newsTypes=[];
             vm.getNewsTypes();
-            $('#details').editable('setHTML', '');
+            $('#goodsDesc').editable('setHTML', '');
 
         },
         update: function (event) {
@@ -133,13 +136,14 @@ var vm = new Vue({
             }
             vm.showList = false;
             vm.title = "修改";
+            vm.uploadList = [];
             vm.getInfo(id);
 
-            this.getNewsTypes();
+            vm.getNewsTypes();
         },
         saveOrUpdate: function (event) {
             var url = vm.newsMessage.id == null ? "../newsmessage/save" : "../newsmessage/update";
-            vm.newsMessage.details = $('#details').editable('getHTML');
+            vm.newsMessage.details = $('#goodsDesc').editable('getHTML');
             $.ajax({
                 type: "POST",
                 url: url,
@@ -183,7 +187,7 @@ var vm = new Vue({
         getInfo: function (id) {
             $.get("../newsmessage/info/" + id, function (r) {
                 vm.newsMessage = r.newsMessage;
-                $('#details').editable('setHTML', vm.newsMessage.details);
+                $('#goodsDesc').editable('setHTML', vm.newsMessage.details);
             });
         },
         /**
@@ -223,11 +227,11 @@ var vm = new Vue({
         handleReset: function (name) {
             handleResetForm(this, name);
         },
-        handleSuccessListPicUrl: function (res, file) {
-            vm.newsMessage.listPicUrl = file.response.url;
+        handleSuccessNewsImageUrl: function (res, file) {
+            vm.newsMessage.newsImageUrl = file.response.url;
         },
-        eyeImageListPicUrl: function () {
-            var url = vm.newsMessage.listPicUrl;
+        eyeNewsImageUrl: function () {
+            var url = vm.newsMessage.newsImageUrl;
             eyeImage(url);
         }
     }

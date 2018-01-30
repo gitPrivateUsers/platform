@@ -39,6 +39,7 @@ public class NewsMessageServiceImpl implements NewsMessageService {
 
     @Override
     public int save(NewsMessageEntity newsMessage) {
+
         return newsMessageDao.save(newsMessage);
     }
 
