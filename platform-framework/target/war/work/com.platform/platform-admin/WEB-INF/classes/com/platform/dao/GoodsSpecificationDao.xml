@@ -44,6 +44,12 @@
         <if test="specificationId != null">
             AND nideshop_goods_specification.specification_id = #{specificationId}
         </if>
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -69,6 +75,12 @@
         </if>
         <if test="specificationId != null">
             AND nideshop_goods_specification.specification_id = #{specificationId}
+        </if>
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
         </if>
     </select>
 

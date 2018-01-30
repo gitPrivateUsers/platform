@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("comment")
-public class CommentController {
+public class CommentController extends AbstractController{
     @Autowired
     private CommentService commentService;
 
@@ -31,6 +31,7 @@ public class CommentController {
     @RequestMapping("/list")
     @RequiresPermissions("comment:list")
     public R list(@RequestParam Map<String, Object> params) {
+        params=authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -91,7 +92,7 @@ public class CommentController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        params=authorityParams(params);
         List<CommentEntity> list = commentService.queryList(params);
 
         return R.ok().put("list", list);
@@ -113,6 +114,7 @@ public class CommentController {
      */
     @RequestMapping("/queryTotal")
     public R queryTotal(@RequestParam Map<String, Object> params) {
+        params=authorityParams(params);
         int sum = commentService.queryTotal(params);
 
         return R.ok().put("sum", sum);

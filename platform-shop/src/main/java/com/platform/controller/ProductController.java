@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("product")
-public class ProductController {
+public class ProductController extends AbstractController{
     @Autowired
     private ProductService productService;
 
@@ -32,6 +32,7 @@ public class ProductController {
     @RequestMapping("/list")
     @RequiresPermissions("product:list")
     public R list(@RequestParam Map<String, Object> params) {
+        params=authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 

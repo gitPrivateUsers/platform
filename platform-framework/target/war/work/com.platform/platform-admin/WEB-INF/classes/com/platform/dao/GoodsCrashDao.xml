@@ -40,6 +40,12 @@
         <if test="goodsName != null and goodsName.trim() != ''">
             AND nideshop_goods.name LIKE concat('%',#{goodsName},'%')
         </if>
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -59,6 +65,12 @@
         WHERE 1=1
         <if test="goodsName != null and goodsName.trim() != ''">
             AND nideshop_goods.name LIKE concat('%',#{goodsName},'%')
+        </if>
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
         </if>
     </select>
 

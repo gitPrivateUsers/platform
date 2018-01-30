@@ -98,6 +98,8 @@ public class GoodsController extends AbstractController{
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
 
+        //添加权限验证
+        params= authorityParams(params);
         params.put("isDelete", 0);
         List<GoodsEntity> list = goodsService.queryList(params);
 

@@ -52,6 +52,12 @@
         <if test="picUrl == 'true'">
             AND EXISTS(SELECT 1 FROM nideshop_comment_picture WHERE nideshop_comment.id = nideshop_comment_picture.comment_id)
         </if>
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -80,6 +86,12 @@
         </if>
         <if test="picUrl == 'true'">
             AND EXISTS(SELECT 1 FROM nideshop_comment_picture WHERE nideshop_comment.id = nideshop_comment_picture.comment_id)
+        </if>
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
         </if>
     </select>
 
