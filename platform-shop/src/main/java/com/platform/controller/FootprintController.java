@@ -1,21 +1,16 @@
 package com.platform.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.platform.entity.FootprintEntity;
 import com.platform.service.FootprintService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -25,7 +20,7 @@ import com.platform.utils.R;
  */
 @RestController
 @RequestMapping("footprint")
-public class FootprintController {
+public class FootprintController extends AbstractController {
     @Autowired
     private FootprintService footprintService;
 
@@ -35,6 +30,7 @@ public class FootprintController {
     @RequestMapping("/list")
     @RequiresPermissions("footprint:list")
     public R list(@RequestParam Map<String, Object> params) {
+        params=authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
