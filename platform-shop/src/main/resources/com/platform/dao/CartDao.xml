@@ -27,9 +27,20 @@
 	</select>
 
     <select id="queryList" resultMap="cartMap">
-        select a.* ,b.username as user_name
-        from nideshop_cart a
-        left join nideshop_user b on a.user_id = b.id
+        SELECT
+        a.*,
+        b.username AS user_name
+        FROM
+        nideshop_cart a
+        LEFT JOIN nideshop_user b ON a.user_id = b.id
+        LEFT JOIN nideshop_goods c ON a.goods_id = c.id where 1=1
+
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -44,7 +55,16 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_cart 
+		select count(*) from nideshop_cart a
+
+        LEFT JOIN nideshop_goods c ON a.goods_id = c.id where 1=1
+
+        <if test="identify != null">
+            AND nideshop_goods.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_goods.sys_user_id = #{sysUserId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.CartEntity" useGeneratedKeys="true" keyProperty="id">

@@ -22,6 +22,13 @@
         from nideshop_footprint a
         left join nideshop_user b on a.user_id = b.id
         left join nideshop_goods c on a.goods_id = c.id
+        where 1=1
+        <if test="identify != null">
+            AND  c.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND  c.sys_user_id = #{sysUserId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -36,7 +43,15 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_footprint 
+		select count(*) from nideshop_footprint a
+        left join nideshop_goods c on a.goods_id = c.id
+        where 1=1
+        <if test="identify != null">
+            AND  c.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND  c.sys_user_id = #{sysUserId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.FootprintEntity" useGeneratedKeys="true" keyProperty="id">
