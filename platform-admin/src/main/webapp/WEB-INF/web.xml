@@ -70,7 +70,7 @@
         <init-param>
             <!--凡是提交包含html内容的请求都要写在这里，若有多个以逗号隔开-->
             <param-name>excludedPages</param-name>
-            <param-value>/topic/update,/topic/save,/goods/save,/goods/update</param-value>
+            <param-value>/topic/update,/topic/save,/goods/save,/goods/update,/newsmessage/save,/newsmessage/update</param-value>
         </init-param>
     </filter>
 
