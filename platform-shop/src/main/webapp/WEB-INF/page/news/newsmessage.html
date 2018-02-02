@@ -77,7 +77,7 @@
                         <i-input v-model="newsMessage.author" placeholder="新闻作者"/>
                     </Form-item>
                     <Form-item label="发布日期" prop="releaseDate">
-                        <Date-picker v-model="newsMessage.releaseDate" placeholder="发布日期"></Date-picker>
+                        <Date-picker type="datetime" v-model="newsMessage.releaseDate" placeholder="发布日期"></Date-picker>
                     </Form-item>
                     <Form-item label="新闻类型" prop="typeId" style="width: 268px;">
                         <i-select v-model="newsMessage.typeId" filterable>
@@ -152,7 +152,7 @@
              <Tab-Pane label="其他信息" name="name3">
                 <i-form ref="formValidate" :model="newsMessage" :rules="ruleValidate" :label-width="80">
                     <Form-item label="更新时间" prop="updateTime">
-                        <Date-picker v-model="newsMessage.updateTime" placeholder="更新时间"/></Date-picker>
+                        <Date-picker type="datetime" v-model="newsMessage.updateTime" placeholder="更新时间"/></Date-picker>
                     </Form-item>
                     <Form-item label="是否头条:" prop="showTop">
                         <Radio-group v-model="newsMessage.showTop">

@@ -33,23 +33,27 @@
                 <i-input v-model="newsComment.newsId" placeholder="新闻id"/>
             </Form-item>
             <Form-item label="评论内容" prop="commentDetails">
-                <i-input v-model="newsComment.commentDetails" placeholder="评论内容"/>
+                <i-input type="textarea" v-model="newsComment.commentDetails" placeholder="评论内容"/>
             </Form-item>
             <Form-item label="评论时间" prop="commentTime">
-                <i-input v-model="newsComment.commentTime" placeholder="评论时间"/>
+                <Date-picker type="datetime" v-model="newsComment.commentTime" placeholder="评论时间"></Date-picker>
             </Form-item>
-            <Form-item label="用户的ip地址" prop="commentIp">
-                <i-input v-model="newsComment.commentIp" placeholder="用户的ip地址"/>
-            </Form-item>
+            <!--<Form-item label="用户的ip地址" prop="commentIp">-->
+                <!--<i-input v-model="newsComment.commentIp" placeholder="用户的ip地址"/>-->
+            <!--</Form-item>-->
             <Form-item label="用户id" prop="commentUid">
                 <i-input v-model="newsComment.commentUid" placeholder="用户id"/>
             </Form-item>
-            <Form-item label="匿名信息" prop="anonymityInfo">
-                <i-input v-model="newsComment.anonymityInfo" placeholder="匿名信息"/>
+            <Form-item label="匿名评论" prop="anonymityInfo">
+                <Radio-group v-model="newsComment.anonymityInfo">
+                    <Radio label="1">
+                        <span>是</span>
+                    </Radio>
+                    <Radio label="0">
+                        <span>否</span>
+                    </Radio>
+                </Radio-group>
             </Form-item>
-            <!--<Form-item label="标识索引备注" prop="identify">
-                <i-input v-model="newsComment.identify" placeholder="标识索引备注"/>
-            </Form-item>-->
             <Form-item>
                 <i-button type="primary" @click="handleSubmit('formValidate')">提交</i-button>
                 <i-button type="warning" @click="reload" style="margin-left: 8px"/>返回</i-button>

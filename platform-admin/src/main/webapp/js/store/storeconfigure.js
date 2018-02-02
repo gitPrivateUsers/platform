@@ -1,17 +1,22 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../newscomment/list',
+        url: '../storeconfigure/list',
         datatype: "json",
         colModel: [
-			{label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-			{label: '新闻id', name: 'newsId', index: 'news_id', width: 80},
-			{label: '评论内容', name: 'commentDetails', index: 'comment_details', width: 80},
-			{label: '评论时间', name: 'commentTime', index: 'comment_time', width: 80},
-			//{label: '用户的ip地址', name: 'commentIp', index: 'comment_ip', width: 80},
-			//{label: '用户id', name: 'commentUid', index: 'comment_uid', width: 80},
-			{label: '匿名信息', name: 'anonymityInfo', index: 'anonymity_info', width: 80},
-			//{label: '标识索引备注', name: 'identify', index: 'identify', width: 80}
-		],
+			{label: 'storeId', name: 'storeId', index: 'store_id', key: true, hidden: true},
+			{label: '店铺名称（一般为部门一级名称）', name: 'storeName', index: 'store_name', width: 80},
+			{label: '存放部门（店铺/公司）一级ID', name: 'deptParentId', index: 'dept_parent_id', width: 80},
+			{label: '小程序APPID', name: 'appId', index: 'app_id', width: 80},
+			{label: '小程序AppSecret', name: 'appSecret', index: 'app_secret', width: 80},
+			{label: '微信支付商户号', name: 'muchId', index: 'much_Id', width: 80},
+			{label: '微信支付秘钥', name: 'paySingKey', index: 'pay_sing_key', width: 80},
+			{label: '状态 （0 营业   1 休息  2 冻结 ）', name: 'status', index: 'status', width: 80},
+			{label: '逻辑删除（0 正常  1 删除）', name: 'isDelete', index: 'is_delete', width: 80},
+			{label: '创建者', name: 'createBy', index: 'create_by', width: 80},
+			{label: '创建时间', name: 'createTime', index: 'create_time', width: 80},
+			{label: '更新者', name: 'updateBy', index: 'update_by', width: 80},
+			{label: '更新时间', name: 'updateTime', index: 'update_time', width: 80},
+			{label: '备注', name: 'remark', index: 'remark', width: 80}],
 		viewrecords: true,
         height: 385,
         rowNum: 10,
@@ -43,13 +48,10 @@ let vm = new Vue({
 	data: {
         showList: true,
         title: null,
-		newsComment: {},
+		storeConfigure: {},
 		ruleValidate: {
 			name: [
 				{required: true, message: '名称不能为空', trigger: 'blur'}
-			],
-			commentDetails: [
-				{required: true, message: '评论内容不能为空',trigger: 'blur'}
 			]
 		},
 		q: {
@@ -63,27 +65,25 @@ let vm = new Vue({
 		add: function () {
 			vm.showList = false;
 			vm.title = "新增";
-			vm.newsComment = {
-				anonymityInfo:1
-			};
+			vm.storeConfigure = {};
 		},
 		update: function (event) {
-            let id = getSelectedRow();
-			if (id == null) {
+            let storeId = getSelectedRow();
+			if (storeId == null) {
 				return;
 			}
 			vm.showList = false;
             vm.title = "修改";
 
-            vm.getInfo(id)
+            vm.getInfo(storeId)
 		},
 		saveOrUpdate: function (event) {
-            let url = vm.newsComment.id == null ? "../newscomment/save" : "../newscomment/update";
+            let url = vm.storeConfigure.storeId == null ? "../storeconfigure/save" : "../storeconfigure/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
 			    contentType: "application/json",
-			    data: JSON.stringify(vm.newsComment),
+			    data: JSON.stringify(vm.storeConfigure),
                 success: function (r) {
                     if (r.code === 0) {
                         alert('操作成功', function (index) {
@@ -96,17 +96,17 @@ let vm = new Vue({
 			});
 		},
 		del: function (event) {
-            let ids = getSelectedRows();
-			if (ids == null){
+            let storeIds = getSelectedRows();
+			if (storeIds == null){
 				return;
 			}
 
 			confirm('确定要删除选中的记录？', function () {
 				$.ajax({
 					type: "POST",
-				    url: "../newscomment/delete",
+				    url: "../storeconfigure/delete",
 				    contentType: "application/json",
-				    data: JSON.stringify(ids),
+				    data: JSON.stringify(storeIds),
 				    success: function (r) {
 						if (r.code == 0) {
 							alert('操作成功', function (index) {
@@ -119,9 +119,9 @@ let vm = new Vue({
 				});
 			});
 		},
-		getInfo: function(id){
-			$.get("../newscomment/info/"+id, function (r) {
-                vm.newsComment = r.newsComment;
+		getInfo: function(storeId){
+			$.get("../storeconfigure/info/"+storeId, function (r) {
+                vm.storeConfigure = r.storeConfigure;
             });
 		},
 		reload: function (event) {

@@ -2,13 +2,12 @@ package com.platform.controller;
 
 import com.platform.entity.NewsCommentEntity;
 import com.platform.service.NewsCommentService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +60,9 @@ public class NewsCommentController extends AbstractController{
     @RequestMapping("/save")
     @RequiresPermissions("newscomment:save")
     public R save(@RequestBody NewsCommentEntity newsComment) {
+        //用户的ip地址应该由前端页面用户在评论时拿到
+        //HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+        //newsComment.setCommentIp(IPUtils.getIpAddr(request));
         newsComment.setIdentify(getOneDeptId());
         newsComment.setSysUserId(getUserId());
         newsCommentService.save(newsComment);

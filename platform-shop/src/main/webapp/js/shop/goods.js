@@ -186,13 +186,13 @@ var vm = new Vue({
             });
         },
         saveOrUpdate: function (event) {
-            debugger
+            //debugger
             var url = vm.goods.id == null ? "../goods/save" : "../goods/update";
             vm.goods.goodsDesc = $('#goodsDesc').editable('getHTML');
             vm.goods.goodsImgList = vm.uploadList;
             //console.log(vm.goods.goodsDesc);
-            console.log(vm.goods);
-            console.log(JSON.stringify(vm.goods));
+            //console.log(vm.goods);
+            //console.log(JSON.stringify(vm.goods));
             //console.log(JSON.stringify(vm.goods.goodsDesc));
             $.ajax({
                 type: "POST",

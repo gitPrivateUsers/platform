@@ -100,12 +100,27 @@ var vm = new Vue({
         visible: false,
         newsMessage: {
             listPicUrl: '',
+            releaseDate:'',
+            typeId: '',
+            details: ''
+
         },
         newsTypes:[],
         ruleValidate: {
-            name: [
-                {required: true, message: '名称不能为空', trigger: 'blur'}
+            title: [
+                {required: true, message: '新闻标题不能为空', trigger: 'blur'}
+            ],
+            releaseDate: [
+                {required: true, type: 'datetime',message: '请选择发布日期', trigger: 'blur'}
+            ],
+            typeId: [
+                {required: true, message: '新闻类型不能为空', trigger: 'blur'}
             ]
+          /*  ,
+            details:[
+                {required: true, message: '新闻内容不能为空', trigger: 'blur'},
+                {type: 'string', min: 20, message: '内容不能少于20字', trigger: 'blur'}
+            ]*/
         },
         q: {
             name: ''
@@ -124,8 +139,8 @@ var vm = new Vue({
                 showTop: 1,
                 showHot: 1,
                 typeId: '',
-                typeName: ''
-
+                typeName: '',
+                details: ''
             };
             $("#newsDesc").editable('setHTML', '');
             vm.newsTypes = [];
@@ -140,16 +155,15 @@ var vm = new Vue({
             vm.title = "修改";
             vm.uploadList = [];
             vm.getInfo(id);
-
             vm.getNewsTypes();
         },
         saveOrUpdate: function (event) {
             var url = vm.newsMessage.id == null ? "../newsmessage/save" : "../newsmessage/update";
-            debugger
+            //debugger
             vm.newsMessage.details = $("#newsDesc").editable('getHTML');
             //console.log(vm.newsMessage.details);
-            console.log(vm.newsMessage);
-            console.log(JSON.stringify(vm.newsMessage));
+            //console.log(vm.newsMessage);
+            //console.log(JSON.stringify(vm.newsMessage));
             //console.log(JSON.stringify(vm.newsMessage.details));
             $.ajax({
                 type: "POST",
@@ -194,7 +208,7 @@ var vm = new Vue({
         getInfo: function (id) {
             $.get("../newsmessage/info/" + id, function (r) {
                 vm.newsMessage = r.newsMessage;
-                $('#newsMessage').editable('setHTML', vm.newsMessage.details);
+                $('#newsDesc').editable('setHTML', vm.newsMessage.details);
             });
         },
         /**
