@@ -7,6 +7,9 @@
           <element id="module-output" name="platform-admin" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="platform-admin-1.0.0.jar">
+            <element id="module-output" name="platform-admin" />
+          </element>
           <element id="archive" name="platform-common-1.0.0.jar">
             <element id="module-output" name="platform-common" />
           </element>

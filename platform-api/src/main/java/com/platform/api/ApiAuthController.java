@@ -1,7 +1,6 @@
 package com.platform.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qiniu.util.StringUtils;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.FullUserInfo;
 import com.platform.entity.UserInfo;
@@ -11,9 +10,11 @@ import com.platform.service.TokenService;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiUserUtils;
 import com.platform.util.CommonUtil;
+import com.platform.util.StoreConfigureInfo;
 import com.platform.utils.CharUtil;
 import com.platform.utils.R;
 import com.platform.validator.Assert;
+import com.qiniu.util.StringUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class ApiAuthController extends ApiBaseAction {
     private ApiUserService userService;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private StoreConfigureInfo storeConfigureInfo;
 
     /**
      * 登录
@@ -124,4 +127,14 @@ public class ApiAuthController extends ApiBaseAction {
         resultObj.put("userId", userVo.getUserId());
         return toResponsSuccess(resultObj);
     }
+
+    /**
+     * 获取多店铺信息
+     */
+    @IgnoreAuth
+    @RequestMapping("getStoreConfigure")
+    public R getStoreConfigureDetail(long storeId) {
+        return R.ok(storeConfigureInfo.getStoreConfigureAndDept(storeId));
+    }
+
 }
