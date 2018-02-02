@@ -35,29 +35,32 @@ public abstract class AbstractController {
     }
 
     /**
-     *
      * @return 验证部门是否最高级
      */
     protected boolean validDept() {
-        return sysDeptService.queryObject(getDeptId()).getParentId()==0;
+        return sysDeptService.queryObject(getDeptId()).getParentId() == 0;
     }
 
     /**
      * 查询条件 根据权限预览数据
+     *
      * @param params
      * @return
      */
     protected Map<String, Object> authorityParams(Map<String, Object> params) {
-        params.put("identify", getOneDeptId());
-        if (!validDept())//验证部门是否最高级
-            params.put("sysUserId", getUserId());
+        //admin用户不参与权限验证
+        if (!getUser().getUsername().equals("admin")) {
+            params.put("identify", getOneDeptId());
+            if (!validDept())//验证部门是否最高级
+                params.put("sysUserId", getUserId());
+            return params;
+        }
         return params;
 
     }
 
 
     /**
-     *
      * @return 获取登录用户的最高级部门ID
      */
     protected Long getOneDeptId() {
