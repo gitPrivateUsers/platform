@@ -29,20 +29,27 @@ public class OrderGoodsController extends AbstractController {
 	/**
 	 * 列表
 	 */
-	@RequestMapping("/list")
-	@RequiresPermissions("ordergoods:list")
-	public R list(@RequestParam Map<String, Object> params){
-		params=authorityParams(params);
-		//查询列表数据
+    @RequestMapping("/list")
+    @RequiresPermissions("ordergoods:list")
+    public R list(@RequestParam Map<String, Object> params) {
+        params = authorityParams(params);
+
+        if (!getUser().getUsername().equals("admin")) {
+            if (params.get("storeId") == null) {
+                return R.ok();
+            }
+        }
+        params = authorityParams(params);
+        //查询列表数据
         Query query = new Query(params);
 
-		List<OrderGoodsEntity> orderGoodsList = orderGoodsService.queryList(query);
-		int total = orderGoodsService.queryTotal(query);
+        List<OrderGoodsEntity> orderGoodsList = orderGoodsService.queryList(query);
+        int total = orderGoodsService.queryTotal(query);
 
-		PageUtils pageUtil = new PageUtils(orderGoodsList, total, query.getLimit(), query.getPage());
+        PageUtils pageUtil = new PageUtils(orderGoodsList, total, query.getLimit(), query.getPage());
 
-		return R.ok().put("page", pageUtil);
-	}
+        return R.ok().put("page", pageUtil);
+    }
 
 
 	/**

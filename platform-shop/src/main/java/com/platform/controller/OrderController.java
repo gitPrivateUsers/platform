@@ -30,7 +30,13 @@ public class OrderController extends AbstractController{
     @RequestMapping("/list")
     @RequiresPermissions("order:list")
     public R list(@RequestParam Map<String, Object> params) {
-        params=authorityParams(params);
+        params = authorityParams(params);
+
+        if (!getUser().getUsername().equals("admin")) {
+            if (params.get("storeId") == null) {
+                return R.ok();
+            }
+        }
         //查询列表数据
         Query query = new Query(params);
 

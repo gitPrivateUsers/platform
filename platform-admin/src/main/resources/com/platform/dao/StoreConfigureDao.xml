@@ -58,6 +58,9 @@
     		`remark`
 		from nideshop_store_configure
 		WHERE 1=1
+		<if test="identify != null ">
+			AND dept_parent_id =#{identify}
+		</if>
 		<if test="name != null and name.trim() != ''">
 			AND name LIKE concat('%',#{name},'%')
 		</if>

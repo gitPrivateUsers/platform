@@ -70,7 +70,7 @@
         <if test="orderType != null and orderType.trim() != ''">
             AND o.order_type = #{orderType}
         </if>
-        <if test="storeId != null and storeId.trim() != ''">
+        <if test="storeId != null">
             AND o.store_id = #{storeId}
         </if>
         <choose>
@@ -103,7 +103,7 @@
         <if test="orderType != null and orderType.trim() != ''">
             AND order_type = #{orderType}
         </if>
-        <if test="storeId != null and storeId.trim() != ''">
+        <if test="storeId != null">
             AND store_id = #{storeId}
         </if>
     </select>
