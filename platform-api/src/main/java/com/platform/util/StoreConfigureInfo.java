@@ -29,7 +29,7 @@ public class StoreConfigureInfo {
      * @return
      */
     public Map<String, Object> authorityStore(Long storeId) {
-        Map<String, Object> params =new LinkedHashMap<>();
+        Map<String, Object> params = new LinkedHashMap<>();
 
         params.put("page", 1);
         params.put("limit", 999);
@@ -39,12 +39,12 @@ public class StoreConfigureInfo {
         params.put("identify", getSysDeptIdByStoreId(storeId));
 //        params.put("storeId", storeId);
         return params;
-        }
+    }
 
     public R getStoreConfigureAndDept(Long storeId) {
         if (storeId == 0)
             return null;
-        Map<String, Object> resultObj =new LinkedHashMap<>();
+        Map<String, Object> resultObj = new LinkedHashMap<>();
         StoreConfigureEntity storeConfigure = storeConfigureService.queryObject(storeId);
         if (storeConfigure != null) {
             resultObj.put("storeConfigure", storeConfigure);
@@ -62,13 +62,13 @@ public class StoreConfigureInfo {
     }
 
     protected Long getSysDeptIdByStoreId(Long storeId) {
-       StoreConfigureEntity sce= storeConfigureService.queryObject(storeId);
-        if(null!=sce) {
+        StoreConfigureEntity sce = storeConfigureService.queryObject(storeId);
+        if (null != sce) {
             SysDeptEntity sde = sysDeptService.queryObject(sce.getDeptParentId());
-            if(null!=sde)
+            if (null != sde)
                 return sde.getDeptId();
         }
- return null;
+        return null;
     }
 
 

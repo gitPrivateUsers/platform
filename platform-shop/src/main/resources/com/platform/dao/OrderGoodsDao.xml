@@ -25,8 +25,12 @@
 	</select>
 
 	<select id="queryList" resultType="com.platform.entity.OrderGoodsEntity">
-		select * from nideshop_order_goods
+		select * from nideshop_order_goods a LEFT JOIN nideshop_order b on a.order_id=b.id
 		WHERE 1=1
+
+		<if test="storeId != null and storeId.trim() != ''">
+			AND store_id = #{storeId}
+		</if>
 		<if test="orderId != null and orderId != ''">
 			AND order_id = #{orderId}
 		</if>
@@ -44,8 +48,11 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from nideshop_order_goods
+		select count(*) from nideshop_order_goods  a LEFT JOIN nideshop_order b on a.order_id=b.id
 		WHERE 1=1
+		<if test="storeId != null and storeId.trim() != ''">
+			AND store_id = #{storeId}
+		</if>
 		<if test="orderId != null and orderId != ''">
 			AND order_id = #{orderId}
 		</if>

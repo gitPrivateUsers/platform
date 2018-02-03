@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("order")
-public class OrderController {
+public class OrderController extends AbstractController{
     @Autowired
     private OrderService orderService;
 
@@ -30,6 +30,7 @@ public class OrderController {
     @RequestMapping("/list")
     @RequiresPermissions("order:list")
     public R list(@RequestParam Map<String, Object> params) {
+        params=authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -58,7 +59,8 @@ public class OrderController {
      */
     @RequestMapping("/save")
     @RequiresPermissions("order:save")
-    public R save(@RequestBody OrderEntity order) {
+    public R save(@RequestBody OrderEntity order,Long storeId) {
+        order.setStoreId(storeId);
         orderService.save(order);
 
         return R.ok();

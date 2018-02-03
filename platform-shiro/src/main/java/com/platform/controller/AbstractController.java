@@ -50,6 +50,7 @@ public abstract class AbstractController {
     protected Map<String, Object> authorityParams(Map<String, Object> params) {
         //admin用户不参与权限验证
         if (!getUser().getUsername().equals("admin")) {
+            params.put("storeId", getOneDeptId());
             params.put("identify", getOneDeptId());
             if (!validDept())//验证部门是否最高级
                 params.put("sysUserId", getUserId());
