@@ -90,6 +90,8 @@ public class OrderEntity implements Serializable {
 
     //
     private String userName;
+    //多店铺id
+    private Long storeId;
 
     public String getOrderType() {
         return orderType;
@@ -562,4 +564,8 @@ public class OrderEntity implements Serializable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public Long getStoreId(){ return  storeId; }
+
+    public void setStoreId(Long storeId){ this.storeId = storeId; }
 }

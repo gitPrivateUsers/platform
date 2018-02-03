@@ -40,6 +40,7 @@
         <result property="callbackStatus" column="callback_status"/>
         <result property="orderType" column="order_type"/>
         <result property="userName" column="username"/>
+        <result property="storeId" column="store_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.OrderEntity">
@@ -68,6 +69,9 @@
         </if>
         <if test="orderType != null and orderType.trim() != ''">
             AND o.order_type = #{orderType}
+        </if>
+        <if test="storeId != null and storeId.trim() != ''">
+            AND o.store_id = #{storeId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -98,6 +102,9 @@
         </if>
         <if test="orderType != null and orderType.trim() != ''">
             AND order_type = #{orderType}
+        </if>
+        <if test="storeId != null and storeId.trim() != ''">
+            AND store_id = #{storeId}
         </if>
     </select>
 
@@ -136,7 +143,8 @@
 			`parent_id`, 
 			`coupon_price`, 
 			`callback_status`,
-			`order_type`
+			`order_type`,
+			`store_id`
 		)
 		values
 		(
@@ -173,6 +181,7 @@
 			#{couponPrice}, 
 			#{callbackStatus},
 			#{orderType}
+			#{storeId}
 		)
 	</insert>
 
@@ -212,6 +221,7 @@
             <if test="couponPrice != null">`coupon_price` = #{couponPrice},</if>
             <if test="callbackStatus != null">`callback_status` = #{callbackStatus},</if>
             <if test="orderType != null">`order_type` = #{orderType}</if>
+            <if test="orderType != null">`order_id` = #{orderId}</if>
         </set>
         where id = #{id}
     </update>
