@@ -8,7 +8,7 @@ import com.platform.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -29,16 +29,22 @@ public class StoreConfigureInfo {
      * @return
      */
     public Map<String, Object> authorityStore(Long storeId) {
-        Map<String, Object> params =new HashMap<>();
+        Map<String, Object> params =new LinkedHashMap<>();
+
+        params.put("page", 1);
+        params.put("limit", 999);
+        params.put("sidx", "");
+        params.put("order", "asc");
+        params.put("_search", "false");
         params.put("identify", getSysDeptIdByStoreId(storeId));
-        params.put("storeId", storeId);
+//        params.put("storeId", storeId);
         return params;
         }
 
     public R getStoreConfigureAndDept(Long storeId) {
         if (storeId == 0)
             return null;
-        Map<String, Object> resultObj = new HashMap();
+        Map<String, Object> resultObj =new LinkedHashMap<>();
         StoreConfigureEntity storeConfigure = storeConfigureService.queryObject(storeId);
         if (storeConfigure != null) {
             resultObj.put("storeConfigure", storeConfigure);
@@ -49,13 +55,13 @@ public class StoreConfigureInfo {
         return R.ok(resultObj);
     }
 
-    public StoreConfigureEntity getStoreConfigureById(Long storeId) {
+    protected StoreConfigureEntity getStoreConfigureById(Long storeId) {
         if (storeId == 0)
             return null;
         return storeConfigureService.queryObject(storeId);
     }
 
-    public Long getSysDeptIdByStoreId(Long storeId) {
+    protected Long getSysDeptIdByStoreId(Long storeId) {
        StoreConfigureEntity sce= storeConfigureService.queryObject(storeId);
         if(null!=sce) {
             SysDeptEntity sde = sysDeptService.queryObject(sce.getDeptParentId());
