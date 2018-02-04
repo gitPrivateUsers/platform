@@ -1,6 +1,7 @@
 package com.platform.api;
 
 import com.alibaba.fastjson.JSONObject;
+import com.platform.annotation.IgnoreAuth;
 import com.platform.util.StoreConfigureInfo;
 import com.platform.utils.Query;
 import com.qiniu.util.StringUtils;
@@ -46,10 +47,9 @@ public class ApiCartController extends ApiBaseAction {
     /**
      * 获取购物车中的数据
      */
+    @IgnoreAuth
     @RequestMapping("getCart")
-    public Object getCart(@LoginUser UserVo loginUser,
-                          @RequestParam(value = "page", defaultValue = "1") Integer page,
-                          @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
+    public Object getCart(@LoginUser UserVo loginUser, Long storeId) {
         Map<String, Object> resultObj = new HashMap();
         //添加店铺权限
         Map<String, Object> params = storeConfigureInfo.authorityStore(storeId);
@@ -57,14 +57,11 @@ public class ApiCartController extends ApiBaseAction {
         if(params.get("identify") == null){
             return toResponsSuccess(new ArrayList<>());
         }
-        params.put("user_id", loginUser.getUserId());
-        params.put("page",page);
-        params.put("limit",size);
-        params.put("sidx","id");
-        params.put("order","asc");
+        //todo 暂时注释
+//        params.put("user_id", loginUser.getUserId());
         //查询列表数据
         Query query = new Query(params);
-        List<CartVo> cartList = cartService.queryList(params);
+        List<CartVo> cartList = cartService.queryList(query);
         //获取购物车统计信息
         Integer goodsCount = 0;
         BigDecimal goodsAmount = new BigDecimal(0.00);
@@ -135,10 +132,8 @@ public class ApiCartController extends ApiBaseAction {
      * 获取购物车信息，所有对购物车的增删改操作，都要重新返回购物车的信息
      */
     @RequestMapping("index")
-    public Object index(@LoginUser UserVo loginUser,
-                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                        @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
-        return toResponsSuccess(getCart(loginUser,page,size,storeId));
+    public Object index(@LoginUser UserVo loginUser,Long storeId) {
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     /**
@@ -210,7 +205,7 @@ public class ApiCartController extends ApiBaseAction {
             cartInfo.setNumber(cartInfo.getNumber() + number);
             cartService.update(cartInfo);
         }
-        return toResponsSuccess(getCart(loginUser,page,size,storeId));
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     /**
@@ -247,9 +242,7 @@ public class ApiCartController extends ApiBaseAction {
      * 更新指定的购物车信息
      */
     @RequestMapping("update")
-    public Object update(@LoginUser UserVo loginUser,
-                         @RequestParam(value = "page", defaultValue = "1") Integer page,
-                         @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
+    public Object update(@LoginUser UserVo loginUser, Long storeId) {
         JSONObject jsonParam = getJsonRequest();
         Integer goodsId = jsonParam.getInteger("goodsId");
         Integer productId = jsonParam.getInteger("productId");
@@ -266,7 +259,7 @@ public class ApiCartController extends ApiBaseAction {
         if (cartInfo.getProduct_id().equals(productId)) {
             cartInfo.setNumber(number);
             cartService.update(cartInfo);
-            return toResponsSuccess(getCart(loginUser,page,size,storeId));
+            return toResponsSuccess(getCart(loginUser,storeId));
         }
 
         Map cartParam = new HashMap();
@@ -328,7 +321,7 @@ public class ApiCartController extends ApiBaseAction {
             cartInfo.setGoods_specifition_ids(productInfo.getGoods_specification_ids());
             cartService.update(cartInfo);
         }
-        return toResponsSuccess(getCart(loginUser,page,size,storeId));
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     /**
@@ -346,7 +339,7 @@ public class ApiCartController extends ApiBaseAction {
         }
         String[] productIdArray = productIds.split(",");
         cartService.updateCheck(productIdArray, isChecked, loginUser.getUserId());
-        return toResponsSuccess(getCart(loginUser,page,size,storeId));
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     //删除选中的购物车商品，批量删除
@@ -366,7 +359,7 @@ public class ApiCartController extends ApiBaseAction {
 //        String[] productIdsArray = productIds.split(",");
 //        cartService.deleteByProductIds(productIdsArray);
         cartService.delete(cartId);
-        return toResponsSuccess(getCart(loginUser,page,size,storeId));
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     //  获取购物车商品的总件件数
@@ -406,7 +399,7 @@ public class ApiCartController extends ApiBaseAction {
         BigDecimal freightPrice = new BigDecimal(10.00);
 
         //获取要购买的商品
-        Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser,page,size,storeId);
+        Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser,storeId);
 
         List<CartVo> checkedGoodsList = new ArrayList();
         for (CartVo cartEntity : (List<CartVo>) cartData.get("cartList")) {
@@ -474,16 +467,15 @@ public class ApiCartController extends ApiBaseAction {
      * 选择优惠券列表
      */
     @RequestMapping("checkedCouponList")
-    public Object checkedCouponList(@LoginUser UserVo loginUser,
-                                    @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                    @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
+    public Object checkedCouponList(@LoginUser UserVo loginUser,Long storeId) {
+
         //
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
         List<CouponVo> couponVos = apiCouponService.queryUserCouponList(param);
         if (null != couponVos && couponVos.size() > 0) {
             // 获取要购买的商品
-            Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser,page,size,storeId);
+            Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser,storeId);
             List<CartVo> checkedGoodsList = new ArrayList();
             List<Integer> checkedGoodsIds = new ArrayList();
             for (CartVo cartEntity : (List<CartVo>) cartData.get("cartList")) {

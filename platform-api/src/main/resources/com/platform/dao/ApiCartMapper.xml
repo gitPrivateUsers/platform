@@ -40,6 +40,9 @@
         <if test="goods_id != null">
             AND a.goods_id = #{goods_id}
         </if>
+        <if test="identify != null">
+            AND b.identify = #{identify}
+        </if>
         <if test="product_id != null">
             AND a.product_id = #{product_id}
         </if>
