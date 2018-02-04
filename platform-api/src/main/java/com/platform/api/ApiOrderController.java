@@ -10,6 +10,7 @@ import com.platform.service.ApiOrderGoodsService;
 import com.platform.service.ApiOrderService;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiPageUtils;
+import com.platform.util.StoreConfigureInfo;
 import com.platform.util.wechat.WechatRefundApiResult;
 import com.platform.util.wechat.WechatUtil;
 import com.platform.utils.Query;
@@ -20,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 作者: @author Harmon <br>
@@ -40,6 +38,10 @@ public class ApiOrderController extends ApiBaseAction {
     @Autowired
     private ApiKdniaoService apiKdniaoService;
 
+    @Autowired
+    private StoreConfigureInfo storeConfigureInfo;
+
+
     /**
      */
     @IgnoreAuth
@@ -52,13 +54,21 @@ public class ApiOrderController extends ApiBaseAction {
     /**
      * 获取订单列表
      */
+    @IgnoreAuth
     @RequestMapping("list")
     public Object list(@LoginUser UserVo loginUser,
                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                       @RequestParam(value = "size", defaultValue = "10") Integer size) {
+                       @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
         //
-        Map params = new HashMap();
-        params.put("user_id", loginUser.getUserId());
+        //添加店铺权限
+        Map<String, Object> params = storeConfigureInfo.authorityStore(storeId);
+
+        //店铺标识为空则返回空数据
+        if (params.get("identify") == null) {
+            return toResponsSuccess(new ArrayList<>());
+        }
+//        Map params = new HashMap();
+//        params.put("user_id", loginUser.getUserId());
         params.put("page", page);
         params.put("limit", size);
         params.put("sidx", "id");
@@ -80,8 +90,8 @@ public class ApiOrderController extends ApiBaseAction {
                 item.setGoodsCount(goodsCount);
             }
         }
-        return toResponsSuccess(pageUtil);
-    }
+            return toResponsSuccess(pageUtil);
+        }
 
     /**
      * 获取订单详情
