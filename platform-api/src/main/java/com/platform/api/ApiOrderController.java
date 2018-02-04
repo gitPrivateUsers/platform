@@ -54,7 +54,6 @@ public class ApiOrderController extends ApiBaseAction {
     /**
      * 获取订单列表
      */
-    @IgnoreAuth
     @RequestMapping("list")
     public Object list(@LoginUser UserVo loginUser,
                        @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -68,7 +67,7 @@ public class ApiOrderController extends ApiBaseAction {
             return toResponsSuccess(new ArrayList<>());
         }
 //        Map params = new HashMap();
-//        params.put("user_id", loginUser.getUserId());
+        params.put("user_id", loginUser.getUserId());
         params.put("page", page);
         params.put("limit", size);
         params.put("sidx", "id");
