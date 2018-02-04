@@ -29,17 +29,17 @@
 		WHERE 1=1
 
 		<if test="storeId != null">
-			AND store_id = #{storeId}
+			AND a.store_id = #{storeId}
 		</if>
 		<if test="orderId != null and orderId != ''">
-			AND order_id = #{orderId}
+			AND a.order_id = #{orderId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
             </when>
 			<otherwise>
-                order by id desc
+                order by a.id desc
 			</otherwise>
         </choose>
 		<if test="offset != null and limit != null">
@@ -51,10 +51,10 @@
 		select count(*) from nideshop_order_goods  a LEFT JOIN nideshop_order b on a.order_id=b.id
 		WHERE 1=1
 		<if test="storeId != null">
-			AND store_id = #{storeId}
+			AND a.store_id = #{storeId}
 		</if>
 		<if test="orderId != null and orderId != ''">
-			AND order_id = #{orderId}
+			AND a.order_id = #{orderId}
 		</if>
 	</select>
 	 

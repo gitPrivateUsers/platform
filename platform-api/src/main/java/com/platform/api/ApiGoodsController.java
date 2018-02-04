@@ -65,7 +65,6 @@ public class ApiGoodsController extends ApiBaseAction {
     private ApiCartService cartService;
     @Autowired
     private StoreConfigureInfo storeConfigureInfo;
-
     /**
      */
     @IgnoreAuth
