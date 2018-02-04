@@ -67,7 +67,7 @@ public class ApiOrderController extends ApiBaseAction {
             return toResponsSuccess(new ArrayList<>());
         }
 //        Map params = new HashMap();
-        params.put("user_id", loginUser.getUserId());
+       params.put("user_id", loginUser.getUserId());
         params.put("page", page);
         params.put("limit", size);
         params.put("sidx", "id");
