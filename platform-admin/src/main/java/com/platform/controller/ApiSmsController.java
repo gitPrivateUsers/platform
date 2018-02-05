@@ -7,6 +7,7 @@ import com.platform.utils.DateUtils;
 import com.platform.utils.R;
 import com.platform.utils.RRException;
 import com.platform.utils.RequestUtil;
+import com.platform.utils.ResourceUtil;
 import com.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class ApiSmsController {
     /**
      * 安全起见，暴露的接口需要配置有效的请求IP
      */
-    private static final String VALID_IP = "127.0.0.1";
+    //private static final String VALID_IP = "127.0.0.1";
 
     /**
      * 发送短信
@@ -46,7 +47,10 @@ public class ApiSmsController {
     public R sendSms(HttpServletRequest request, @RequestParam Map<String, String> params) {
         SysSmsLogEntity smsLog = new SysSmsLogEntity();
         String validIP = RequestUtil.getIpAddrByRequest(request);
-        if (VALID_IP.indexOf(validIP) < 0) {
+//        if (VALID_IP.indexOf(validIP) < 0) {
+//            throw new RRException("非法IP请求！");
+//        }
+        if (ResourceUtil.getConfigByName("sms.validIp").indexOf(validIP) < 0) {
             throw new RRException("非法IP请求！");
         }
         smsLog.setMobile(params.get("mobile"));

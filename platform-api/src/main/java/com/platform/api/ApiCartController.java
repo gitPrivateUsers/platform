@@ -140,9 +140,7 @@ public class ApiCartController extends ApiBaseAction {
      * 添加商品到购物车
      */
     @RequestMapping("add")
-    public Object add(@LoginUser UserVo loginUser,
-                      @RequestParam(value = "page", defaultValue = "1") Integer page,
-                      @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
+    public Object add(@LoginUser UserVo loginUser, Long storeId) {
         JSONObject jsonParam = getJsonRequest();
         Integer goodsId = jsonParam.getInteger("goodsId");
         Integer productId = jsonParam.getInteger("productId");
@@ -328,9 +326,7 @@ public class ApiCartController extends ApiBaseAction {
      * 是否选择商品，如果已经选择，则取消选择，批量操作
      */
     @RequestMapping("checked")
-    public Object checked(@LoginUser UserVo loginUser,
-                          @RequestParam(value = "page", defaultValue = "1") Integer page,
-                          @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
+    public Object checked(@LoginUser UserVo loginUser,Long storeId) {
         JSONObject jsonParam = getJsonRequest();
         String productIds = jsonParam.getString("productIds");
         Integer isChecked = jsonParam.getInteger("isChecked");
@@ -344,21 +340,20 @@ public class ApiCartController extends ApiBaseAction {
 
     //删除选中的购物车商品，批量删除
     @RequestMapping("delete")
-    public Object delete(@LoginUser UserVo loginUser,
-                         @RequestParam(value = "page", defaultValue = "1") Integer page,
-                         @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
+    public Object delete(@LoginUser UserVo loginUser, Long storeId) {
+        //原有逻辑不完善，更新批量删除逻辑
+        Long userId = loginUser.getUserId();
+
         JSONObject jsonObject = getJsonRequest();
-//        String productIds = jsonObject.getString("productIds");
-        Integer cartId = jsonObject.getInteger("cartId");
-        if (null == cartId) {
+        String productIds = jsonObject.getString("productIds");
+
+        if (StringUtils.isNullOrEmpty(productIds)) {
             return toResponsFail("删除出错");
         }
-//        if (StringUtils.isNullOrEmpty(productIds)) {
-//            return toResponsFail("删除出错");
-//        }
-//        String[] productIdsArray = productIds.split(",");
-//        cartService.deleteByProductIds(productIdsArray);
-        cartService.delete(cartId);
+        String[] productIdsArray = productIds.split(",");
+        cartService.deleteByProductIds(productIdsArray);
+        cartService.deleteByUserAndProductIds(userId,productIdsArray);
+
         return toResponsSuccess(getCart(loginUser,storeId));
     }
 
@@ -391,9 +386,7 @@ public class ApiCartController extends ApiBaseAction {
      * 订单提交前的检验和填写相关订单信息
      */
     @RequestMapping("checkout")
-    public Object checkout(@LoginUser UserVo loginUser, Integer couponId,
-                           @RequestParam(value = "page", defaultValue = "1") Integer page,
-                           @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
+    public Object checkout(@LoginUser UserVo loginUser, Integer couponId, Long storeId) {
         Map<String, Object> resultObj = new HashMap();
         //根据收货地址计算运费
         BigDecimal freightPrice = new BigDecimal(10.00);
