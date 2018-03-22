@@ -21,7 +21,7 @@ public class WechatConfig {
     /**
      * 交易类型
      */
-    public static String tradeType = "JSAPI";
+    public static String tradeType = "JSAPI";//JSAPI
     /**
      * 签名
      */

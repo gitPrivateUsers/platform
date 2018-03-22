@@ -1,5 +1,6 @@
 package com.platform.api;
 
+import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.LoginUser;
 import com.platform.entity.FeedbackVo;
 import com.platform.entity.UserVo;
@@ -25,7 +26,13 @@ public class ApiFeedbackController extends ApiBaseAction {
      * 添加反馈
      */
     @RequestMapping("save")
-    public Object save(@LoginUser UserVo loginUser, @RequestBody FeedbackVo feedbackVo) {
+    public Object save(@LoginUser UserVo loginUser ) {
+    	   JSONObject jsonParam = getJsonRequest();
+      	FeedbackVo feedbackVo=new FeedbackVo();
+      System.out.println(jsonParam);
+      	feedbackVo.setMsg_type(jsonParam.getInteger("msg_type"));
+      	feedbackVo.setMobile(jsonParam.getString("mobile"));
+      	feedbackVo.setMsg_content(jsonParam.getString("msg_content"));
         feedbackVo.setUser_id(loginUser.getUserId());
         feedbackVo.setUser_name(loginUser.getNickname());
         feedbackVo.setMsg_time(System.currentTimeMillis() / 1000);

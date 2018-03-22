@@ -23,7 +23,7 @@ public class ApiUserUtils {
     public static String Get_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=STAT#wechat_redirect";
 
     public static String APPID = "wxbc649f25caf7512e";
-    public static String SECRET = "726520f78a6d5cc0127e7da9fb778ff4";
+    public static String SECRET = "c75ba2fa22f202e53d452fa916ffd31b";
     private static final String EMPTY = "";
 
     //替换字符串

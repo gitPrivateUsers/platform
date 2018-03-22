@@ -37,6 +37,8 @@ public class FeedbackVo implements Serializable {
     private Integer order_id;
     //
     private Integer msg_area;
+    
+    private String mobile;
 
     public Integer getMsg_id() {
         return msg_id;
@@ -141,4 +143,12 @@ public class FeedbackVo implements Serializable {
     public void setMsg_area(Integer msg_area) {
         this.msg_area = msg_area;
     }
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 }

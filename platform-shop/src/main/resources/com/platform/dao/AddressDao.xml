@@ -14,6 +14,8 @@
         <result property="cityName" column="city_Name"/>
         <result property="countyName" column="county_Name"/>
         <result property="detailInfo" column="detail_Info"/>
+        <result property="isDefault" column="is_default"/>
+        
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.AddressEntity">
@@ -28,6 +30,7 @@
 		nideshop_address.city_Name,
 		nideshop_address.county_Name,
 		nideshop_address.detail_Info,
+		nideshop_address.is_default,
         nideshop_user.username shop_user_name
         from nideshop_address LEFT JOIN nideshop_user ON nideshop_address.user_id = nideshop_user.id
 		where nideshop_address.id = #{id}
@@ -45,6 +48,7 @@
         nideshop_address.city_Name,
         nideshop_address.county_Name,
         nideshop_address.detail_Info,
+        nideshop_address.is_default,
         nideshop_user.username shop_user_name
         from nideshop_address LEFT JOIN nideshop_user ON nideshop_address.user_id = nideshop_user.id
         WHERE 1=1
@@ -88,7 +92,8 @@
 			`province_Name`,
 			`city_Name`,
 			`county_Name`,
-			`detail_Info`)
+			`detail_Info`,
+			`is_default`)
 		values(
 			#{userId},
 			#{userName},
@@ -98,7 +103,8 @@
 			#{provinceName},
 			#{cityName},
 			#{countyName},
-			#{detailInfo})
+			#{detailInfo},
+			#{isDefault})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.AddressEntity">
@@ -113,6 +119,7 @@
             <if test="cityName != null">`city_Name` = #{cityName}, </if>
             <if test="countyName != null">`county_Name` = #{countyName}, </if>
             <if test="detailInfo != null">`detail_Info` = #{detailInfo}</if>
+            <if test="isDefault != null">`is_default` = #{isDefault}</if>
         </set>
         where id = #{id}
     </update>

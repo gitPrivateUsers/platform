@@ -53,9 +53,6 @@
         </if>
         from nideshop_goods
         where 1 = 1
-        <if test="identify != null and identify!=''">
-            AND identify = #{identify}
-        </if>
         <if test="is_new != null and is_new != ''">
             and is_new = #{is_new}
         </if>

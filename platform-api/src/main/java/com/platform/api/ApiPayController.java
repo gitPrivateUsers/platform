@@ -14,6 +14,9 @@ import com.platform.utils.CharUtil;
 import com.platform.utils.DateUtils;
 import com.platform.utils.MapUtils;
 import com.platform.utils.XmlUtil;
+
+import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +55,8 @@ public class ApiPayController extends ApiBaseAction {
         //
         return toResponsSuccess("");
     }
-
+    
+  
     /**
      * 获取支付的请求参数
      */
@@ -65,14 +69,14 @@ public class ApiPayController extends ApiBaseAction {
             return toResponsObject(400, "订单已取消", "");
         }
 
-        if (orderInfo.getPay_status() != 0) {
+        if (orderInfo.getPay_status() == 2) {
             return toResponsObject(400, "订单已支付，请不要重复操作", "");
         }
 
         String nonceStr = CharUtil.getRandomString(32);
 
         //https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&index=3
-        Map<Object, Object> resultObj = new TreeMap();
+        Map<Object, Object> resultObj = new TreeMap<Object, Object>();
 
         try {
             Map<Object, Object> parame = new TreeMap<Object, Object>();
@@ -81,24 +85,27 @@ public class ApiPayController extends ApiBaseAction {
             String randomStr = CharUtil.getRandomNum(18).toUpperCase();
             parame.put("nonce_str", randomStr);// 随机字符串
             parame.put("out_trade_no", orderId);// 商户订单编号
-            Map orderGoodsParam = new HashMap();
+            Map<String, Object> orderGoodsParam = new HashMap<String, Object>();
             orderGoodsParam.put("order_id", orderId);
-            parame.put("body", "超市-支付");// 商品描述
+            parame.put("body", "商城-支付");// 商品描述
             //订单的商品
             List<OrderGoodsVo> orderGoods = orderGoodsService.queryList(orderGoodsParam);
             if (null != orderGoods) {
-                String body = "超市-";
+                String body = "商城-";
                 for (OrderGoodsVo goodsVo : orderGoods) {
                     body = body + goodsVo.getGoods_name() + "、";
                 }
                 if (body.length() > 0) {
                     body = body.substring(0, body.length() - 1);
                 }
-                parame.put("body", body);// 商品描述
+//                parame.put("body", body);// 商品描述
             }
             //支付金额
-//            parame.put("total_fee", orderInfo.getActual_price().multiply(new BigDecimal(100)).intValue()));//todo 消费金额
-            parame.put("total_fee", 1);// 消费金额
+           orderInfo.getActual_price(); 
+          
+         
+            parame.put("total_fee",  Math.round(orderInfo.getActual_price().doubleValue() * 100));//todo 消费金额
+//            parame.put("total_fee", 1);// 消费金额
             parame.put("notify_url", WechatConfig.notifyUrl);// 回调地址
             parame.put("trade_type", WechatConfig.tradeType);// 交易类型APP
 //            parame.put("spbill_create_ip", getClientIp());
@@ -169,16 +176,24 @@ public class ApiPayController extends ApiBaseAction {
             }
             out.close();
             in.close();
-            String reponseXml = new String(out.toByteArray(), "utf-8");//xml数据
-
-            WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml, WechatRefundApiResult.class);
-            String result_code = result.getResult_code();
+            String reponseXml = new String(out.toByteArray(), "UTF-8");//xml数据
+            JSONObject result = JSONObject.fromObject(reponseXml);
+            logger.info("===:"+reponseXml);
+//            WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml, WechatRefundApiResult.class);
+          
+            
+            String result_code = result.getString("result_code");
             if (result_code.equalsIgnoreCase("FAIL")) {
-                String out_trade_no = result.getOut_trade_no();//订单编号
+                String out_trade_no = result.getString("out_trade_no");//订单编号
+                OrderVo orderInfo = orderService.queryObject(Integer.valueOf(out_trade_no));
+                orderInfo.setPay_status(0);
+                orderInfo.setPay_time(new Date());
+                orderInfo.setOrder_status(0);
+                orderService.update(orderInfo);
                 logger.error("订单" + out_trade_no + "支付失败");
                 response.getWriter().write(setXml("SUCCESS", "OK"));
             } else if (result_code.equalsIgnoreCase("SUCCESS")) {
-                String out_trade_no = result.getOut_trade_no();//订单编号
+            	String out_trade_no = result.getString("out_trade_no");//订单编号
                 logger.error("订单" + out_trade_no + "支付成功");
                 // 业务处理
                 OrderVo orderInfo = orderService.queryObject(Integer.valueOf(out_trade_no));
@@ -237,6 +252,9 @@ public class ApiPayController extends ApiBaseAction {
     }
 
 
+    
+    
+    
     //返回微信服务
     public static String setXml(String return_code, String return_msg) {
         return "<xml><return_code><![CDATA[" + return_code + "]]></return_code><return_msg><![CDATA[" + return_msg + "]]></return_msg></xml>";

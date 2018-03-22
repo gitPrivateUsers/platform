@@ -31,7 +31,8 @@ public class AddressVo implements Serializable {
     private String countyName;
     //详细收货地址信息
     private String detailInfo;
-
+    //是否默认收货地址(0：不默认 1：默认收货地址)
+    private String isDefault="0";
     /**
      * 设置：
      */
@@ -171,4 +172,13 @@ public class AddressVo implements Serializable {
     public String getDetailInfo() {
         return detailInfo;
     }
+
+	public String getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(String isDefault) {
+		this.isDefault = isDefault;
+	}
+    
 }

@@ -1,6 +1,5 @@
 package com.platform.api;
 
-import com.platform.util.StoreConfigureInfo;
 import com.qiniu.util.StringUtils;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
@@ -63,24 +62,17 @@ public class ApiGoodsController extends ApiBaseAction {
     private ApiUserCouponService apiUserCouponService;
     @Autowired
     private ApiCartService cartService;
-    @Autowired
-    private StoreConfigureInfo storeConfigureInfo;
+
     /**
      */
     @IgnoreAuth
     @RequestMapping("index")
-    public Object index(@LoginUser UserVo loginUser, Long storeId) {
-        //添加店铺权限
-        Map<String, Object> params = storeConfigureInfo.authorityStore(storeId);
-        Query query = new Query(params);
-        query.put("is_delete", 0);
-        //店铺标识为空则返回空数据
-        if (query.get("identify") != null) {
-            List<GoodsVo> goodsList = goodsService.queryList(query);
-            //
-            return toResponsSuccess(goodsList);
-        }
-        return toResponsSuccess(new ArrayList<>());
+    public Object index(@LoginUser UserVo loginUser) {
+        //
+        Map param = new HashMap();
+        List<GoodsVo> goodsList = goodsService.queryList(param);
+        //
+        return toResponsSuccess(goodsList);
     }
 
     /**
@@ -488,8 +480,7 @@ public class ApiGoodsController extends ApiBaseAction {
         for (RelatedGoodsVo relatedGoodsEntity : relatedGoodsEntityList) {
             relatedGoodsIds.add(relatedGoodsEntity.getRelated_goods_id());
         }
-//        List<Integer> relatedGoods = new ArrayList();
-        List<GoodsVo> relatedGoods = new ArrayList();
+        List<Integer> relatedGoods = new ArrayList();
         if (null == relatedGoodsIds || relatedGoods.size() < 1) {
             //查找同分类下的商品
             GoodsVo goodsCategory = goodsService.queryObject(id);

@@ -72,11 +72,14 @@ public class ApiOrderService {
 
         Integer couponId = jsonParam.getInteger("couponId");
         String couponNumber = jsonParam.getString("couponNumber");
-        BigDecimal fullCutCouponDec = jsonParam.getBigDecimal("fullCutCouponDec");
+//        BigDecimal fullCutCouponDec = jsonParam.getBigDecimal("fullCutCouponDec");
         String postscript = jsonParam.getString("postscript");
-        AddressVo addressVo = jsonParam.getObject("checkedAddress",AddressVo.class);
+        
+//        AddressVo addressVo = jsonParam.getObject("checkedAddress",AddressVo.class);
+        AddressVo addressVo = apiAddressMapper.queryObject(jsonParam.getString("checkedAddress"));
+  
 
-        Integer freightPrice = 10;
+        Integer freightPrice = 0;
         //获取要购买的商品
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
@@ -118,8 +121,8 @@ public class ApiOrderService {
         }
         //订单价格计算
         BigDecimal orderTotalPrice = goodsTotalPrice.add(new BigDecimal(freightPrice)); //订单的总价
-
-        BigDecimal actualPrice = orderTotalPrice.subtract(fullCutCouponDec).subtract(couponPrice);  //减去其它支付的金额后，要实际支付的金额
+        BigDecimal actualPrice = orderTotalPrice.subtract(couponPrice);  //减去其它支付的金额后，要实际支付的金额
+//        BigDecimal actualPrice = orderTotalPrice.subtract(fullCutCouponDec).subtract(couponPrice);  //减去其它支付的金额后，要实际支付的金额
 
         Long currentTime = System.currentTimeMillis() / 1000;
 
@@ -140,7 +143,7 @@ public class ApiOrderService {
         //留言
         orderInfo.setPostscript(postscript);
         //使用的优惠券
-        orderInfo.setFull_cut_price(fullCutCouponDec);
+//        orderInfo.setFull_cut_price(fullCutCouponDec);
         orderInfo.setCoupon_id(couponId);
         orderInfo.setCoupon_price(couponPrice);
         orderInfo.setAdd_time(new Date());

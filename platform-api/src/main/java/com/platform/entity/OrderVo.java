@@ -91,7 +91,7 @@ public class OrderVo implements Serializable {
     //优惠价格
     private BigDecimal coupon_price;
     //
-    private boolean callback_status;
+    private Integer callback_status;
     //
     private Integer goodsCount; //订单的商品
     private String order_status_text;//订单状态的处理
@@ -349,11 +349,11 @@ public class OrderVo implements Serializable {
         this.coupon_price = coupon_price;
     }
 
-    public boolean isCallback_status() {
+    public Integer getCallback_status() {
         return callback_status;
     }
 
-    public void setCallback_status(boolean callback_status) {
+    public void setCallback_status(Integer callback_status) {
         this.callback_status = callback_status;
     }
 

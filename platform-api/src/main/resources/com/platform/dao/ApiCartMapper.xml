@@ -40,9 +40,6 @@
         <if test="goods_id != null">
             AND a.goods_id = #{goods_id}
         </if>
-        <if test="identify != null">
-            AND b.identify = #{identify}
-        </if>
         <if test="product_id != null">
             AND a.product_id = #{product_id}
         </if>
@@ -162,14 +159,6 @@
         <foreach item="id" collection="productIds" open="(" separator="," close=")">
             #{id}
         </foreach>
-    </delete>
-
-    <delete id="deleteByUserAndProductIds">
-        delete from nideshop_cart where product_id in
-          <foreach item="id" collection="productIds" open="(" separator= "," close=")">
-              #{id}
-          </foreach>
-              and user_id = #{user_id}
     </delete>
 
     <delete id="deleteByCart">
