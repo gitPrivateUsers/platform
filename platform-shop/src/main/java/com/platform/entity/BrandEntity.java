@@ -22,11 +22,11 @@ public class BrandEntity implements Serializable {
     //图片
     private String listPicUrl;
     //描述
-    private String simpleDesc;
+    private String simpleDesc="";
     //图片
     private String picUrl;
     //排序
-    private Integer sortOrder;
+    private Integer sortOrder=0;
     //显示
     private Integer isShow;
     //

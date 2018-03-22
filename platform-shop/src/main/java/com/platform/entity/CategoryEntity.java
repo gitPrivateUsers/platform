@@ -19,7 +19,7 @@ public class CategoryEntity extends Tree<CategoryEntity> {
     //描述
     private String frontDesc;
     //父节点
-    private Integer parentId;
+    private Integer parentId=0;
     //排序
     private Integer sortOrder;
     //首页展示

@@ -34,6 +34,8 @@ public class AddressEntity implements Serializable {
     private String countyName;
     //详细收货地址信息
     private String detailInfo;
+    //是否默认收货地址(0:不默认 1:默认收货地址)
+    private String idDefault = "0";
 
     /**
      * 翻译会员名
@@ -186,5 +188,18 @@ public class AddressEntity implements Serializable {
      */
     public String getDetailInfo() {
         return detailInfo;
+    }
+
+    /**
+     * 设置：默认收货地址
+     */
+    public String getIdDefault() {
+        return idDefault;
+    }
+    /**
+     * 获取：默认收货地址
+     */
+    public void setIdDefault(String idDefault) {
+        this.idDefault = idDefault;
     }
 }
