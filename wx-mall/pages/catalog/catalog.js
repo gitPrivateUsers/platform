@@ -11,10 +11,20 @@ Page({
     goodsCount: 0,
     scrollHeight: 0
   },
+  onShareAppMessage: function () {
+    return {
+      title: '点客盈-分类',
+      desc: '分类',
+      path: '/pages/catalog/catalog'
+    }
+  },
   onLoad: function (options) {
     this.getCatalog();
   },
   getCatalog: function () {
+    wx.setNavigationBarTitle({
+      title: '分类'
+    })
     //CatalogList
     let that = this;
     wx.showLoading({

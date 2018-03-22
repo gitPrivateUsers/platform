@@ -9,12 +9,12 @@ Page({
     collectList: []
   },
   getCollectList() {
-    let that = this;
+    var  that = this;
     util.request(api.CollectList, { typeId: that.data.typeId}).then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);
         that.setData({
-          collectList: res.data.data
+          collectList: res.data
         });
       }
     });

@@ -1,6 +1,6 @@
 .banner {
   width: 750rpx;
-  height: 417rpx;
+  height: 350rpx;
 }
 
 .banner image {
@@ -51,23 +51,43 @@
 }
 
 .a-section .h {
+  width: 100%;
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-  height: 130rpx;
+  line-height: 80rpx;
+  height: 80rpx;
+  /* border-top: 0.1rpx solid #999;*/
+  border-bottom: 0.1rpx solid #f4f4f4; 
+  padding-left: 20rpx;
+  font-weight: bold;
 }
 
 .a-section .h .txt {
   padding-right: 30rpx;
-  background: url("http://ac-3yr0g9cz.clouddn.com/2cdba05369e10f934e54.png") right 4rpx no-repeat;
   background-size: 16.656rpx 27rpx;
   display: inline-block;
   height: 36rpx;
   font-size: 33rpx;
   line-height: 36rpx;
+  color: #f9573a;
+  
 }
-
+.a-section .h .h-reght{
+  text-align: right;
+  float: right;
+  margin-right: 30rpx;
+}
+.a-section .h .h-reght text{
+height: 40rpx;
+line-height: 40rpx;
+color: #666;
+font-size: 27rpx;
+font-weight:100;
+}
+.a-section .h .h-reght image{
+  width: 25rpx;
+  height: 25rpx;
+}
 .a-brand .b {
   width: 750rpx;
   height: auto;
@@ -129,14 +149,18 @@
   height: auto;
   overflow: hidden;
   padding: 0 31rpx 45rpx 31rpx;
+  background: #f4f4f4;
 }
 
 .a-new .b .item {
   float: left;
-  width: 302rpx;
+  box-sizing:border-box;
+  width: 336rpx; 
   margin-top: 10rpx;
-  margin-left: 21rpx;
-  margin-right: 21rpx;
+  margin-left: 5rpx;
+  margin-right: 5rpx;
+  border: 2rpx solid #f4f4f4;
+  background: #fff;
 }
 
 .a-new .b .item-b {
@@ -174,7 +198,7 @@
 }
 
 .a-popular .b .item {
-  border-top: 1px solid #d9d9d9;
+  border-top: 1px solid #f4f4f4;
   margin: 0 20rpx;
   height: 264rpx;
   width: 710rpx;

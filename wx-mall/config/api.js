@@ -1,5 +1,5 @@
-var NewApiRootUrl = 'http://localhost:8080/api/';
-
+// var NewApiRootUrl = 'https://xcx.shty888.com/ds-xcx/api/';
+var NewApiRootUrl = 'http://127.0.0.1:8080/platform-admin/api/';
 module.exports = {
     IndexUrl: NewApiRootUrl + 'index/index', //首页数据接口
     CatalogList: NewApiRootUrl + 'catalog/index',  //分类目录全部分类数据接口
@@ -27,7 +27,11 @@ module.exports = {
     CartCheckout: NewApiRootUrl + 'cart/checkout', // 下单前信息确认
 
     OrderSubmit: NewApiRootUrl + 'order/submit', // 提交订单
-    PayPrepayId: NewApiRootUrl + 'pay/prepay', //获取微信统一下单prepay_id
+    PayPrepayId: NewApiRootUrl + 'pay/pay_prepay', //获取微信统一下单prepay_id
+    notify: NewApiRootUrl +"pay/notify",//支付回调
+    cancelOrder: NewApiRootUrl +"order/cancelOrder",
+   
+
 
     CollectList: NewApiRootUrl + 'collect/list',  //收藏列表
     CollectAddOrDelete: NewApiRootUrl + 'collect/addordelete',  //添加或取消收藏
@@ -49,13 +53,19 @@ module.exports = {
     AddressDetail: NewApiRootUrl + 'address/detail',  //收货地址详情
     AddressSave: NewApiRootUrl + 'address/save',  //保存收货地址
     AddressDelete: NewApiRootUrl + 'address/delete',  //保存收货地址
+    UpdateDefault: NewApiRootUrl + 'address/update/default',  //设置默认收货地址
 
-    RegionList: NewApiRootUrl + 'region/list',  //获取区域列表
+
+    // RegionList: NewApiRootUrl + 'region/list',  //获取区域列表
 
     OrderList: NewApiRootUrl + 'order/list',  //订单列表
     OrderDetail: NewApiRootUrl + 'order/detail',  //订单详情
     OrderCancel: NewApiRootUrl + 'order/cancel',  //取消订单
+    confirmOrder: NewApiRootUrl + "order/confirmOrder",//确认收货
 
     FootprintList: NewApiRootUrl + 'footprint/list',  //足迹列表
     FootprintDelete: NewApiRootUrl + 'footprint/delete',  //删除足迹
+
+    GS: NewApiRootUrl +"gs.json",//公司信息
+    Feedback: NewApiRootUrl +"/feedback/save"
 };

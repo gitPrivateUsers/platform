@@ -3,7 +3,7 @@
 }
 .goodsimgs{
   width: 750rpx;
-  height: 750rpx;
+  height: 450rpx;
 }
 
 .goodsimgs image{
@@ -34,7 +34,7 @@
 
 .goods-info{
     width: 750rpx;
-    height: 306rpx;
+    /* height: 306rpx; */
     overflow: hidden;
     background: #fff;
 }
@@ -49,9 +49,12 @@
 }
 
 .goods-info .c text{
-    display: block;
+    /* display: block; */
     width: 687.5rpx;
-    text-align: center;
+    /* text-align: center; */
+    float: left;
+    /* overflow:inherit; */
+
 }
 
 .goods-info .name{
@@ -59,6 +62,7 @@
     margin-bottom: 5.208rpx;
     font-size: 41rpx;
     line-height: 41rpx;
+    float: left;
 }
 
 .goods-info .desc{
@@ -75,6 +79,8 @@
     font-size: 35rpx;
     line-height: 35rpx;
     color: #b4282d;
+      margin-top: 10rpx;
+  font-weight: bold;
 }
 
 .goods-info .brand{
@@ -98,27 +104,32 @@
 
 .section-nav{
     width: 750rpx;
-    height: 108rpx;
+    height: 80rpx;
     background: #fff;
-    margin-bottom: 20rpx;
+    border-bottom:  1rpx solid #f4f4f4;
+    margin-top: 20rpx;
 }
 
 .section-nav .t{
     float: left;
     width: 600rpx;
-    height: 108rpx;
-    line-height: 108rpx;
+    height: 80rpx;
+    line-height: 80rpx;
     font-size: 29rpx;
     color: #333;
     margin-left: 31.25rpx;
 }
-
+.section-nav .t .a{
+    font-size: 29rpx;
+    color: #b4282d;
+ 
+}
 .section-nav .i{
     float: right;
     width: 52rpx;
     height: 52rpx;
     margin-right: 16rpx;
-    margin-top: 28rpx;
+    margin-top: 10rpx;
 }
 
 .section-act .t{
@@ -282,10 +293,13 @@
 
 .goods-attr{
     width: 750rpx;
-    height: auto;
+    height: 100rpx;
     overflow: hidden;
-    padding: 0 31.25rpx 25rpx 31.25rpx;
+    padding-left:20rpx;
+    padding-bottom: 20rpx;
+    border: 1rpx solid #f4f4f4; 
     background: #fff;
+    margin-top:20rpx
 }
 
 .goods-attr .t{
@@ -623,15 +637,16 @@
 
 .attr-pop .p{
     font-size: 33rpx;
-    color: #333;
-    height: 33rpx;
+    color: #f9573a;
+    height: 38rpx;
     line-height: 33rpx;
     margin-bottom: 10rpx;
+    font-weight: bold;
 }
 
 .attr-pop .a{
     font-size: 29rpx;
-    color: #333;
+    color: #b4282d;
     height: 40rpx;
     line-height: 40rpx;
 }
@@ -643,7 +658,7 @@
 }
 
 .spec-con .name{
-    height: 32rpx;
+    height: 35rpx;
     margin-bottom: 22rpx;
     font-size: 29rpx;
     color: #333;
@@ -651,19 +666,20 @@
 
 .spec-con .values{
     height: auto;
-    margin-bottom: 31.25rpx;
+    margin-bottom: 10.25rpx;
     font-size: 0;
 }
 
 .spec-con .value{
     display: inline-block;
     height: 62rpx;
-    padding: 0 35rpx;
+    padding: 0 25rpx;
     line-height: 56rpx;
     text-align: center;
     margin-right: 25rpx;
     margin-bottom: 16.5rpx;
     border: 1px solid #333;
+    border-radius: 3px;
     font-size: 25rpx;
     color: #333;
 }
@@ -674,8 +690,10 @@
 }
 
 .spec-con .value.selected{
-    border: 1px solid #b4282d;
-    color: #b4282d;
+    border: 0px solid #b4282d;
+    border-radius: 3px;
+    color: #fff;
+    background: #f9573a;
 }
 
 .number-item .selnum{
@@ -683,6 +701,7 @@
     height: 71rpx;
     border: 1px solid #ccc;
     display: flex;
+    border-radius: 3px; 
 }
 
 .number-item .cut{
@@ -699,6 +718,7 @@
     line-height: 68.75rpx;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
+    color: #b4282d;
     float: left;
 }
 
@@ -707,6 +727,7 @@
     height: 100%;
     text-align: center;
     line-height: 65rpx;
+    border-radius: 3px;
 }
 
 

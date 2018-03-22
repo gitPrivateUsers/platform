@@ -24,9 +24,22 @@ function payOrder(orderId) {
           'paySign': payParam.paySign,
           'success': function (res) {
             resolve(res);
+            util.request(api.notify, {
+              'result_code': "SUCCESS",
+              out_trade_no: orderId
+            }, 'POST').then(function (res) {
+              console.info(res);
+            });
           },
           'fail': function (res) {
+            util.request(api.notify, {
+              'result_code': "FAIL",
+              out_trade_no: orderId
+            }, 'POST').then(function (res) {
+              console.info(res);
+            });
             reject(res);
+
           },
           'complete': function (res) {
             reject(res);

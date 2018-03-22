@@ -253,3 +253,11 @@ page{
     width: 140rpx;
     color: #b4282d;
 }
+.but{
+  margin: 50rpx;
+  background-color: #f9573a;
+  border-radius: 10rpx;
+  color: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+}

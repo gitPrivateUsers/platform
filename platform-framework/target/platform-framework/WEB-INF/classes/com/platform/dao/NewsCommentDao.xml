@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.NewsCommentDao">
+
+    <resultMap type="com.platform.entity.NewsCommentEntity" id="newsCommentMap">
+        <result property="id" column="id"/>
+        <result property="newsId" column="news_id"/>
+        <result property="commentDetails" column="comment_details"/>
+        <result property="commentTime" column="comment_time"/>
+        <result property="commentIp" column="comment_ip"/>
+        <result property="commentUid" column="comment_uid"/>
+        <result property="anonymityInfo" column="anonymity_info"/>
+        <result property="identify" column="identify"/>
+		<result property="sysUserId" column="sye_user_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.platform.entity.NewsCommentEntity">
+		select
+			`id`,
+			`news_id`,
+			`comment_details`,
+			`comment_time`,
+			`comment_ip`,
+			`comment_uid`,
+			`anonymity_info`,
+			`identify`,
+			`sys_user_id`
+		from news_comment
+		where id = #{id}
+	</select>
+
+	<select id="queryList" resultType="com.platform.entity.NewsCommentEntity">
+		select
+    		`id`,
+    		`news_id`,
+    		`comment_details`,
+    		`comment_time`,
+    		`comment_ip`,
+    		`comment_uid`,
+    		`anonymity_info`,
+    		`identify`,
+			`sys_user_id`
+		from news_comment
+		WHERE 1=1
+		<if test="name != null and name.trim() != ''">
+			AND name LIKE concat('%',#{name},'%')
+		</if>
+		<if test="identify != null">
+			AND identify = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND sys_user_id = #{sysUserId}
+		</if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from news_comment
+		WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+		<if test="identify != null">
+			AND identify = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND sys_user_id = #{sysUserId}
+		</if>
+	</select>
+	 
+	<insert id="save" parameterType="com.platform.entity.NewsCommentEntity">
+		insert into news_comment(
+			`id`,
+			`news_id`,
+			`comment_details`,
+			`comment_time`,
+			`comment_ip`,
+			`comment_uid`,
+			`anonymity_info`,
+			`identify`,
+			`sys_user_id`)
+		values(
+			#{id},
+			#{newsId},
+			#{commentDetails},
+			#{commentTime},
+			#{commentIp},
+			#{commentUid},
+			#{anonymityInfo},
+			#{identify},
+			#{sysUserId})
+	</insert>
+	 
+	<update id="update" parameterType="com.platform.entity.NewsCommentEntity">
+		update news_comment 
+		<set>
+			<if test="newsId != null">`news_id` = #{newsId}, </if>
+			<if test="commentDetails != null">`comment_details` = #{commentDetails}, </if>
+			<if test="commentTime != null">`comment_time` = #{commentTime}, </if>
+			<if test="commentIp != null">`comment_ip` = #{commentIp}, </if>
+			<if test="commentUid != null">`comment_uid` = #{commentUid}, </if>
+			<if test="anonymityInfo != null">`anonymity_info` = #{anonymityInfo}, </if>
+			<if test="identify != null">`identify` = #{identify}</if>
+			<if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from news_comment where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from news_comment where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

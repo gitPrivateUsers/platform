@@ -1,27 +1,24 @@
 <view class="container">
+
     <view class="address-box">
-        <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.id > 0}}">
-            <view class="l">
-                <text class="name">{{checkedAddress.name}}</text>
-                <text class="default" wx:if="{{checkedAddress.is_default === 1}}">默认</text>
+
+        <view class="address-item"bindtap="selectAddress">
+    <view class="m"  wx:if="{{checkedAddress==null}}" >添加收货地址</view>
+             <view class="l"  wx:if="{{checkedAddress!=null}}" >
+                <text class="name">{{checkedAddress.userName}}</text>
+                <text class="default" wx:if="{{checkedAddress.isDefault == 1}}">默认</text>
             </view>
-            <view class="m">
-                <text class="mobile">{{checkedAddress.mobile}}</text>
-                <text class="address">{{checkedAddress.full_region + checkedAddress.address}}</text>
-            </view>
-            <view class="r">
-                <image src="/static/images/address_right.png"></image>
-            </view>
-        </view>
-        <view class="address-item address-empty" bindtap="addAddress" wx:if="{{checkedAddress.id <= 0}}">
-            <view class="m">
-               还没有收货地址，去添加
+            <view class="m"  wx:if="{{checkedAddress!=null}}" >
+             <text class="mobile">{{checkedAddress.telNumber}}</text>
+                <text class="address">{{checkedAddress.provinceName +"  "+ checkedAddress.cityName+"  "+ checkedAddress.countyName+"  "+ checkedAddress.detailInfo+"  "}}</text>
             </view>
             <view class="r">
                 <image src="/static/images/address_right.png"></image>
             </view>
+            </view>
         </view>
-    </view>
+
+
 
     <view class="coupon-box">
         <view class="coupon-item">

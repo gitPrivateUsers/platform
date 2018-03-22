@@ -1,11 +1,19 @@
 <view class="container">
     <view class="order-info">
         <view class="item-a">下单时间：{{orderInfo.add_time}}</view>
-        <view class="item-b">订单编号：{{orderInfo.order_sn}}</view>
+        <view class="item-a">订单编号：{{orderInfo.order_sn}}</view>
+        <view wx:if="{{orderInfo.order_status==300}}">
+            <view class="item-a">物流公司：{{orderInfo.shipping_name}}</view>
+            <view class="item-a">快递单号：{{orderInfo.shipping_no}}</view>
+        </view>
+        <view wx:if="{{orderInfo.order_status==301}}">
+            <view class="item-a">物流公司：{{orderInfo.shipping_name}}</view>
+            <view class="item-a">快递单号：{{orderInfo.shipping_no}}</view>
+        </view>
         <view class="item-c">
-            <view class="l">实付：<text class="cost">￥{{orderInfo.actual_price}}</text></view>
-            <view class="r">
-                <view class="btn" bindtap="cancelOrder">取消订单</view>
+            <view class="l"><text class="cost">￥{{orderInfo.actual_price}}</text></view>
+            <view class="r" wx:if="{{orderInfo.pay_status==0&&orderInfo.order_status!=101}}" >
+                <view class="btn"  bindtap="cancelOrder">取消订单</view>
                 <view class="btn active" bindtap="payOrder">去付款</view>
             </view>
         </view>
@@ -55,5 +63,8 @@
             <text class="label">实付：</text>
             <text class="txt">￥{{orderInfo.actual_price}}</text>
         </view>
+    </view>
+    <view wx:if="{{orderInfo.order_status==300}}" bindtap='confirmOrder'>
+           <button class="but">确认收货</button>
     </view>
 </view>

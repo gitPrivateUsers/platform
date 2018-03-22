@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="brand-info">
+  <!-- <view class="brand-info">
     <view class="name">
       <image class="img" src="{{bannerInfo.img_url}}" background-size="cover"></image>
       <view class="info-box">
@@ -9,7 +9,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class="sort">
     <view class="sort-box">
       <view class="item {{currentSortType == 'default' ? 'active' : ''}}"  bindtap="openSortFilter" id="defaultSort">
