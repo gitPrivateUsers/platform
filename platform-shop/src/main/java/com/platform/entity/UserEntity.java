@@ -42,6 +42,24 @@ public class UserEntity implements Serializable {
     private String avatar;
     //微信Id
     private String weixinOpenid;
+    //添加店鋪Id
+    private String storeId;
+
+    /**
+     * 获取 店铺Id
+     * @return
+     */
+    public String getStoreId() {
+        return storeId;
+    }
+
+    /**
+     * 设置: 店铺Id
+     * @param storeId
+     */
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
 
     /**
      * 翻译用的字段

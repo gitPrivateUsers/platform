@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("adposition")
-public class AdPositionController {
+public class AdPositionController extends AbstractController{
     @Autowired
     private AdPositionService adPositionService;
 
@@ -31,6 +31,8 @@ public class AdPositionController {
     @RequestMapping("/list")
     @RequiresPermissions("adposition:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //添加权限验证过滤数据
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +62,9 @@ public class AdPositionController {
     @RequestMapping("/save")
     @RequiresPermissions("adposition:save")
     public R save(@RequestBody AdPositionEntity adPosition) {
+        //添加权限字段
+        adPosition.setIdentify(getOneDeptId());
+        adPosition.setSysUserId(getUserId());
         adPositionService.save(adPosition);
 
         return R.ok();
@@ -71,6 +76,9 @@ public class AdPositionController {
     @RequestMapping("/update")
     @RequiresPermissions("adposition:update")
     public R update(@RequestBody AdPositionEntity adPosition) {
+        //更新权限字段
+        adPosition.setIdentify(getOneDeptId());
+        adPosition.setSysUserId(getUserId());
         adPositionService.update(adPosition);
 
         return R.ok();
