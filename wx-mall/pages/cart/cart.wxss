@@ -151,11 +151,12 @@ page{
 
 .cart-view .item .attr{
     margin-bottom: 17rpx;
-    height: 24rpx;
-    line-height: 24rpx;
+    height: 28rpx;
+    line-height: 28rpx;
     font-size: 22rpx;
-    color: #666;
+    color: #f9573a;
     overflow: hidden;
+    
 }
 
 .cart-view .item .b{
@@ -164,10 +165,12 @@ page{
     font-size: 25rpx;
     color: #333;
     overflow: hidden;
+    font-weight: bold;
 }
 
 .cart-view .item .price{
     float: left;
+    color: #f9573a;
 }
 
 .cart-view .item .open{

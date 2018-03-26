@@ -40,9 +40,18 @@ Page({
           });
         }
       });
+  }, onShareAppMessage: function () {
+    return {
+      title: '点客盈-新品首发',
+      desc: '新品首发',
+      path: '/pages/newGoods/newGoods'
+    }
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    wx.setNavigationBarTitle({
+      title: '新品首发'
+    })
     this.getData();
   },
   onReady: function () {

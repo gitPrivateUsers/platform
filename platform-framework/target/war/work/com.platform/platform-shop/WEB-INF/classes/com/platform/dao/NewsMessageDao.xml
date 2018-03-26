@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.NewsMessageDao">
+
+    <resultMap type="com.platform.entity.NewsMessageEntity" id="newsMessageMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="details" column="details"/>
+        <result property="author" column="author"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="typeId" column="type_id"/>
+        <result property="clickRate" column="click_rate"/>
+        <result property="showTop" column="show_top"/>
+        <result property="showHot" column="show_hot"/>
+        <result property="newsImageUrl" column="news_image_url"/>
+        <result property="lastCommentId" column="last_comment_id"/>
+        <result property="lastCommentTime" column="last_comment_time"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="identify" column="identify"/>
+		<result property="sysUserId" column="sys_user_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.platform.entity.NewsMessageEntity">
+		select
+			`id`,
+			`title`,
+			`details`,
+			`author`,
+			`release_date`,
+			`type_id`,
+			`click_rate`,
+			`show_top`,
+			`show_hot`,
+			`news_image_url`,
+			`last_comment_id`,
+			`last_comment_time`,
+			`comment_count`,
+			`update_time`,
+			`update_by`,
+			`identify`,
+			`sys_user_id`
+		from news_message
+		where id = #{id}
+	</select>
+
+	<select id="queryList" resultType="com.platform.entity.NewsMessageEntity">
+		select
+			news_message.id,
+			news_message.title,
+			news_message.details,
+			news_message.author,
+			news_message.release_date,
+			news_type.type_name,
+			news_message.click_rate,
+			news_message.show_top,
+			news_message.show_hot,
+			news_message.news_image_url,
+			news_message.last_comment_id,
+			news_message.last_comment_time,
+			news_message.comment_count,
+			news_message.update_time,
+			news_message.update_by,
+			news_message.identify,
+			news_message.sys_user_id
+		from news_message
+		LEFT JOIN news_type ON news_message.type_id = news_type.id
+		WHERE 1=1
+		<if test="name != null and name.trim() != ''">
+			AND name LIKE concat('%',#{name},'%')
+		</if>
+		<if test="identify != null">
+			AND news_message.identify = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND news_message.sys_user_id = #{sysUserId}
+		</if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from news_message
+		WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+		<if test="identify != null">
+			AND identify = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND sys_user_id = #{sysUserId}
+		</if>
+	</select>
+	 
+	<insert id="save" parameterType="com.platform.entity.NewsMessageEntity">
+		insert into news_message(
+			`id`,
+			`title`,
+			`details`,
+			`author`,
+			`release_date`,
+			`type_id`,
+			`click_rate`,
+			`show_top`,
+			`show_hot`,
+			`news_image_url`,
+			`last_comment_id`,
+			`last_comment_time`,
+			`comment_count`,
+			`update_time`,
+			`update_by`,
+			`identify`,
+			`sys_user_id`)
+		values(
+			#{id},
+			#{title},
+			#{details},
+			#{author},
+			#{releaseDate},
+			#{typeId},
+			#{clickRate},
+			#{showTop},
+			#{showHot},
+			#{newsImageUrl},
+			#{lastCommentId},
+			#{lastCommentTime},
+			#{commentCount},
+			#{updateTime},
+			#{updateBy},
+			#{identify},
+			#{sysUserId})
+	</insert>
+	 
+	<update id="update" parameterType="com.platform.entity.NewsMessageEntity">
+		update news_message 
+		<set>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="details != null">`details` = #{details}, </if>
+			<if test="author != null">`author` = #{author}, </if>
+			<if test="releaseDate != null">`release_date` = #{releaseDate}, </if>
+			<if test="typeId != null">`type_id` = #{typeId}, </if>
+			<if test="clickRate != null">`click_rate` = #{clickRate}, </if>
+			<if test="showTop != null">`show_top` = #{showTop}, </if>
+			<if test="showHot != null">`show_hot` = #{showHot}, </if>
+			<if test="newsImageUrl != null">`news_image_url` = #{newsImageUrl}, </if>
+			<if test="lastCommentId != null">`last_comment_id` = #{lastCommentId}, </if>
+			<if test="lastCommentTime != null">`last_comment_time` = #{lastCommentTime}, </if>
+			<if test="commentCount != null">`comment_count` = #{commentCount}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="identify != null">`identify` = #{identify},</if>
+			<if test="sysUserId != null">`sys_user_id` = #{sysUserId},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from news_message where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from news_message where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

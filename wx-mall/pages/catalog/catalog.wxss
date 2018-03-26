@@ -55,6 +55,7 @@ page {
 .catalog .nav {
   width: 162rpx;
   height: 100%;
+  background:#ededed;
 }
 
 .catalog .nav .item {
@@ -64,13 +65,14 @@ page {
   height: 90rpx;
   color: #333;
   font-size: 28rpx;
-  border-left: 6rpx solid #fff;
+   border-bottom: 1rpx solid #fff;
 }
 
 .catalog .nav .item.active {
   color: #ab2b2b;
   font-size: 36rpx;
   border-left: 6rpx solid #ab2b2b;
+  background:#fff;
 }
 
 .catalog .cate {

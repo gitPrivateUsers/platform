@@ -16,9 +16,18 @@ Page({
     checkedAllStatus: true,
     editCartList: []
   },
+  onShareAppMessage: function () {
+    return {
+      title: '点客盈-购物车',
+      desc: '购物车',
+      path: '/pages/cart/cart'
+    }
+  },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-
+    wx.setNavigationBarTitle({
+      title: '购物车'
+    })
 
   },
   onReady: function () {
@@ -255,9 +264,9 @@ Page({
       }
     });
 
-
+    console.info(productIds);
     util.request(api.CartDelete, {
-      productIds: productIds.join(',')
+      productIds: productIds.join(','),
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);

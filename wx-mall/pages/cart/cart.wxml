@@ -1,9 +1,4 @@
 <view class="container">
-  <view class="service-policy">
-    <view class="item">30天无忧退货</view>
-    <view class="item">48小时快速退款</view>
-    <view class="item">满88元免邮费</view>
-  </view>
   <view class="no-cart" wx:if="{{cartGoods.length <= 0}}">
     <view class="c">
       <image src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/noCart-a8fe3f12e5.png" />
@@ -21,9 +16,9 @@
               <view class="info">
                 <view class="t">
                   <text class="name">{{item.goods_name}}</text>
-                  <text class="num">x{{item.number}}</text>
+                  <text class="num">{{item.number}}</text>
                 </view>
-                <view class="attr">{{ isEditCart ? '已选择:' : ''}}{{item.goods_specifition_name_value}}</view>
+                <view class="attr">{{ isEditCart ? '已选择:' : ''}}{{item.goods_specifition_name_value}} 数量：{{item.number}}</view>
                 <view class="b">
                   <text class="price">￥{{item.retail_price}}</text>
                   <view class="selnum">

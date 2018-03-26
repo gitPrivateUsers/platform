@@ -29,9 +29,13 @@ Page({
   },
   addressAddOrUpdate (event) {
     console.log(event)
-    wx.navigateTo({
-      url: '/pages/ucenter/addressAdd/addressAdd?id=' + event.currentTarget.dataset.addressId
+    wx.redirectTo({
+      url: '../address-add/address-add'
     })
+  },
+  radioChange: function (e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    updateDefault(this, e.detail.value);
   },
   deleteAddress(event){
     console.log(event.target)
@@ -60,4 +64,15 @@ Page({
   onUnload: function () {
     // 页面关闭
   }
-})
+});
+
+function updateDefault(that,id) {
+  util.request(api.UpdateDefault,
+    { id: id }, 'POST').then(res => {
+      if (res.errno == 0) {
+        util.showSuccessToast('设置收货地址成功');
+      } else {
+        util.showErrorToast('设置收货地址失败');
+      }
+    });
+}

@@ -151,12 +151,17 @@ function showErrorToast(msg) {
     image: '/static/images/icon_error.png'
   })
 }
-
+function showSuccessToast(msg) {
+  wx.showToast({
+    title: msg
+  })
+}
 module.exports = {
   formatTime,
   request,
   redirect,
   showErrorToast,
+  showSuccessToast,
   checkSession,
   login,
   getUserInfo,

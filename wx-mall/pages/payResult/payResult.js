@@ -13,7 +13,9 @@ Page({
     this.setData({
       orderId: options.orderId || 24,
       status: options.status
-    })
+    });
+
+
   },
   onReady: function () {
 
@@ -35,7 +37,10 @@ Page({
       this.setData({
         status: true
       });
+
+   
     }).catch(res => {
+
       util.showErrorToast('支付失败');
     });
   }
