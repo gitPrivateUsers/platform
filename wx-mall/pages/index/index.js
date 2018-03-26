@@ -23,7 +23,7 @@ Page({
 
   getIndexData: function () {
     let that = this;
-    util.request(api.IndexUrl).then(function (res) {
+    util.request(api.IndexUrl, { storeId:api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           newGoods: res.data.newGoodsList,

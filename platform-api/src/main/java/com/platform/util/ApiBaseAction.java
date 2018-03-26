@@ -1,8 +1,10 @@
 package com.platform.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.platform.entity.StoreConfigureEntity;
 import com.platform.entity.TokenEntity;
 import com.platform.interceptor.AuthorizationInterceptor;
+import com.platform.service.StoreConfigureService;
 import com.platform.service.TokenService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -46,6 +48,8 @@ public class ApiBaseAction {
 
     @Autowired
     protected TokenService tokenService;
+    @Autowired
+    private StoreConfigureService storeConfigureService;
 
     /**
      * 参数绑定异常
@@ -161,5 +165,16 @@ public class ApiBaseAction {
             return null;
         }
         return tokenEntity.getUserId();
+    }
+    /**
+     * 根据店铺ID获部门公司ID
+     */
+
+    public Long getStoreIdByDeptId(Long storeId) {
+        StoreConfigureEntity store=   storeConfigureService.queryObject(storeId);
+        if(store!=null&&store.getDeptParentId()>0){
+            return store.getDeptParentId();
+        }
+        return 9999999l;
     }
 }

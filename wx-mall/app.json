@@ -40,7 +40,7 @@
     "navigationBarBackgroundColor": "#f9573a",
     "navigationBarTitleText": "点客盈",
     "navigationBarTextStyle": "#fff",
-    "enablePullDownRefresh": "true"
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "backgroundColor": "#fafafa",

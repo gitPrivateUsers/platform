@@ -13,6 +13,7 @@ import com.platform.utils.MapUtils;
 import com.platform.utils.XmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -128,16 +129,20 @@ public class ApiIndexController extends ApiBaseAction {
     @Autowired
     private ApiCartService cartService;
 
+
     /**
      * app首页
      */
     @IgnoreAuth
     @RequestMapping("index")
-    public Object index() {
+    public Object index(@RequestParam Long storeId) {
+ long identify =getStoreIdByDeptId(storeId);
+
         Map<String, Object> resultObj = new HashMap<String, Object>();
         //轮播图
         Map<String, Object>param = new HashMap<String, Object>();
         param.put("ad_position_id", 2);
+        param.put("identify", identify);
         List<AdVo> banner = adService.queryList(param);
         resultObj.put("banner", banner);
         //新品
@@ -147,6 +152,7 @@ public class ApiIndexController extends ApiBaseAction {
         param.put("limit", 4);
         param.put("is_delete", 0);
         param.put("fields", "id, name, list_pic_url, retail_price");
+        param.put("identify", identify);
         List<GoodsVo> newGoods = goodsService.queryList(param);
         resultObj.put("newGoodsList", newGoods);
         
@@ -157,6 +163,7 @@ public class ApiIndexController extends ApiBaseAction {
         param.put("limit", 4);
         param.put("is_delete", 0);
         param.put("fields", "id, name, list_pic_url, retail_price");
+        param.put("identify", identify);
         List<GoodsVo> hotGoods = goodsService.queryList(param);
         resultObj.put("hotGoodsList", hotGoods);
         
