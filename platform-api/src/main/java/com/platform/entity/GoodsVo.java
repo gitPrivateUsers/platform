@@ -2,7 +2,6 @@ package com.platform.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 /**
@@ -82,6 +81,15 @@ public class GoodsVo implements Serializable {
     private Integer product_id;
     //商品标识字段
     private Integer identify;
+    private Long sysUserId;
+
+    public Long getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
 
     public Integer getIdentify() {
         return identify;

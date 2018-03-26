@@ -9,6 +9,8 @@
         <result property="width" column="width"/>
         <result property="height" column="height"/>
         <result property="desc" column="desc"/>
+        <result property="identify" column="identify"/>
+        <result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.AdPositionEntity">
@@ -28,11 +30,19 @@
         `name`,
         `width`,
         `height`,
-        `desc`
+        `desc`,
+        `identify`,
+        `sys_user_id`
         from nideshop_ad_position
         WHERE 1=1
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="identify != null">
+            AND nideshop_ad_position.identify=#{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_ad_position.sys_user_id=#{sysUserId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -60,12 +70,16 @@
 			`name`,
 			`width`,
 			`height`,
-			`desc`)
+			`desc`,
+			`identify`,
+			`sys_user_id`)
 		values(
 			#{name},
 			#{width},
 			#{height},
-			#{desc})
+			#{desc},
+			#{identify},
+			#{sysUserId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.AdPositionEntity">
@@ -75,6 +89,8 @@
             <if test="width != null">`width` = #{width},</if>
             <if test="height != null">`height` = #{height},</if>
             <if test="desc != null">`desc` = #{desc}</if>
+            <if test="identify != null">`identify` = #{identify}</if>
+            <if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
         </set>
         where id = #{id}
     </update>

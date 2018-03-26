@@ -14,6 +14,8 @@
         <result property="content" column="content"/>
         <result property="end_time" column="end_time"/>
         <result property="enabled" column="enabled"/>
+        <result property="identify" column="identify"/>
+        <result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
     <select id="queryObject" resultMap="adMap">
@@ -25,6 +27,13 @@
         where 1 = 1
         <if test="ad_position_id != null and ad_position_id != null">
             and ad_position_id = #{ad_position_id}
+        </if>
+
+        <if test="identify != null">
+            AND nideshop_ad.identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_ad.sys_user_id = #{sysUserId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">

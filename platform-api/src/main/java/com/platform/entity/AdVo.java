@@ -1,7 +1,6 @@
 package com.platform.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
@@ -30,6 +29,25 @@ public class AdVo implements Serializable {
     private Integer end_time;
     //状态
     private Integer enabled;
+    //标识字段
+    private Long identify;
+    private Long sysUserId;
+
+    public Long getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
+
+    public Long getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(Long identify) {
+        this.identify = identify;
+    }
 
     public Integer getId() {
         return id;

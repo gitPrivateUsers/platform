@@ -173,7 +173,7 @@ var vm = new Vue({
 
                 //勾选角色所拥有的部门数据权限
                 var deptIds = vm.role.deptIdList;
-                debugger;
+                //debugger;
                 for (var i = 0; i < deptIds.length; i++) {
                     var node = data_ztree.getNodeByParam("deptId", deptIds[i]);
                     data_ztree.checkNode(node, true, false);
