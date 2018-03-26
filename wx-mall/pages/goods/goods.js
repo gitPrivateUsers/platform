@@ -27,7 +27,9 @@ Page({
   },
   getGoodsRelated: function () {
     let that = this;
-    util.request(api.GoodsRelated, { id: that.data.id }).then(function (res) {
+    util.request(api.GoodsRelated, {
+      id: that.data.id, storeId: api.StoreId
+}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           relatedGoods: res.data.goodsList,
@@ -97,7 +99,7 @@ Page({
     //初始化数据
     init(that);
 
-    util.request(api.CartGoodsCount).then(function (res) {
+    util.request(api.CartGoodsCount, { storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           cartGoodsCount: res.data.cartTotal.goodsCount
@@ -147,7 +149,7 @@ Page({
       }
     } else {
       //添加或是取消收藏
-      util.request(api.CollectAddOrDelete, { typeId: 0, valueId: this.data.id }, "POST")
+      util.request(api.CollectAddOrDelete, { typeId: 0, valueId: this.data.id, storeId: api.StoreId}, "POST")
         .then(function (res) {
           let _res = res;
           if (_res.errno == 0) {
@@ -270,7 +272,7 @@ function clickAddToCart(that,types){
     // }
     // console.info(getCheckedSpecKey(thats));
     //添加到购物车
-    util.request(api.CartAdd, { goodsId: that.data.goods.id, number: that.data.number, productId: checkedProduct[0].id, goodsSpecifitionNameValue: thats.data.checkedSpecText, goodsSpecifitionIds: getCheckedSpecKey(thats) }, "POST")
+    util.request(api.CartAdd, { goodsId: that.data.goods.id, number: that.data.number, productId: checkedProduct[0].id, goodsSpecifitionNameValue: thats.data.checkedSpecText, goodsSpecifitionIds: getCheckedSpecKey(thats), storeId: api.StoreId }, "POST")
       .then(function (res) {
         let _res = res;
         if (_res.errno == 0) {
@@ -349,7 +351,7 @@ function init(that) {
  * 初始化产品数据
  */
 function initGoods(that) {
-  util.request(api.GoodsDetail, { id: that.data.id }).then(function (res) {
+  util.request(api.GoodsDetail, { id: that.data.id, storeId: api.StoreId}).then(function (res) {
     if (res.errno === 0) {
       that.setData({
         goods: res.data.info,

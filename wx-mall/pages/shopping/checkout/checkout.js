@@ -44,7 +44,7 @@ Page({
   },
   getCheckoutInfo: function () {
     let that = this;
-    util.request(api.CartCheckout, { addressId: that.data.addressId, couponId: that.data.couponId }).then(function (res) {
+    util.request(api.CartCheckout, { addressId: that.data.addressId, couponId: that.data.couponId, storeId: api.StoreId}).then(function (res) {
       console.info(res.data.checkedAddress);
       console.info("res.data.checkedAddress");
       if (res.errno === 0) {
@@ -99,7 +99,7 @@ Page({
       util.showErrorToast('请选择收货地址');
       return false;
     }
-    util.request(api.OrderSubmit, { addressId: this.data.addressId, checkedAddress: this.data.checkedAddress.id, couponId: this.data.couponId }, 'POST').then(res => {
+    util.request(api.OrderSubmit, { addressId: this.data.addressId, checkedAddress: this.data.checkedAddress.id, couponId: this.data.couponId, storeId: api.StoreId}, 'POST').then(res => {
       if (res.errno === 0) {
         const orderId = res.data.orderInfo.id;
         pay.payOrder(parseInt(orderId)).then(res => {

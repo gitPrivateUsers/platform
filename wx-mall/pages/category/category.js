@@ -43,7 +43,7 @@ Page({
   },
   getCategoryInfo: function () {
     let that = this;
-    util.request(api.GoodsCategory, { id: this.data.id })
+    util.request(api.GoodsCategory, { id: this.data.id, storeId: api.StoreId})
       .then(function (res) {
 
         if (res.errno == 0) {
@@ -87,7 +87,7 @@ Page({
   getGoodsList: function () {
     var that = this;
 
-    util.request(api.GoodsList, {categoryId: that.data.id, page: that.data.page, size: that.data.size})
+    util.request(api.GoodsList, { categoryId: that.data.id, page: that.data.page, size: that.data.size, storeId: api.StoreId})
       .then(function (res) {
         that.setData({
           goodsList: res.data.goodsList,

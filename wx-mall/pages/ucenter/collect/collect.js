@@ -10,7 +10,7 @@ Page({
   },
   getCollectList() {
     var  that = this;
-    util.request(api.CollectList, { typeId: that.data.typeId}).then(function (res) {
+    util.request(api.CollectList, { typeId: that.data.typeId, storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);
         that.setData({
@@ -51,7 +51,7 @@ Page({
         success: function (res) {
           if (res.confirm) {
             
-            util.request(api.CollectAddOrDelete, { typeId: that.data.typeId, valueId: goodsId}, 'POST').then(function (res) {
+            util.request(api.CollectAddOrDelete, { typeId: that.data.typeId, valueId: goodsId, storeId: api.StoreId}, 'POST').then(function (res) {
               if (res.errno === 0) {
                 console.log(res.data);
                 wx.showToast({

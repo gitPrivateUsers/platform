@@ -47,7 +47,7 @@ Page({
     let that = this;
     util.request(api.PayPrepayId, {
       orderId: that.data.orderId || 15
-    }).then(function (res) {
+      , storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         const payParam = res.data;
         pay.payOrder(parseInt(that.data.orderId)).then(res => {
@@ -66,7 +66,8 @@ Page({
   cancelOrder:function(res){//取消订单
     let that = this;
     util.request(api.cancelOrder, {
-      orderId: that.data.orderId 
+      orderId: that.data.orderId,
+      storeId: api.StoreId
     }).then(function (res) {
     
       if (res.errno==0){

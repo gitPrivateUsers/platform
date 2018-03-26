@@ -45,7 +45,7 @@ function request(url, data = {}, method = "GET") {
               return getUserInfo();
             }).then((userInfo) => {
               //登录远程服务器
-              request(api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => {
+              request(api.AuthLoginByWeixin, { code: code, userInfo: userInfo, storeId: api.StoreId}, 'POST').then(res => {
                 if (res.errno === 0) {
                   //存储用户信息
                   wx.setStorageSync('userInfo', res.data.userInfo);

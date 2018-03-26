@@ -17,7 +17,7 @@ Page({
       title: '加载中...',
     });
     let that = this;
-    util.request(api.BrandList, { page: that.data.page, size: that.data.size }).then(function (res) {
+    util.request(api.BrandList, { page: that.data.page, size: that.data.size, storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           brandList: that.data.brandList.concat(res.data.data),

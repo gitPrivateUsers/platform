@@ -19,7 +19,7 @@ Page({
   },
   getData: function () {
     let that = this;
-    util.request(api.GoodsHot).then(function (res) {
+    util.request(api.GoodsHot,{soteId:api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           bannerInfo: res.data.bannerInfo,
@@ -31,7 +31,7 @@ Page({
   getGoodsList() {
     var that = this;
 
-    util.request(api.GoodsList, { isNew: 1, page: that.data.page, size: that.data.size, order: that.data.currentSortOrder, sort: that.data.currentSortType, categoryId: that.data.categoryId })
+    util.request(api.GoodsList, { isNew: 1, page: that.data.page, size: that.data.size, order: that.data.currentSortOrder, sort: that.data.currentSortType, categoryId: that.data.categoryId, storeId: api.StoreId})
       .then(function (res) {
         if (res.errno === 0) {
           that.setData({

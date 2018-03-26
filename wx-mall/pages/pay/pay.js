@@ -32,7 +32,7 @@ Page({
   //向服务请求支付参数
   requestPayParam() {
     let that = this;
-    util.request(api.PayPrepayId, { orderId: that.data.orderId, payType: 1 }).then(function (res) {
+    util.request(api.PayPrepayId, { orderId: that.data.orderId, payType: 1, storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         let payParam = res.data;
         wx.requestPayment({

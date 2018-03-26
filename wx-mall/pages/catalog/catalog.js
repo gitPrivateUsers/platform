@@ -30,14 +30,14 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
-    util.request(api.CatalogList).then(function (res) {
+    util.request(api.CatalogList, {storeId: api.StoreId}).then(function (res) {
         that.setData({
           navList: res.data.categoryList,
           currentCategory: res.data.currentCategory
         });
         wx.hideLoading();
       });
-    util.request(api.GoodsCount).then(function (res) {
+    util.request(api.GoodsCount, {storeId: api.StoreId}).then(function (res) {
       that.setData({
         goodsCount: res.data.goodsCount
       });
@@ -46,7 +46,7 @@ Page({
   },
   getCurrentCategory: function (id) {
     let that = this;
-    util.request(api.CatalogCurrent, { id: id })
+    util.request(api.CatalogCurrent, { id: id, storeId: api.StoreId})
       .then(function (res) {
         that.setData({
           currentCategory: res.data.currentCategory
