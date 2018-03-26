@@ -20,9 +20,15 @@
             ${fields}
         </if>
         <if test="fields == null or fields == ''">
-            *
+           a.id,a.goods_id,a.related_goods_id
         </if>
-        from nideshop_related_goods
+        from nideshop_related_goods  a left join nideshop_goods b on a.goods_id=b.id
+        where 1=1
+
+        <if test="identify != null">
+            AND nideshop_ad.identify = #{identify}
+        </if>
+
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
