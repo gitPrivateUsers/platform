@@ -151,8 +151,8 @@ public class ApiIndexController extends ApiBaseAction {
         param.put("offset", 0);
         param.put("limit", 4);
         param.put("is_delete", 0);
-        param.put("fields", "id, name, list_pic_url, retail_price");
         param.put("identify", identify);
+        param.put("fields", "id, name, list_pic_url, retail_price");
         List<GoodsVo> newGoods = goodsService.queryList(param);
         resultObj.put("newGoodsList", newGoods);
         
@@ -162,8 +162,8 @@ public class ApiIndexController extends ApiBaseAction {
         param.put("offset", 0);
         param.put("limit", 4);
         param.put("is_delete", 0);
-        param.put("fields", "id, name, list_pic_url, retail_price");
         param.put("identify", identify);
+        param.put("fields", "id, name, list_pic_url, retail_price");
         List<GoodsVo> hotGoods = goodsService.queryList(param);
         resultObj.put("hotGoodsList", hotGoods);
         

@@ -37,6 +37,7 @@
         <result property="is_limited" column="is_limited"/>
         <result property="is_hot" column="is_hot"/>
         <result property="product_id" column="product_id"/>
+        <result property="identify" column="identify"/>
     </resultMap>
 
     <select id="queryObject" resultMap="goodsMap">
@@ -73,6 +74,9 @@
         </if>
         <if test="is_delete != null">
             and is_delete = #{is_delete}
+        </if>
+        <if test="identify != null">
+            and identify = #{identify}
         </if>
         <if test="categoryIds != null">
             and category_id in
