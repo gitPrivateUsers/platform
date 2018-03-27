@@ -323,17 +323,20 @@ public class ApiGoodsController extends ApiBaseAction {
         filterCategory.add(rootCategory);
         //
         params.put("fields", "category_id");
+
         List<GoodsVo> categoryEntityList = goodsService.queryList(params);
         params.remove("fields");
         if (null != categoryEntityList && categoryEntityList.size() > 0) {
             List<Integer> categoryIds = new ArrayList();
             for (GoodsVo goodsVo : categoryEntityList) {
+                if(null!=goodsVo)
                 categoryIds.add(goodsVo.getCategory_id());
             }
             //查找二级分类的parent_id
             Map categoryParam = new HashMap();
             categoryParam.put("ids", categoryIds);
             categoryParam.put("fields", "parent_id");
+            categoryParam.put("identify", identify);
             List<CategoryVo> parentCategoryList = categoryService.queryList(categoryParam);
             //
             List<Integer> parentIds = new ArrayList();
@@ -346,6 +349,7 @@ public class ApiGoodsController extends ApiBaseAction {
             categoryParam.put("order", "asc");
             categoryParam.put("sidx", "sort_order");
             categoryParam.put("ids", parentIds);
+            categoryParam.put("identify", identify);
             List<CategoryVo> parentCategory = categoryService.queryList(categoryParam);
             if (null != parentCategory) {
                 filterCategory.addAll(parentCategory);
@@ -357,6 +361,7 @@ public class ApiGoodsController extends ApiBaseAction {
             Map categoryParam = new HashMap();
             categoryParam.put("parent_id", categoryId);
             categoryParam.put("fields", "id");
+            categoryParam.put("identify", identify);
             List<CategoryVo> childIds = categoryService.queryList(categoryParam);
             for (CategoryVo categoryEntity : childIds) {
                 categoryIds.add(categoryEntity.getId());
@@ -401,6 +406,7 @@ public class ApiGoodsController extends ApiBaseAction {
             List<CategoryVo> categoryEntityList = categoryService.queryList(categoryParams);
             List<Integer> category_ids = new ArrayList();
             for (CategoryVo categoryEntity : categoryEntityList) {
+                if(null!=categoryEntity)
                 category_ids.add(categoryEntity.getId());
             }
             params.put("category_id", category_ids);
