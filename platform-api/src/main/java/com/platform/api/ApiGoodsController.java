@@ -98,13 +98,15 @@ public class ApiGoodsController extends ApiBaseAction {
      * 商品详情页数据
      */
     @RequestMapping("detail")
-    public Object detail(Integer id, Long referrer) {
+    public Object detail(Integer id, Long referrer,Long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap();
         //
         Long userId = getUserId();
         GoodsVo info = goodsService.queryObject(id);
         Map param = new HashMap();
         param.put("goods_id", id);
+        param.put("identify", identify);
         //
         Map specificationParam = new HashMap();
         specificationParam.put("fields", "gs.*, s.name");
@@ -260,7 +262,8 @@ public class ApiGoodsController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("category")
-    public Object category(@LoginUser UserVo loginUser, Integer id) {
+    public Object category(@LoginUser UserVo loginUser, Integer id,Long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap();
         //
         CategoryVo currentCategory = categoryService.queryObject(id);
@@ -268,6 +271,7 @@ public class ApiGoodsController extends ApiBaseAction {
         CategoryVo parentCategory = categoryService.queryObject(currentCategory.getParent_id());
         Map params = new HashMap();
         params.put("parent_id", currentCategory.getParent_id());
+        params.put("identify", identify);
         List<CategoryVo> brotherCategory = categoryService.queryList(params);
         //
         resultObj.put("currentCategory", currentCategory);
