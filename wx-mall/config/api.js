@@ -1,7 +1,7 @@
 // var NewApiRootUrl = 'https://xcx.shty888.com/ds-xcx/api/';
 //var NewApiRootUrl = 'http://127.0.0.1:8080/platform-admin/api/';
-var storeId = 11111;//标识唯一 店铺
-var NewApiRootUrl = 'http://127.0.0.1:8080/admin/api/';
+var storeId =1;//标识唯一 店铺
+var NewApiRootUrl = 'http://127.0.0.1:8080/all/api/';
 module.exports = {
     StoreId:storeId,
     IndexUrl: NewApiRootUrl + 'index/index', //首页数据接口
@@ -11,6 +11,10 @@ module.exports = {
     AuthLoginByWeixin: NewApiRootUrl + 'auth/login_by_weixin', //微信登录
 
     GoodsCount: NewApiRootUrl + 'goods/count',  //统计商品总数
+/**
+ * ========================上面是改好多店铺的接口===============================================
+ */
+
     GoodsList: NewApiRootUrl + 'goods/list',  //获得商品列表
     GoodsCategory: NewApiRootUrl + 'goods/category',  //获得分类数据
     GoodsDetail: NewApiRootUrl + 'goods/detail',  //获得商品的详情

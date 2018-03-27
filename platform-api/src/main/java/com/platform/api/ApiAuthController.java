@@ -1,7 +1,6 @@
 package com.platform.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qiniu.util.StringUtils;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.FullUserInfo;
 import com.platform.entity.UserInfo;
@@ -14,6 +13,7 @@ import com.platform.util.CommonUtil;
 import com.platform.utils.CharUtil;
 import com.platform.utils.R;
 import com.platform.validator.Assert;
+import com.qiniu.util.StringUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class ApiAuthController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("login_by_weixin")
-    public Object loginByWeixin() {
+    public Object loginByWeixin( Long storeId) {
         JSONObject jsonParam = this.getJsonRequest();
         FullUserInfo fullUserInfo = null;
         String code = "";
@@ -105,6 +105,10 @@ public class ApiAuthController extends ApiBaseAction {
             userVo.setAvatar(userInfo.getAvatarUrl());
             userVo.setGender(userInfo.getGender()); // //性别 0：未知、1：男、2：女
             userVo.setNickname(userInfo.getNickName());
+
+            if (!StringUtils.isNullOrEmpty(jsonParam.getString("storeId"))) {
+                userVo.setStore_id(jsonParam.getString("storeId"));
+            }
             userService.save(userVo);
         } else {
             userVo.setLast_login_ip(this.getClientIp());

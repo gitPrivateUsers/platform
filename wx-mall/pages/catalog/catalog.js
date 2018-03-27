@@ -30,7 +30,7 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
-    util.request(api.CatalogList, {storeId: api.StoreId}).then(function (res) {
+    util.request(api.CatalogList, { storeId: api.StoreId }).then(function (res) {
         that.setData({
           navList: res.data.categoryList,
           currentCategory: res.data.currentCategory

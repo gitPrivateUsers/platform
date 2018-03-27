@@ -26,7 +26,7 @@
         where 1=1
 
         <if test="identify != null">
-            AND nideshop_ad.identify = #{identify}
+            AND b.identify = #{identify}
         </if>
 
         <choose>
@@ -34,7 +34,7 @@
                 order by ${sidx} ${order}
             </when>
             <otherwise>
-                order by id desc
+                order by a.id desc
             </otherwise>
         </choose>
         <if test="offset != null and limit != null">

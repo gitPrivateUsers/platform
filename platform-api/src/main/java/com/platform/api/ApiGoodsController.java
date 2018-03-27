@@ -284,7 +284,8 @@ public class ApiGoodsController extends ApiBaseAction {
     public Object list(@LoginUser UserVo loginUser, Integer categoryId,
                        Integer brandId, String keyword, Integer isNew, Integer isHot,
                        @RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size,
-                       String sort, String order) {
+                       String sort, String order,Long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map params = new HashMap();
         params.put("brand_id", brandId);
         params.put("keyword", keyword);
@@ -294,6 +295,7 @@ public class ApiGoodsController extends ApiBaseAction {
         params.put("limit", size);
         params.put("order", sort);
         params.put("sidx", order);
+        params.put("identify", identify);
         //
         if (null != sort && sort.equals("price")) {
             params.put("sidx", "retail_price");
@@ -503,11 +505,13 @@ public class ApiGoodsController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("count")
-    public Object count(@LoginUser UserVo loginUser) {
+    public Object count(@LoginUser UserVo loginUser,Long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap();
         Map param = new HashMap();
         param.put("is_delete", 0);
         param.put("is_on_sale", 1);
+        param.put("identify", identify);
         Integer goodsCount = goodsService.queryTotal(param);
         resultObj.put("goodsCount", goodsCount);
         return toResponsSuccess(resultObj);
