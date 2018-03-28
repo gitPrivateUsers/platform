@@ -63,7 +63,7 @@ public class ApiAuthController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("login_by_weixin")
-    public Object loginByWeixin( Long storeId) {
+    public Object loginByWeixin() {
         JSONObject jsonParam = this.getJsonRequest();
         FullUserInfo fullUserInfo = null;
         String code = "";

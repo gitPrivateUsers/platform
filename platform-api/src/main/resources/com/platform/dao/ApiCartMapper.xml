@@ -46,6 +46,9 @@
         <if test="checked != null">
             AND a.checked = #{checked}
         </if>
+        <if test="identify != null">
+            AND b.identify = #{identify}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

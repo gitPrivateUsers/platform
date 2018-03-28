@@ -44,11 +44,13 @@ public class ApiCartController extends ApiBaseAction {
      * 获取购物车中的数据
      */
     @RequestMapping("getCart")
-    public Object getCart(@LoginUser UserVo loginUser) {
+    public Object getCart(@LoginUser UserVo loginUser,long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap<String, Object> ();
         //查询列表数据
         Map<String, Object>  param = new HashMap<String, Object> ();
         param.put("user_id", loginUser.getUserId());
+        param.put("identify", identify);
         List<CartVo> cartList = cartService.queryList(param);
         //获取购物车统计信息
         Integer goodsCount = 0;
@@ -119,8 +121,8 @@ public class ApiCartController extends ApiBaseAction {
      * 获取购物车信息，所有对购物车的增删改操作，都要重新返回购物车的信息
      */
     @RequestMapping("index")
-    public Object index(@LoginUser UserVo loginUser) {
-        return toResponsSuccess(getCart(loginUser));
+    public Object index(@LoginUser UserVo loginUser,long storeId) {
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     /**
@@ -145,10 +147,13 @@ public class ApiCartController extends ApiBaseAction {
         if (null == productInfo || productInfo.getGoods_number() < number) {
             return this.toResponsObject(400, "库存不足", "");
         }
-
         //判断购物车中是否存在此规格商品
         Map<String,Object> cartParam = new HashMap<String,Object>();
         cartParam.put("goods_id", goodsId);
+        if (!StringUtils.isNullOrEmpty(jsonParam.getString("storeId"))) {
+            long identify =getStoreIdByDeptId(Long.valueOf(jsonParam.getString("storeId")));
+            cartParam.put("identify", identify);
+        }
         cartParam.put("product_id", productId);
         cartParam.put("user_id", loginUser.getUserId());
         List<CartVo> cartInfoList = cartService.queryList(cartParam);
@@ -194,14 +199,14 @@ public class ApiCartController extends ApiBaseAction {
             cartInfo.setNumber(cartInfo.getNumber() + number);
             cartService.update(cartInfo);
         }
-        return toResponsSuccess(getCart(loginUser));
+        return toResponsSuccess(getCart(loginUser, Long.parseLong(jsonParam.getString("storeId"))));
     }
 
     /**
      * 减少商品到购物车
      */
     @RequestMapping("minus")
-    public Object minus(@LoginUser UserVo loginUser) {
+    public Object minus(@LoginUser UserVo loginUser,long storeId) {
         JSONObject jsonParam = getJsonRequest();
         Integer goodsId = jsonParam.getInteger("goodsId");
         Integer productId = jsonParam.getInteger("productId");
@@ -211,6 +216,9 @@ public class ApiCartController extends ApiBaseAction {
         cartParam.put("goods_id", goodsId);
         cartParam.put("product_id", productId);
         cartParam.put("user_id", loginUser.getUserId());
+        cartParam.put("user_id", loginUser.getUserId());
+        long identify =getStoreIdByDeptId(storeId);
+        cartParam.put("identify", identify);
         List<CartVo> cartInfoList = cartService.queryList(cartParam);
         CartVo cartInfo = null != cartInfoList && cartInfoList.size() > 0 ? cartInfoList.get(0) : null;
         int cart_num = 0;
@@ -231,7 +239,7 @@ public class ApiCartController extends ApiBaseAction {
      * 更新指定的购物车信息
      */
     @RequestMapping("update")
-    public Object update(@LoginUser UserVo loginUser) {
+    public Object update(@LoginUser UserVo loginUser ,long storeId) {
         JSONObject jsonParam = getJsonRequest();
         Integer goodsId = jsonParam.getInteger("goodsId");
         Integer productId = jsonParam.getInteger("productId");
@@ -248,12 +256,15 @@ public class ApiCartController extends ApiBaseAction {
         if (cartInfo.getProduct_id().equals(productId)) {
             cartInfo.setNumber(number);
             cartService.update(cartInfo);
-            return toResponsSuccess(getCart(loginUser));
+            return toResponsSuccess(getCart(loginUser,storeId));
         }
 
+
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object>  cartParam = new HashMap<String, Object> ();
         cartParam.put("goodsId", goodsId);
         cartParam.put("productId", productId);
+        cartParam.put("identify", identify);
         List<CartVo> cartInfoList = cartService.queryList(cartParam);
         CartVo newcartInfo = null != cartInfoList && cartInfoList.size() > 0 ? cartInfoList.get(0) : null;
         if (null == newcartInfo) {
@@ -310,14 +321,14 @@ public class ApiCartController extends ApiBaseAction {
             cartInfo.setGoods_specifition_ids(productInfo.getGoods_specification_ids());
             cartService.update(cartInfo);
         }
-        return toResponsSuccess(getCart(loginUser));
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     /**
      * 是否选择商品，如果已经选择，则取消选择，批量操作
      */
     @RequestMapping("checked")
-    public Object checked(@LoginUser UserVo loginUser) {
+    public Object checked(@LoginUser UserVo loginUser   ,long storeId) {
         JSONObject jsonParam = getJsonRequest();
         String productIds = jsonParam.getString("productIds");
         Integer isChecked = jsonParam.getInteger("isChecked");
@@ -326,14 +337,14 @@ public class ApiCartController extends ApiBaseAction {
         }
         String[] productIdArray = productIds.split(",");
         cartService.updateCheck(productIdArray, isChecked, loginUser.getUserId());
-        return toResponsSuccess(getCart(loginUser));
+        return toResponsSuccess(getCart(loginUser,storeId));
     }
 
     //删除选中的购物车商品，批量删除
     @RequestMapping("delete")
     public Object delete(@LoginUser UserVo loginUser) {
         JSONObject jsonObject = getJsonRequest();
-     
+
 //        Integer cartId = jsonObject.getInteger("cartId");
 //        if (null == cartId) {
 //            return toResponsFail("删除出错");
@@ -346,19 +357,21 @@ public class ApiCartController extends ApiBaseAction {
         String[] productIdsArray = productIds.split(",");
         cartService.deleteByProductIds(productIdsArray);
 
-        return toResponsSuccess(getCart(loginUser));
+        return toResponsSuccess(getCart(loginUser, Long.parseLong(jsonObject.getString("storeId"))));
     }
 
     //  获取购物车商品的总件件数
     @RequestMapping("goodscount")
-    public Object goodscount(@LoginUser UserVo loginUser) {
-        if (null == loginUser || null == loginUser.getUserId()) {
+    public Object goodscount(@LoginUser UserVo loginUser  ,long storeId) {
+            if (null == loginUser || null == loginUser.getUserId()) {
             return toResponsFail("未登录");
         }
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap<String, Object>();
         //查询列表数据
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("user_id", loginUser.getUserId());
+        param.put("identify", identify);
         List<CartVo> cartList = cartService.queryList(param);
         //获取购物车统计信息
         Integer goodsCount = 0;
@@ -378,7 +391,7 @@ public class ApiCartController extends ApiBaseAction {
      * 订单提交前的检验和填写相关订单信息
      */
     @RequestMapping("checkout")
-    public Object checkout(@LoginUser UserVo loginUser, Integer couponId) {
+    public Object checkout(@LoginUser UserVo loginUser, Integer couponId,long storeId) {
         Map<String, Object> resultObj = new HashMap<String, Object>();
 
         
@@ -391,11 +404,12 @@ public class ApiCartController extends ApiBaseAction {
         AddressVo addressVo=new AddressVo();
         addressVo.setUserId(loginUser.getUserId());
         addressVo.setIsDefault("1");
+        //todo 地址表未区分店铺
         AddressVo checkedAddress = addressService.queryDefault(addressVo);
      
 
         //获取要购买的商品
-        Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser);
+        Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser,storeId );
 
         List<CartVo> checkedGoodsList = new ArrayList<CartVo> ();
         for (CartVo cartEntity : (List<CartVo>) cartData.get("cartList")) {
@@ -463,14 +477,14 @@ public class ApiCartController extends ApiBaseAction {
      * 选择优惠券列表
      */
     @RequestMapping("checkedCouponList")
-    public Object checkedCouponList(@LoginUser UserVo loginUser) {
+    public Object checkedCouponList(@LoginUser UserVo loginUser,long storeId) {
         //
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("user_id", loginUser.getUserId());
         List<CouponVo> couponVos = apiCouponService.queryUserCouponList(param);
         if (null != couponVos && couponVos.size() > 0) {
             // 获取要购买的商品
-            Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser);
+            Map<String, Object> cartData = (Map<String, Object>) this.getCart(loginUser,storeId);
             List<CartVo> checkedGoodsList = new ArrayList<CartVo>();
             List<Integer> checkedGoodsIds = new ArrayList<Integer>();
             for (CartVo cartEntity : (List<CartVo>) cartData.get("cartList")) {

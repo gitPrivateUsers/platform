@@ -11,11 +11,8 @@ module.exports = {
     AuthLoginByWeixin: NewApiRootUrl + 'auth/login_by_weixin', //微信登录
 
     GoodsCount: NewApiRootUrl + 'goods/count',  //统计商品总数
-/**
- * ========================上面是改好多店铺的接口===============================================
- */
-
     GoodsList: NewApiRootUrl + 'goods/list',  //获得商品列表
+
     GoodsCategory: NewApiRootUrl + 'goods/category',  //获得分类数据
     GoodsDetail: NewApiRootUrl + 'goods/detail',  //获得商品的详情
     GoodsNew: NewApiRootUrl + 'goods/new',  //新品
@@ -30,6 +27,10 @@ module.exports = {
     CartUpdate: NewApiRootUrl + 'cart/update', // 更新购物车的商品
     CartDelete: NewApiRootUrl + 'cart/delete', // 删除购物车的商品
     CartChecked: NewApiRootUrl + 'cart/checked', // 选择或取消选择商品
+
+/**
+ * ========================上面是改好多店铺的接口===============================================
+ */
     CartGoodsCount: NewApiRootUrl + 'cart/goodscount', // 获取购物车商品件数
     CartCheckout: NewApiRootUrl + 'cart/checkout', // 下单前信息确认
 
