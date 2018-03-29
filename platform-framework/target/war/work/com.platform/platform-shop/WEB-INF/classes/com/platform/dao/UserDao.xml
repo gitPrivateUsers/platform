@@ -65,6 +65,9 @@
         <if test="username != null and username.trim() != ''">
             and username like concat('%',#{username},'%')
         </if>
+        <if test="storeId != null">
+            and store_id =#{storeId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -135,7 +138,7 @@
             <if test="registerIp != null">`register_ip` = #{registerIp},</if>
             <if test="avatar != null">`avatar` = #{avatar},</if>
             <if test="weixinOpenid != null">`weixin_openid` = #{weixinOpenid},</if>
-            <if test="weixinOpenid != null">`store_id` = #{storeId}</if>
+            <if test="storeId != null">`store_id` = #{storeId}</if>
         </set>
         where id = #{id}
     </update>

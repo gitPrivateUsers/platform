@@ -38,6 +38,7 @@ $(function () {
     });
 });
 
+//var vm = new Vue({
 let vm = new Vue({
 	el: '#rrapp',
 	data: {
@@ -68,6 +69,7 @@ let vm = new Vue({
 			};
 		},
 		update: function (event) {
+			//var id = getSelectedRow();
             let id = getSelectedRow();
 			if (id == null) {
 				return;
@@ -78,7 +80,8 @@ let vm = new Vue({
             vm.getInfo(id)
 		},
 		saveOrUpdate: function (event) {
-            let url = vm.newsComment.id == null ? "../newscomment/save" : "../newscomment/update";
+			//var url = vm.newsComment.id == null ? "../newscomment/save" : "../newscomment/update";
+			let url = vm.newsComment.id == null ? "../newscomment/save" : "../newscomment/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
@@ -96,7 +99,8 @@ let vm = new Vue({
 			});
 		},
 		del: function (event) {
-            let ids = getSelectedRows();
+			//var ids = getSelectedRows();
+			let ids = getSelectedRows();
 			if (ids == null){
 				return;
 			}
@@ -126,6 +130,7 @@ let vm = new Vue({
 		},
 		reload: function (event) {
 			vm.showList = true;
+			//var page = $("#jqGrid").jqGrid('getGridParam', 'page');
             let page = $("#jqGrid").jqGrid('getGridParam', 'page');
 			$("#jqGrid").jqGrid('setGridParam', {
                 postData: {'name': vm.q.name},

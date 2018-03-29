@@ -1,7 +1,7 @@
 // var NewApiRootUrl = 'https://xcx.shty888.com/ds-xcx/api/';
 //var NewApiRootUrl = 'http://127.0.0.1:8080/platform-admin/api/';
 var storeId =1;//标识唯一 店铺
-var NewApiRootUrl = 'http://127.0.0.1:8080/all/api/';
+var NewApiRootUrl = 'http://127.0.0.1:8080/framework/api/';
 module.exports = {
     StoreId:storeId,
     IndexUrl: NewApiRootUrl + 'index/index', //首页数据接口

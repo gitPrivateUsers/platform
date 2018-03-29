@@ -30,7 +30,8 @@ public class FootprintController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("footprint:list")
     public R list(@RequestParam Map<String, Object> params) {
-        params=authorityParams(params);
+
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -38,8 +39,8 @@ public class FootprintController extends AbstractController {
         int total = footprintService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(footprintList, total, query.getLimit(), query.getPage());
+            return R.ok().put("page", pageUtil);
 
-        return R.ok().put("page", pageUtil);
     }
 
 

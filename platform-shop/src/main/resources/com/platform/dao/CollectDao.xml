@@ -24,6 +24,10 @@
         from nideshop_collect a
         left join nideshop_user b on a.user_id = b.id
         left join nideshop_goods c on a.value_id = c.id
+        WHERE 1=1
+        <if test="identify != null">
+            and c.identify = #{identify}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -45,10 +49,10 @@
 		insert into nideshop_collect
 		(
 			`user_id`, 
-			`value_id`, 
-			`add_time`, 
-			`is_attention`, 
+			`value_id`,
+			`is_attention`,
 			`type_id`
+			`add_time`,
 		)
 		values
 		(

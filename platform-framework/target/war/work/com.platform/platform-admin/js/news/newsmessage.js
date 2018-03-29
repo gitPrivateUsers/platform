@@ -147,7 +147,8 @@ var vm = new Vue({
             vm.getNewsTypes();
         },
         update: function (event) {
-            let id = getSelectedRow();
+            var id = getSelectedRow();
+            //let id = getSelectedRow();
             if (id == null) {
                 return;
             }
@@ -182,7 +183,8 @@ var vm = new Vue({
             });
         },
         del: function (event) {
-            let ids = getSelectedRows();
+            var ids = getSelectedRows();
+            //let ids = getSelectedRows();
             if (ids == null) {
                 return;
             }

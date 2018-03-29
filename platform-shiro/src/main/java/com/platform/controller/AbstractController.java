@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public abstract class AbstractController {
     protected Map<String, Object> authorityParams(Map<String, Object> params) {
         //admin用户不参与权限验证
         if (!getUser().getUsername().equals("admin")) {
-            long deptId=getOneDeptId();
+            long deptId = getOneDeptId();
             params.put("identify", deptId);
             params.put("storeId", getStoreIdByDeptId(params));
             if (!validDept())//验证部门是否最高级
@@ -70,12 +71,14 @@ public abstract class AbstractController {
 
 
     protected Long getStoreIdByDeptId(Map<String, Object> params) {
-     List<StoreConfigureEntity> store=   storeConfigureService.queryList(params);
-            if(store!=null&&store.size()>0){
-                return store.get(0).getStoreId();
-            }
+        params.put("identify",getOneDeptId());
+        List<StoreConfigureEntity> store =  storeConfigureService.queryList(params);
+        if(store!=null&&store.size()>0){
+            return store.get(0).getStoreId();
+        }
         return null;
     }
+
 
     /**
      * @return 获取登录用户的最高级部门ID
