@@ -11,7 +11,9 @@ Page({
   },
   getFootprintList() {
     let that = this;
-    util.request(api.FootprintList).then(function (res) {
+    util.request(api.FootprintList, {
+      storeId: api.StoreId
+    }).then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);
         that.setData({

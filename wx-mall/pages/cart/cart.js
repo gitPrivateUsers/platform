@@ -184,7 +184,7 @@ Page({
       goodsId: goodsId,
       number: number,
       id: id,
-      storeId: api.StoreId
+      storeId:api.StoreId
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);

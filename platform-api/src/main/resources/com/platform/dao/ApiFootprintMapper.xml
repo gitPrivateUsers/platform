@@ -84,7 +84,7 @@
 		)
 		values
 		(
-			#{useor_id},
+			#{user_id},
 			#{goods_id},
 			#{add_time},
 			#{referrer}

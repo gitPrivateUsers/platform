@@ -15,7 +15,8 @@ Page({
   },
   getOrderList(){
     let that = this;
-    util.request(api.OrderList).then(function (res) {
+    util.request(api.OrderList, { storeId: api.StoreId
+    }).then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);
         that.setData({

@@ -126,9 +126,7 @@
             <if test="market_price != null">`market_price` = #{market_price},</if>
             <if test="retail_price != null">`retail_price` = #{retail_price},</if>
             <if test="number != null">`number` = #{number},</if>
-            <if test="goods_specifition_name_value != null">`goods_specifition_name_value` =
-                #{goods_specifition_name_value},
-            </if>
+            <if test="goods_specifition_name_value != null">`goods_specifition_name_value` =  #{goods_specifition_name_value}, </if>
             <if test="goods_specifition_ids != null">`goods_specifition_ids` = #{goods_specifition_ids},</if>
             <if test="checked != null">`checked` = #{checked},</if>
             <if test="list_pic_url != null">`list_pic_url` = #{list_pic_url}</if>
@@ -167,10 +165,6 @@
     <delete id="deleteByCart">
         delete from nideshop_cart
         where  user_id = #{user_id} and  session_id = #{session_id} and  checked = #{checked}
-
-        <if test="identify != null">
-            AND identify = #{identify}
-        </if>
     </delete>
 
 </mapper>
