@@ -55,12 +55,14 @@ public class ApiOrderController extends ApiBaseAction {
     @RequestMapping("list")
     public Object list(@LoginUser UserVo loginUser,
                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                       @RequestParam(value = "size", defaultValue = "10") Integer size) {
+                       @RequestParam(value = "size", defaultValue = "10") Integer size,long storeId) {
+
         //
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("user_id", loginUser.getUserId());
         params.put("page", page);
         params.put("limit", size);
+        params.put("storeId", storeId);
         params.put("sidx", "id");
         params.put("order", "desc");
         //查询列表数据

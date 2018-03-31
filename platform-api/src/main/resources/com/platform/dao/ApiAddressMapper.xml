@@ -26,6 +26,10 @@
 	select * from nideshop_address where is_default = #{isDefault} and user_id =
 	#{userId}
 
+        <if test="identify != null">
+            AND identify = #{identify}
+        </if>
+
 </select>
 
     <select id="queryList" resultMap="addressMap">

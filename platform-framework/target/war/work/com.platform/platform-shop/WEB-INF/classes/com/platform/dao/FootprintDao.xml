@@ -11,7 +11,6 @@
         <result property="goodsId" column="goods_id"/>
         <result property="goodsName" column="goods_name"/>
         <result property="addTime" column="add_time"/>
-        <result property="storeParentId" column="store_parent_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.FootprintEntity">

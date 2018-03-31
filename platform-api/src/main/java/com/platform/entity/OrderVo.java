@@ -98,6 +98,17 @@ public class OrderVo implements Serializable {
     private Map handleOption; //可操作的选项
     private BigDecimal full_cut_price; //订单满减
 
+    //多店铺id
+    private Long storeId;
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
     public Integer getId() {
         return id;
     }

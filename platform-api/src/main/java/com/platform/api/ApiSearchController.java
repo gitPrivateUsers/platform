@@ -36,12 +36,14 @@ public class ApiSearchController extends ApiBaseAction {
      * 　　index
      */
     @RequestMapping("index")
-    public Object index(@LoginUser UserVo loginUser) {
+    public Object index(@LoginUser UserVo loginUser,long storeId) {
+        long identify=getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap();
         Map param = new HashMap();
         param.put("is_default", 1);
         param.put("page", 1);
         param.put("limit", 1);
+        param.put("identify", identify);
         param.put("sidx", "id");
         param.put("order", "asc");
         List<KeywordsVo> keywordsEntityList = keywordsService.queryList(param);
@@ -53,6 +55,7 @@ public class ApiSearchController extends ApiBaseAction {
         param.put("page", 1);
         param.put("limit", 10);
         param.put("sidx", "id");
+        param.put("identify", identify);
         param.put("order", "asc");
         Query query = new Query(param);
         List<Map> hotKeywordList = keywordsService.hotKeywordList(query);
@@ -63,8 +66,9 @@ public class ApiSearchController extends ApiBaseAction {
         param.put("page", 1);
         param.put("limit", 10);
         param.put("sidx", "id");
+        param.put("identify", identify);
         param.put("order", "asc");
-        List<SearchHistoryVo> historyVoList = searchHistoryService.queryList(param);
+        List<SearchHistoryVo> historyVoList = searchHistoryService.queryList(param);//todo 暂时不加区分 店铺
         String[] historyKeywordList = new String[historyVoList.size()];
         if (null != historyVoList) {
             int i = 0;
@@ -85,10 +89,13 @@ public class ApiSearchController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("helper")
-    public Object helper(@LoginUser UserVo loginUser, String keyword) {
+    public Object helper(@LoginUser UserVo loginUser, String keyword,long storeId) {
+
+        long identify =getStoreIdByDeptId(storeId);
         Map param = new HashMap();
         param.put("fields", "distinct keyword");
         param.put("keyword", keyword);
+        param.put("identify", identify);
         param.put("limit", 10);
         param.put("offset", 0);
         List<KeywordsVo> keywords = keywordsService.queryList(param);

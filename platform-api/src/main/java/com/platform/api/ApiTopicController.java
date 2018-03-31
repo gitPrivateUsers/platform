@@ -33,10 +33,12 @@ public class ApiTopicController extends ApiBaseAction {
     @IgnoreAuth
     @RequestMapping("list")
     public Object list(@LoginUser UserVo loginUser, @RequestParam(value = "page", defaultValue = "1") Integer page,
-                       @RequestParam(value = "size", defaultValue = "10") Integer size) {
+                       @RequestParam(value = "size", defaultValue = "10") Integer size,long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map param = new HashMap();
         param.put("page", page);
         param.put("limit", size);
+        param.put("identify", identify);
         param.put("sidx", "id");
         param.put("order", "desc");
         param.put("fields", "id, title, price_info, scene_pic_url,subtitle");
@@ -52,7 +54,7 @@ public class ApiTopicController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("detail")
-    public Object detail(@LoginUser UserVo loginUser, Integer id) {
+    public Object detail(@LoginUser UserVo loginUser, Integer id)  {
         TopicVo topicEntity = topicService.queryObject(id);
         return toResponsSuccess(topicEntity);
     }
@@ -61,9 +63,11 @@ public class ApiTopicController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("related")
-    public Object related(@LoginUser UserVo loginUser, Integer id) {
+    public Object related(@LoginUser UserVo loginUser, Integer id,long storeId) {
+        long identify= getStoreIdByDeptId(storeId);
         Map param = new HashMap();
         param.put("limit", 4);
+        param.put("identify", identify);
         List<TopicVo> topicEntities = topicService.queryList(param);
         return toResponsSuccess(topicEntities);
     }

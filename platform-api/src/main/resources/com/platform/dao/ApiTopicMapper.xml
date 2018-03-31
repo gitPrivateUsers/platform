@@ -17,6 +17,9 @@
         <result property="scene_pic_url" column="scene_pic_url"/>
         <result property="topic_template_id" column="topic_template_id"/>
         <result property="topic_tag_id" column="topic_tag_id"/>
+        <result property="identify" column="identify"/>
+        <result property="sysUserId" column="sys_user_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="topicMap">
@@ -32,6 +35,15 @@
             *
         </if>
         from nideshop_topic
+        where 1=1
+
+        <if test="identify != null">
+            AND  identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND  sys_user_id = #{sysUserId}
+        </if>
+
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -46,8 +58,16 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_topic 
-	</select>
+		select count(*) from nideshop_topic where 1=1
+
+        <if test="identify != null">
+            AND  identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND  sys_user_id = #{sysUserId}
+        </if>
+
+    </select>
 
     <insert id="save" parameterType="com.platform.entity.TopicVo" useGeneratedKeys="true" keyProperty="id">
 		insert into nideshop_topic

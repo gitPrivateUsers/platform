@@ -13,6 +13,8 @@
         <result property="scheme_url" column="scheme_url"/>
         <result property="id" column="id"/>
         <result property="type" column="type"/>
+        <result property="identify" column="identify"/>
+        <result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
     <select id="queryObject" resultMap="keywordsMap">
@@ -31,6 +33,12 @@
         <where>
             <if test="keyword != null">
                 and keyword like concat('%',#{keyword},'%')
+            </if>
+            <if test="identify != null">
+                AND  identify = #{identify}
+            </if>
+            <if test="sysUserId != null">
+                AND  sys_user_id = #{sysUserId}
             </if>
         </where>
         <choose>

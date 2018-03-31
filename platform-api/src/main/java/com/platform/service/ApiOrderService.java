@@ -29,7 +29,8 @@ public class ApiOrderService {
     private ApiOrderGoodsMapper apiOrderGoodsMapper;
     @Autowired
     private ApiUserCouponMapper apiUserCouponMapper;
-
+    @Autowired
+    private StoreConfigureService storeConfigureService;
 
     public OrderVo queryObject(Integer id) {
         return orderDao.queryObject(id);
@@ -74,7 +75,8 @@ public class ApiOrderService {
         String couponNumber = jsonParam.getString("couponNumber");
 //        BigDecimal fullCutCouponDec = jsonParam.getBigDecimal("fullCutCouponDec");
         String postscript = jsonParam.getString("postscript");
-        
+        String storeId =jsonParam.getString("storeId");
+
 //        AddressVo addressVo = jsonParam.getObject("checkedAddress",AddressVo.class);
         AddressVo addressVo = apiAddressMapper.queryObject(jsonParam.getString("checkedAddress"));
   
@@ -85,6 +87,15 @@ public class ApiOrderService {
         param.put("user_id", loginUser.getUserId());
         param.put("session_id", 1);
         param.put("checked", 1);
+
+        if (!com.qiniu.util.StringUtils.isNullOrEmpty(storeId)) {
+            StoreConfigureEntity store=   storeConfigureService.queryObject(Long.valueOf(storeId));
+            if(store==null){
+                param.put("identify", 9999999);//没有店铺标识 添加过滤商品
+            }else
+                param.put("identify", store.getDeptParentId());
+        }else
+            param.put("identify", 9999999);//没有店铺标识 添加过滤商品
         List<CartVo> checkedGoodsList = apiCartMapper.queryList(param);
         if (null == checkedGoodsList) {
             resultObj.put("errno", 400);
@@ -158,6 +169,7 @@ public class ApiOrderService {
         orderInfo.setShipping_fee(new BigDecimal(0));
         orderInfo.setIntegral(0);
         orderInfo.setIntegral_money(new BigDecimal(0));
+        orderInfo.setStoreId(Long.valueOf(storeId));
 
         //开启事务，插入订单信息和订单商品
         apiOrderMapper.save(orderInfo);

@@ -46,7 +46,9 @@ public class ApiFootprintController extends ApiBaseAction {
     @RequestMapping("list")
     public Object list(@LoginUser UserVo loginUser,
                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                       @RequestParam(value = "size", defaultValue = "10") Integer size) {
+                       @RequestParam(value = "size", defaultValue = "10") Integer size,long storeId) {
+
+        long identify =getStoreIdByDeptId(storeId);
         Map resultObj = new HashMap();
 
         //查询列表数据
@@ -55,6 +57,7 @@ public class ApiFootprintController extends ApiBaseAction {
         params.put("limit", size);
         params.put("sidx", "f.id");
         params.put("maxFoot", true);
+        params.put("identify", identify);
         params.put("order", "desc");
         Query query = new Query(params);
         List<FootprintVo> footprintVos = footprintService.queryList(query);

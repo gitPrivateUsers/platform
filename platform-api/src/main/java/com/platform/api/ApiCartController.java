@@ -153,7 +153,9 @@ public class ApiCartController extends ApiBaseAction {
         if (!StringUtils.isNullOrEmpty(jsonParam.getString("storeId"))) {
             long identify =getStoreIdByDeptId(Long.valueOf(jsonParam.getString("storeId")));
             cartParam.put("identify", identify);
-        }
+        }else
+
+            cartParam.put("identify", 99999999);
         cartParam.put("product_id", productId);
         cartParam.put("user_id", loginUser.getUserId());
         List<CartVo> cartInfoList = cartService.queryList(cartParam);
@@ -239,12 +241,13 @@ public class ApiCartController extends ApiBaseAction {
      * 更新指定的购物车信息
      */
     @RequestMapping("update")
-    public Object update(@LoginUser UserVo loginUser ,long storeId) {
+    public Object update(@LoginUser UserVo loginUser) {
         JSONObject jsonParam = getJsonRequest();
         Integer goodsId = jsonParam.getInteger("goodsId");
         Integer productId = jsonParam.getInteger("productId");
         Integer number = jsonParam.getInteger("number");
         Integer id = jsonParam.getInteger("id");
+        long storeId = jsonParam.getLong("storeId");
         //取得规格的信息,判断规格库存
         ProductVo productInfo = productService.queryObject(productId);
         if (null == productInfo || productInfo.getGoods_number() < number) {
@@ -394,6 +397,8 @@ public class ApiCartController extends ApiBaseAction {
     public Object checkout(@LoginUser UserVo loginUser, Integer couponId,long storeId) {
         Map<String, Object> resultObj = new HashMap<String, Object>();
 
+
+        long identify =getStoreIdByDeptId(storeId);
         
         //根据收货地址计算运费
         BigDecimal freightPrice = new BigDecimal(0);
@@ -404,7 +409,7 @@ public class ApiCartController extends ApiBaseAction {
         AddressVo addressVo=new AddressVo();
         addressVo.setUserId(loginUser.getUserId());
         addressVo.setIsDefault("1");
-        //todo 地址表未区分店铺
+        addressVo.setIdentify(identify);
         AddressVo checkedAddress = addressService.queryDefault(addressVo);
      
 

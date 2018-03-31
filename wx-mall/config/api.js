@@ -1,7 +1,7 @@
 // var NewApiRootUrl = 'https://xcx.shty888.com/ds-xcx/api/';
 //var NewApiRootUrl = 'http://127.0.0.1:8080/platform-admin/api/';
 var storeId =1;//标识唯一 店铺
-var NewApiRootUrl = 'http://127.0.0.1:8080/framework/api/';
+var NewApiRootUrl = 'http://127.0.0.1:8080/all/api/';
 module.exports = {
     StoreId:storeId,
     IndexUrl: NewApiRootUrl + 'index/index', //首页数据接口
@@ -28,9 +28,6 @@ module.exports = {
     CartDelete: NewApiRootUrl + 'cart/delete', // 删除购物车的商品
     CartChecked: NewApiRootUrl + 'cart/checked', // 选择或取消选择商品
 
-/**
- * ========================上面是改好多店铺的接口===============================================
- */
     CartGoodsCount: NewApiRootUrl + 'cart/goodscount', // 获取购物车商品件数
     CartCheckout: NewApiRootUrl + 'cart/checkout', // 下单前信息确认
 
@@ -39,10 +36,13 @@ module.exports = {
     notify: NewApiRootUrl +"pay/notify",//支付回调
     cancelOrder: NewApiRootUrl +"order/cancelOrder",
    
-
-
     CollectList: NewApiRootUrl + 'collect/list',  //收藏列表
     CollectAddOrDelete: NewApiRootUrl + 'collect/addordelete',  //添加或取消收藏
+
+
+/**
+ * ==========================评论未完待续===================================
+ */
 
     CommentList: NewApiRootUrl + 'comment/list',  //评论列表
     CommentCount: NewApiRootUrl + 'comment/count',  //评论总数
@@ -52,10 +52,19 @@ module.exports = {
     TopicDetail: NewApiRootUrl + 'topic/detail',  //专题详情
     TopicRelated: NewApiRootUrl + 'topic/related',  //相关专题
 
+/**
+ * =============================================================
+ */
+
+
     SearchIndex: NewApiRootUrl + 'search/index',  //搜索页面数据
     SearchResult: NewApiRootUrl + 'search/result',  //搜索数据
     SearchHelper: NewApiRootUrl + 'search/helper',  //搜索帮助
     SearchClearHistory: NewApiRootUrl + 'search/clearhistory',  //搜索帮助
+
+/**
+ * =====================地址未完待续========================================
+ */
 
     AddressList: NewApiRootUrl + 'address/list',  //收货地址列表
     AddressDetail: NewApiRootUrl + 'address/detail',  //收货地址详情
@@ -63,6 +72,10 @@ module.exports = {
     AddressDelete: NewApiRootUrl + 'address/delete',  //保存收货地址
     UpdateDefault: NewApiRootUrl + 'address/update/default',  //设置默认收货地址
 
+
+/**
+ * =============================================================
+ */
 
     // RegionList: NewApiRootUrl + 'region/list',  //获取区域列表
 

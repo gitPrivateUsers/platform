@@ -33,6 +33,28 @@ public class AddressVo implements Serializable {
     private String detailInfo;
     //是否默认收货地址(0：不默认 1：默认收货地址)
     private String isDefault="0";
+
+    //添加身份标识
+    private Long identify;
+    //添加用户ID
+    private Long sysUserId;
+
+    public Long getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(Long identify) {
+        this.identify = identify;
+    }
+
+    public Long getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
+
     /**
      * 设置：
      */

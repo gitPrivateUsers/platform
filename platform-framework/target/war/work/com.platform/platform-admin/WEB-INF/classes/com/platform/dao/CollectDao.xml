@@ -13,7 +13,6 @@
         <result property="addTime" column="add_time"/>
         <result property="isAttention" column="is_attention"/>
         <result property="typeId" column="type_id"/>
-        <result property="storeParentId" column="store_parent_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.CollectEntity">
@@ -50,10 +49,10 @@
 		insert into nideshop_collect
 		(
 			`user_id`, 
-			`value_id`, 
-			`add_time`, 
-			`is_attention`, 
+			`value_id`,
+			`is_attention`,
 			`type_id`
+			`add_time`,
 		)
 		values
 		(
