@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [
 			{label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-			{label: '商品id', name: 'goodsId', index: 'goods_id', width: 80},
+			{label: '商品id', name: 'goodsName', index: 'goods_id', width: 80},
 			{label: '图片', name: 'imgUrl', index: 'img_url', width: 80},
 			{label: '描述', name: 'imgDesc', index: 'img_desc', width: 80},
 			{label: '排序', name: 'sortOrder', index: 'sort_order', width: 80}],
@@ -39,24 +39,41 @@ let vm = new Vue({
 	data: {
         showList: true,
         title: null,
-		goodsGallery: {},
+		goodsGallery: {
+			imgUrl:''
+		},
 		ruleValidate: {
 			name: [
 				{required: true, message: '名称不能为空', trigger: 'blur'}
+			],
+			goodsName: [
+				{required: true, message: '图片名称不能为空', trigger: 'blur'}
+			],
+			imgUrl: [
+				{required: true, message: '图片地址不能为空', trigger: 'blur'}
 			]
 		},
 		q: {
 		    name: ''
-		}
+		},
+		goodss: [],
 	},
 	methods: {
+		getGoodss: function () {
+			$.get("../goods/queryAll/", function (r) {
+				vm.goodss = r.list;
+			});
+		},
 		query: function () {
 			vm.reload();
 		},
 		add: function () {
 			vm.showList = false;
-			vm.title = "新增";
-			vm.goodsGallery = {};
+			vm.title = "上传";
+			vm.goodsGallery = {
+				imgUrl:''
+			};
+			vm.getGoodss();
 		},
 		update: function (event) {
             let id = getSelectedRow();
@@ -129,8 +146,30 @@ let vm = new Vue({
                 vm.saveOrUpdate()
             });
         },
+		handleFormatError: function (file) {
+			this.$Notice.warning({
+				title: '文件格式不正确',
+				desc: '文件 ' + file.name + ' 格式不正确，请上传 jpg 或 png 格式的图片。'
+			});
+		},
+		handleMaxSize: function (file) {
+			this.$Notice.warning({
+				title: '超出文件大小限制',
+				desc: '文件 ' + file.name + ' 太大，不能超过 2M。'
+			});
+		},
         handleReset: function (name) {
             handleResetForm(this, name);
-        }
+        },
+		handleSuccessPicUrl: function (res, file) {
+			vm.goodsGallery.imgUrl = file.response.url;
+		},
+		eyeImagePicUrl: function () {
+			var url = vm.goodsGallery.imgUrl;
+			eyeImage(url);
+		},
+		eyeImage: function (e) {
+			eyeImage($(e.target).attr('src'));
+		}
 	}
 });
