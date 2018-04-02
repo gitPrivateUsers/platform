@@ -36,7 +36,7 @@
             and c.type_id = #{type_id}
         </if>
         <if test="identify != null">
-            and c.identify = #{identify}
+            and g.identify = #{identify}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
