@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 团购Controller
+ * 团购设置 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-09-06 17:18:30
  */
 @RestController

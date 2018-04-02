@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 /**
- * 文件上传
+ * 文件/图片上传后台 Controller
  *
  * @author lipengjun
  * @email 939961241@qq.com

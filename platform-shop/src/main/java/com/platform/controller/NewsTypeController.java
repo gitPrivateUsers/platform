@@ -15,8 +15,6 @@ import java.util.Map;
 /**
  * 新闻类型表Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2018-01-27 11:33:50
  */
 @RestController

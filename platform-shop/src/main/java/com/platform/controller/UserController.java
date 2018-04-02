@@ -18,10 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 会员管理 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-16 15:02:28
  */
 @RestController

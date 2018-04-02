@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 新闻资讯 Controller
+ *
+ * @date 2018-01-27 11:33:50
+ *
+ */
 
 @RestController
 @RequestMapping("newsmessage")

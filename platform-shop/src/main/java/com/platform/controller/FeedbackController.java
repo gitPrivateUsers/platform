@@ -18,10 +18,8 @@ import com.platform.utils.Query;
 import com.platform.utils.R;
 
 /**
- * Controller
+ * 商品反馈  Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-23 15:03:25
  */
 @RestController

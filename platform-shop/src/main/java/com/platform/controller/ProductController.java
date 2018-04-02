@@ -14,10 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 产品设置 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-30 14:31:21
  */
 @RestController

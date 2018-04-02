@@ -14,15 +14,13 @@ import java.util.Map;
 
 
 /**
- * 规格表
+ * 商品规格 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-13 10:41:10
  */
 @RestController
 @RequestMapping("specification")
-public class SpecificationController {
+public class SpecificationController extends AbstractController{
     @Autowired
     private SpecificationService specificationService;
 
@@ -32,6 +30,8 @@ public class SpecificationController {
     @RequestMapping("/list")
     @RequiresPermissions("specification:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //添加权限过滤数据
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -61,6 +61,8 @@ public class SpecificationController {
     @RequestMapping("/save")
     @RequiresPermissions("specification:save")
     public R save(@RequestBody SpecificationEntity specification) {
+        specification.setIdentify(getOneDeptId());
+        specification.setSysUserId(getUserId());
         specificationService.save(specification);
 
         return R.ok();
@@ -72,6 +74,8 @@ public class SpecificationController {
     @RequestMapping("/update")
     @RequiresPermissions("specification:update")
     public R update(@RequestBody SpecificationEntity specification) {
+        specification.setIdentify(getOneDeptId());
+        specification.setSysUserId(getUserId());
         specificationService.update(specification);
 
         return R.ok();
@@ -93,6 +97,8 @@ public class SpecificationController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        //添加权限验证过滤数据
+        params = authorityParams(params);
 
         List<SpecificationEntity> list = specificationService.queryList(params);
 

@@ -18,10 +18,8 @@ import com.platform.utils.Query;
 import com.platform.utils.R;
 
 /**
- * 热闹关键词表Controller
+ * 热搜关键词  Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-25 21:23:41
  */
 @RestController

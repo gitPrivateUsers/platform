@@ -27,6 +27,9 @@ public class AdPositionEntity implements Serializable {
 
     //身份标识
     private Long identify;
+    //用户ID
+    private Long sysUserId;
+
 
     public Long getIdentify() {
         return identify;
@@ -44,8 +47,6 @@ public class AdPositionEntity implements Serializable {
         this.sysUserId = sysUserId;
     }
 
-    //用户ID
-    private Long sysUserId;
 
     /**
      * 设置：主键

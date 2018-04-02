@@ -19,7 +19,7 @@ import com.platform.utils.R;
 
 
 /**
- * 
+ *  会员收藏 Controller
  * 
  * @author lipengjun
  * @email 939961241@qq.com

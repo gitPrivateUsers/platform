@@ -88,8 +88,8 @@
             <if test="name != null">`name` = #{name},</if>
             <if test="width != null">`width` = #{width},</if>
             <if test="height != null">`height` = #{height},</if>
-            <if test="desc != null">`desc` = #{desc}</if>
-            <if test="identify != null">`identify` = #{identify}</if>
+            <if test="desc != null">`desc` = #{desc},</if>
+            <if test="identify != null">`identify` = #{identify},</if>
             <if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
         </set>
         where id = #{id}

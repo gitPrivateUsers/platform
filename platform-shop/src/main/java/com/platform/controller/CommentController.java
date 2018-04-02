@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 用户评论 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-28 17:03:40
  */
 @RestController

@@ -19,6 +19,8 @@
         <result property="level" column="level"/>
         <result property="type" column="type"/>
         <result property="frontName" column="front_name"/>
+		<result property="identify" column="identify"/>
+		<result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.CategoryEntity">
@@ -60,6 +62,8 @@
     		`level`,
     		`type`,
     		`front_name`,
+			`identify`,
+			`sys_user_id`,
 			`is_show` as `show`
 		from nideshop_category
 		WHERE 1=1
@@ -68,6 +72,12 @@
 		</if>
 		<if test="parentId != null and parentId != ''">
 			AND `parent_id` = #{parentId}
+		</if>
+		<if test="identify != null">
+			AND `identify` = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND `sys_user_id` = #{sysUserId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -88,6 +98,12 @@
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
+		<if test="identify != null">
+			AND  `identify` = #{identify}
+		</if>
+		<if test="sysUserId != null">
+			AND  `sys_user_id` = #{sysUserId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.CategoryEntity">
@@ -106,7 +122,9 @@
 			`wap_banner_url`,
 			`level`,
 			`type`,
-			`front_name`)
+			`front_name`,
+			`identify`,
+			`sys_user_id`)
 		values(
 			#{id},
 			#{name},
@@ -122,7 +140,9 @@
 			#{wapBannerUrl},
 			#{level},
 			#{type},
-			#{frontName})
+			#{frontName},
+			#{identify},
+			#{sysUserId})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.CategoryEntity">
@@ -141,7 +161,9 @@
 			<if test="wapBannerUrl != null">`wap_banner_url` = #{wapBannerUrl}, </if>
 			<if test="level != null">`level` = #{level}, </if>
 			<if test="type != null">`type` = #{type}, </if>
-			<if test="frontName != null">`front_name` = #{frontName}</if>
+			<if test="frontName != null">`front_name` = #{frontName},</if>
+			<if test="identify != null">`identify` = #{identify},</if>
+			<if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
 		</set>
 		where id = #{id}
 	</update>
