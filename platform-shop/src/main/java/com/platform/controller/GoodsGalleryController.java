@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 小程序商品详情顶部轮播图片 Controller
  *
  * @author lipengjun
  * @email 939961241@qq.com
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("goodsgallery")
-public class GoodsGalleryController {
+public class GoodsGalleryController extends AbstractController{
     @Autowired
     private GoodsGalleryService goodsGalleryService;
 
@@ -31,6 +31,8 @@ public class GoodsGalleryController {
     @RequestMapping("/list")
     @RequiresPermissions("goodsgallery:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //权限验证 过滤数据
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 

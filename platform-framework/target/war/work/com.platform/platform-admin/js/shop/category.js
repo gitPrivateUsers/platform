@@ -34,7 +34,7 @@ var TreeGrid = {
 TreeGrid.initColumn = function () {
     var columns = [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', align: 'id', width: '50px'},
+        {title: '分类目录', field: 'id', align: 'id', width: '50px'},
         {title: '分类名称', field: 'name', align: 'center', valign: 'middle', width: '100px'},
         {title: '描述', field: 'frontDesc', align: 'center', valign: 'middle', width: '150px'},
         {title: '首页展示', field: 'showIndex', align: 'center', valign: 'middle', width: '50px'},

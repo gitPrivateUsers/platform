@@ -57,20 +57,21 @@ $(function () {
 });
 
 //验证手机号码开始
-var validPhone=(rule, value,callback)=>{
-    if (!value){
-        callback(new Error('请输入电话号码'))
-    }else  if (!isvalidPhone(value)){
-        callback(new Error('请输入正确的11位手机号码'))
-    }else {
-        callback()
-    }
-}
-
-function isvalidPhone(str) {
-    const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
-    return reg.test(str)
-}
+//var validPhone=(rule, value,callback)=>{
+//    if (!value){
+//        callback(new Error('电话号码不能为空'))
+//    }else  if (!isvalidPhone(value)){
+//        callback(new Error('请输入正确的11位手机号码'))
+//    }else {
+//        callback()
+//    }
+//}
+//
+//function isvalidPhone(str) {
+//    const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+//    return reg.test(str)
+//}
+//,validator:validPhone
 //验证手机号码结束
 
 var vm = new Vue({
@@ -84,7 +85,8 @@ var vm = new Vue({
                 {required: true, message: '收货人姓名不能为空', trigger: 'blur'}
             ],
             telNumber: [
-                {required: true, message: '手机号不能为空且必须为11位', trigger: 'blur',validator:validPhone}
+                {required: true, message: '手机号码不能为空', trigger: 'blur'},
+                {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/, message: '请输入正确的11位手机号码'}
             ],
             detailInfo: [
                 {required: true, message: '详细收货地址不能为空', trigger: 'blur'}

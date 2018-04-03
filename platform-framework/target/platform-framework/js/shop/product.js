@@ -49,6 +49,16 @@ $(function () {
     });
 });
 
+//验证价格开始
+//var validPrice=(rule, value,callback)=>{
+//    if (''==value || value==0){
+//        callback(new Error('价格不能为空'))
+//    }else{
+//        callback()
+//    }
+//}
+//验证价格结束
+
 let vm = new Vue({
     el: '#rrapp',
     data: {
@@ -58,7 +68,10 @@ let vm = new Vue({
         ruleValidate: {
             name: [
                 {required: true, message: '名称不能为空', trigger: 'blur'}
-            ]
+            ],
+            goodsSn: [
+                {required: true,message:'序列号不能为空',trigger:'blur'}
+            ],
         },
         q: {
             goodsName: ''

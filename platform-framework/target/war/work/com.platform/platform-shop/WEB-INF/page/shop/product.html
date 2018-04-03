@@ -60,15 +60,15 @@
                 <i-input v-model="product.goodsSn" placeholder="商品序列号"/>
             </Form-item>
             <Form-item label="商品库存" prop="goodsNumber">
-                <Input-number :min="0" :step="1" v-model="product.goodsNumber" placeholder="商品库存"
+                <Input-number :min="0" :step="0.01" v-model="product.goodsNumber" placeholder="商品库存"
                               style="width: 188px;"/>
             </Form-item>
             <Form-item label="零售价格" prop="retailPrice">
-                <Input-number :min="0" :step="1" v-model="product.retailPrice" placeholder="零售价格"
+                <Input-number :min="0" :step="0.01" v-model="product.retailPrice" placeholder="零售价格"
                               style="width: 188px;"/>
             </Form-item>
             <Form-item label="市场价格" prop="marketPrice">
-                <Input-number :min="0" :step="1" v-model="product.marketPrice" placeholder="市场价格"
+                <Input-number :min="0" :step="0.01" v-model="product.marketPrice" placeholder="市场价格"
                               style="width: 188px;"/>
             </Form-item>
             <Form-item>
