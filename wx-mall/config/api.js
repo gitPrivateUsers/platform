@@ -87,6 +87,6 @@ module.exports = {
     FootprintList: NewApiRootUrl + 'footprint/list',  //足迹列表
     FootprintDelete: NewApiRootUrl + 'footprint/delete',  //删除足迹
 
-    GS: NewApiRootUrl +"gs.json",//公司信息
+    // GS: NewApiRootUrl +"gs.json",//公司信息
     Feedback: NewApiRootUrl +"/feedback/save"
 };

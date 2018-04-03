@@ -43,6 +43,7 @@ public class ApiCatalogController extends ApiBaseAction {
         params.put("order", "desc");
         params.put("parent_id", 0);
         params.put("identify", identify);
+        params.put("ids", null);//todo 报错 暂时添加
         //查询列表数据
         List<CategoryVo> data = categoryService.queryList(params);
         //

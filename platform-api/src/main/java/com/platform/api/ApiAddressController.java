@@ -7,6 +7,7 @@ import com.platform.entity.AddressVo;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiAddressService;
 import com.platform.util.ApiBaseAction;
+import com.qiniu.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,8 +68,15 @@ public class ApiAddressController extends ApiBaseAction {
 	        }else {
 	          	entity.setIsDefault("0");
 	        }
-			
-			
+
+
+			if (!StringUtils.isNullOrEmpty(addressJson.getString("storeId"))) {
+				long identify =getStoreIdByDeptId(Long.valueOf(addressJson.getString("storeId")));
+				entity.setIdentify(identify);
+			}else
+			//异常处理 获取店铺标识失败
+				return this.toResponsObject(101, "保存失败！", "");
+
 			entity.setId(addressJson.getLong("id"));
 			entity.setUserId(loginUser.getUserId());
 			// 姓名
