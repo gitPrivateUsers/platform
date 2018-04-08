@@ -24,7 +24,7 @@ import com.platform.utils.R;
  */
 @RestController
 @RequestMapping("keywords")
-public class KeywordsController {
+public class KeywordsController extends AbstractController{
     @Autowired
     private KeywordsService keywordsService;
 
@@ -34,6 +34,7 @@ public class KeywordsController {
     @RequestMapping("/list")
     @RequiresPermissions("keywords:list")
     public R list(@RequestParam Map<String, Object> params) {
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -62,6 +63,8 @@ public class KeywordsController {
     @RequestMapping("/save")
     @RequiresPermissions("keywords:save")
     public R save(@RequestBody KeywordsEntity keywords) {
+        keywords.setIdentify(getOneDeptId());
+        keywords.setSysUserId(getUserId());
         keywordsService.save(keywords);
 
         return R.ok();
@@ -73,6 +76,9 @@ public class KeywordsController {
     @RequestMapping("/update")
     @RequiresPermissions("keywords:update")
     public R update(@RequestBody KeywordsEntity keywords) {
+        keywords.setIdentify(getOneDeptId());
+        keywords.setSysUserId(getUserId());
+
         keywordsService.update(keywords);
 
         return R.ok();
@@ -94,6 +100,8 @@ public class KeywordsController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        //添加权限过滤
+        params = authorityParams(params);
 
         List<KeywordsEntity> list = keywordsService.queryList(params);
 
