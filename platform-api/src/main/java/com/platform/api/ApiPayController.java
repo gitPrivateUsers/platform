@@ -55,8 +55,8 @@ public class ApiPayController extends ApiBaseAction {
         //
         return toResponsSuccess("");
     }
-    
-  
+
+
     /**
      * 获取支付的请求参数
      */
@@ -98,12 +98,12 @@ public class ApiPayController extends ApiBaseAction {
                 if (body.length() > 0) {
                     body = body.substring(0, body.length() - 1);
                 }
-//                parame.put("body", body);// 商品描述
+               parame.put("body", body);// 商品描述
             }
             //支付金额
-           orderInfo.getActual_price(); 
-          
-         
+            orderInfo.getActual_price();
+
+
             parame.put("total_fee",  Math.round(orderInfo.getActual_price().doubleValue() * 100));//todo 消费金额
 //            parame.put("total_fee", 1);// 消费金额
             parame.put("notify_url", WechatConfig.notifyUrl);// 回调地址
@@ -176,24 +176,19 @@ public class ApiPayController extends ApiBaseAction {
             }
             out.close();
             in.close();
-            String reponseXml = new String(out.toByteArray(), "UTF-8");//xml数据
-            JSONObject result = JSONObject.fromObject(reponseXml);
-            logger.info("===:"+reponseXml);
-//            WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml, WechatRefundApiResult.class);
-          
-            
-            String result_code = result.getString("result_code");
+            //xml数据
+            String reponseXml = new String(out.toByteArray(), "utf-8");
+
+            WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml, WechatRefundApiResult.class);
+            String result_code = result.getResult_code();
             if (result_code.equalsIgnoreCase("FAIL")) {
-                String out_trade_no = result.getString("out_trade_no");//订单编号
-                OrderVo orderInfo = orderService.queryObject(Integer.valueOf(out_trade_no));
-                orderInfo.setPay_status(0);
-                orderInfo.setPay_time(new Date());
-                orderInfo.setOrder_status(0);
-                orderService.update(orderInfo);
+                //订单编号
+                String out_trade_no = result.getOut_trade_no();
                 logger.error("订单" + out_trade_no + "支付失败");
                 response.getWriter().write(setXml("SUCCESS", "OK"));
             } else if (result_code.equalsIgnoreCase("SUCCESS")) {
-            	String out_trade_no = result.getString("out_trade_no");//订单编号
+                //订单编号
+                String out_trade_no = result.getOut_trade_no();
                 logger.error("订单" + out_trade_no + "支付成功");
                 // 业务处理
                 OrderVo orderInfo = orderService.queryObject(Integer.valueOf(out_trade_no));
@@ -252,9 +247,9 @@ public class ApiPayController extends ApiBaseAction {
     }
 
 
-    
-    
-    
+
+
+
     //返回微信服务
     public static String setXml(String return_code, String return_msg) {
         return "<xml><return_code><![CDATA[" + return_code + "]]></return_code><return_msg><![CDATA[" + return_msg + "]]></return_msg></xml>";

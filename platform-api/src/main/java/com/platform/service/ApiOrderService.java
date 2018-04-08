@@ -139,6 +139,16 @@ public class ApiOrderService {
 
         //
         OrderVo orderInfo = new OrderVo();
+
+//        String length = "1";
+//        for (int i =0;i<4;i++){
+//            length += "0";
+//        }
+//        Random randow = new Random();
+//
+//        int orderInfoId = randow.nextInt(Integer.parseInt(length));
+
+//        orderInfo.setId(orderInfoId);
         orderInfo.setOrder_sn(CommonUtil.generateOrderNumber());
         orderInfo.setUser_id(loginUser.getUserId());
         //收货地址和运费

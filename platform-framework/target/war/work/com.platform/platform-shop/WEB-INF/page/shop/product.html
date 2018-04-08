@@ -28,9 +28,9 @@
 
     <Card v-show="!showList">
         <p slot="title">{{title}}</p>
-        <i-form ref="formValidate" :model="product" :rules="ruleValidate" :label-width="80">
-            <Form-item label="商品" prop="goodsId">
-                <i-select v-model="product.goodsId" filterable @on-change="changeGoods" label-in-value>
+        <i-form ref="formValidate" :model="product" :rules="ruleValidate" :label-width="100">
+            <Form-item label="商品名称" prop="goodsId" style="">
+                <i-select v-model="product.goodsId" filterable @on-change="changeGoods" label-in-value style="width: 400px;">
                     <i-option v-for="goods in goodss" :value="goods.id" :key="goods.id">{{goods.name}}</i-option>
                 </i-select>
             </Form-item>
@@ -42,34 +42,34 @@
                 </Checkbox-group>
             </Form-item>
             <Form-item v-if="type == 'add'" label="颜色" v-if="attribute.indexOf(1)>-1" prop="color">
-                <i-select v-model="color" filterable multiple>
+                <i-select v-model="color" filterable multiple style="width: 200px;">
                     <i-option v-for="color in colors" :value="color.id" :key="color.id">{{color.value}}</i-option>
                 </i-select>
             </Form-item>
             <Form-item v-if="type == 'add'" label="规格" v-if="attribute.indexOf(2)>-1" prop="color">
-                <i-select v-model="guige" filterable multiple>
+                <i-select v-model="guige" filterable multiple style="width: 200px;">
                     <i-option v-for="guige in guiges" :value="guige.id" :key="guige.id">{{guige.value}}</i-option>
                 </i-select>
             </Form-item>
             <Form-item v-if="type == 'add'" label="重量" v-if="attribute.indexOf(4)>-1" prop="color">
-                <i-select v-model="weight" filterable multiple>
+                <i-select v-model="weight" filterable multiple style="width: 200px;">
                     <i-option v-for="weight in weights" :value="weight.id" :key="weight.id">{{weight.value}}</i-option>
                 </i-select>
             </Form-item>
             <Form-item label="商品序列号" prop="goodsSn">
-                <i-input v-model="product.goodsSn" placeholder="商品序列号"/>
+                <i-input v-model="product.goodsSn" placeholder="商品序列号" style="width: 300px;"/>
             </Form-item>
             <Form-item label="商品库存" prop="goodsNumber">
                 <Input-number :min="0" :step="0.01" v-model="product.goodsNumber" placeholder="商品库存"
-                              style="width: 188px;"/>
+                              style="width: 100px;"/>
             </Form-item>
             <Form-item label="零售价格" prop="retailPrice">
                 <Input-number :min="0" :step="0.01" v-model="product.retailPrice" placeholder="零售价格"
-                              style="width: 188px;"/>
+                              style="width: 100px;"/>
             </Form-item>
             <Form-item label="市场价格" prop="marketPrice">
                 <Input-number :min="0" :step="0.01" v-model="product.marketPrice" placeholder="市场价格"
-                              style="width: 188px;"/>
+                              style="width: 100px;"/>
             </Form-item>
             <Form-item>
                 <i-button type="primary" @click="handleSubmit('formValidate')">提交</i-button>
