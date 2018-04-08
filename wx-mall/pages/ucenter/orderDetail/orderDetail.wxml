@@ -47,7 +47,7 @@
                 <text class="name">{{orderInfo.consignee}}</text>
                 <text class="mobile">{{orderInfo.mobile}}</text>
             </view>
-            <view class="b">{{orderInfo.full_region + orderInfo.address}}</view>
+            <view class="b">{{orderInfo.province +orderInfo.city + orderInfo.address}}</view>
         </view>
         <view class="total">
             <view class="t">
