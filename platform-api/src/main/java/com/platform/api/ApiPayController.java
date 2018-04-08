@@ -85,7 +85,7 @@ public class ApiPayController extends ApiBaseAction {
             String randomStr = CharUtil.getRandomNum(18).toUpperCase();
             parame.put("nonce_str", randomStr);// 随机字符串
             parame.put("out_trade_no", orderId);// 商户订单编号
-            Map<String, Object> orderGoodsParam = new HashMap<String, Object>();
+             Map<String, Object> orderGoodsParam = new HashMap<String, Object>();
             orderGoodsParam.put("order_id", orderId);
             parame.put("body", "商城-支付");// 商品描述
             //订单的商品
@@ -98,7 +98,7 @@ public class ApiPayController extends ApiBaseAction {
                 if (body.length() > 0) {
                     body = body.substring(0, body.length() - 1);
                 }
-               parame.put("body", body);// 商品描述
+//               parame.put("body", body);// 商品描述
             }
             //支付金额
             orderInfo.getActual_price();
@@ -176,19 +176,24 @@ public class ApiPayController extends ApiBaseAction {
             }
             out.close();
             in.close();
-            //xml数据
-            String reponseXml = new String(out.toByteArray(), "utf-8");
+            String reponseXml = new String(out.toByteArray(), "UTF-8");//xml数据
+            JSONObject result = JSONObject.fromObject(reponseXml);
+            logger.info("===:"+reponseXml);
+//            WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml, WechatRefundApiResult.class);
 
-            WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml, WechatRefundApiResult.class);
-            String result_code = result.getResult_code();
+
+            String result_code = result.getString("result_code");
             if (result_code.equalsIgnoreCase("FAIL")) {
-                //订单编号
-                String out_trade_no = result.getOut_trade_no();
+                String out_trade_no = result.getString("out_trade_no");//订单编号
+                OrderVo orderInfo = orderService.queryObject(Integer.valueOf(out_trade_no));
+                orderInfo.setPay_status(0);
+                orderInfo.setPay_time(new Date());
+                orderInfo.setOrder_status(0);
+                orderService.update(orderInfo);
                 logger.error("订单" + out_trade_no + "支付失败");
                 response.getWriter().write(setXml("SUCCESS", "OK"));
             } else if (result_code.equalsIgnoreCase("SUCCESS")) {
-                //订单编号
-                String out_trade_no = result.getOut_trade_no();
+                String out_trade_no = result.getString("out_trade_no");//订单编号
                 logger.error("订单" + out_trade_no + "支付成功");
                 // 业务处理
                 OrderVo orderInfo = orderService.queryObject(Integer.valueOf(out_trade_no));

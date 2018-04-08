@@ -93,6 +93,7 @@ public class GoodsGalleryController extends AbstractController{
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        params = authorityParams(params);
 
         List<GoodsGalleryEntity> list = goodsGalleryService.queryList(params);
 
