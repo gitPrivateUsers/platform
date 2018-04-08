@@ -299,7 +299,7 @@ Page({
       city_id: address.city_id,
       district_id: address.district_id,
       address: address.address,
-      is_default: address.is_default,
+      is_default: address.is_default, storeId: api.StoreId,
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         wx.reLaunch({

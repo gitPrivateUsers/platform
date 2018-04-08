@@ -67,7 +67,8 @@
 			`city_Name`,
 			`county_Name`,
 			`detail_Info`,
-			`is_default`)
+			`is_default`,
+			`identify`)
 		values(
 			#{userId},
 			#{userName},
@@ -78,7 +79,8 @@
 			#{cityName},
 			#{countyName},
 			#{detailInfo},
-			#{isDefault})
+			#{isDefault},
+			#{identify})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.AddressVo">

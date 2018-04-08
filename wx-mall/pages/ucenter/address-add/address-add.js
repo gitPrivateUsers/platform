@@ -104,7 +104,7 @@ Page({
       countyName: districtName,//区
       detailInfo: address,//详细地址
       telNumber: mobile,//手机号
-      is_default: address.is_default,
+      is_default: address.is_default, storeId: api.StoreId,
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         wx.redirectTo({
