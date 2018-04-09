@@ -77,10 +77,10 @@
             AND name LIKE concat('%',#{name},'%')
         </if>
         <if test="identify != null">
-            AND  nideshop_goods.identify = #{identify}
+            AND  nideshop_ad.identify = #{identify}
         </if>
         <if test="sysUserId != null">
-            AND  nideshop_goods.sys_user_id = #{sysUserId}
+            AND  nideshop_ad.sys_user_id = #{sysUserId}
         </if>
 	</select>
 
