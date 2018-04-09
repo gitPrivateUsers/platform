@@ -98,6 +98,8 @@ public class AdPositionController extends AbstractController{
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        //添加权限过滤
+        params = authorityParams(params);
 
         List<AdPositionEntity> list = adPositionService.queryList(params);
 
