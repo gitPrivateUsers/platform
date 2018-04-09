@@ -43,18 +43,15 @@ let vm = new Vue({
 			imgUrl:''
 		},
 		ruleValidate: {
-			name: [
-				{required: true, message: '名称不能为空', trigger: 'blur'}
-			],
 			goodsName: [
-				{required: true, message: '图片名称不能为空', trigger: 'blur'}
+				{required: true, message: '商品名称不能为空', trigger: 'blur'}
 			],
 			imgUrl: [
 				{required: true, message: '图片地址不能为空', trigger: 'blur'}
 			]
 		},
 		q: {
-		    name: ''
+			goodsName: ''
 		},
 		goodss: [],
 	},
@@ -82,7 +79,7 @@ let vm = new Vue({
 			}
 			vm.showList = false;
             vm.title = "修改";
-
+			vm.getGoodss();
             vm.getInfo(id)
 		},
 		saveOrUpdate: function (event) {

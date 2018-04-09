@@ -24,20 +24,23 @@ public class GoodsGalleryEntity implements Serializable {
     private String imgDesc;
     //排序
     private Integer sortOrder;
-
-    /**
-     * 翻译用字段
-     */
-    //商品
+    //商品名称翻译用字段
     private String goodsName;
 
+    /**
+     * 设置:商品名称翻译用字段
+     */
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    /**
+     * 获取:商品名称翻译用字段
+     */
     public String getGoodsName() {
         return goodsName;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
 
     /**
      * 设置：主键

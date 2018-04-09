@@ -67,8 +67,8 @@
     <Card v-show="!showList">
         <p slot="title">{{title}}</p>
 		<i-form ref="formValidate" :model="goodsGallery" :rules="ruleValidate" :label-width="80">
-            <Form-item label="商品名称" prop="goodsId">
-                <i-select v-model="goodsGallery.goodsId" filterable style="width: 288px;">
+            <Form-item label="商品名称" prop="goodsName">
+                <i-select v-model="goodsGallery.goodsId" filterable style="width: 788px;">
                     <i-option v-for="goods in goodss" :value="goods.id" :key="goods.id">{{goods.name}}</i-option>
                 </i-select>
             </Form-item>
