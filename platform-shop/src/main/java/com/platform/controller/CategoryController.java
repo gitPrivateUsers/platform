@@ -116,7 +116,13 @@ public class CategoryController extends AbstractController{
      */
     @RequestMapping("/getAreaTree")
     public R getAreaTree() {
-        List<CategoryEntity> list = categoryService.queryList(new HashMap<String, Object>());
+        //添加权限过滤数据
+        Map<String,Object> map = new HashMap<>();
+        map.put("identify",getOneDeptId());
+        map.put("sysUserId",getUserId());
+        List<CategoryEntity> list = categoryService.queryList(map);
+
+        //List<CategoryEntity> list = categoryService.queryList(new HashMap<String, Object>());
         for (CategoryEntity sysRegionEntity : list) {
             sysRegionEntity.setValue(sysRegionEntity.getId() + "");
             sysRegionEntity.setLabel(sysRegionEntity.getName());
@@ -135,6 +141,9 @@ public class CategoryController extends AbstractController{
     public R getCategorySelect() {
         Map<String, Object> map = new HashMap<>();
         map.put("parentId", "0");
+        //添加权限过滤
+        map.put("identify",getOneDeptId());
+        map.put("sysUserId",getUserId());
         List<CategoryEntity> list = categoryService.queryList(map);
         return R.ok().put("list", list);
     }
