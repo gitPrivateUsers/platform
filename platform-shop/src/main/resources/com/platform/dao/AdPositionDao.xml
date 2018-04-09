@@ -63,6 +63,12 @@
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
+        <if test="identify != null">
+            AND nideshop_ad_position.identify=#{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND nideshop_ad_position.sys_user_id=#{sysUserId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.AdPositionEntity" useGeneratedKeys="true" keyProperty="id">

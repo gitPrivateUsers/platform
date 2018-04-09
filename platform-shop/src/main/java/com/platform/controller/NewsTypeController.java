@@ -72,6 +72,8 @@ public class NewsTypeController extends AbstractController {
     @RequestMapping("/update")
     @RequiresPermissions("newstype:update")
     public R update(@RequestBody NewsTypeEntity newsType) {
+        newsType.setIdentify(getOneDeptId());
+        newsType.setSysUserId(getUserId());
         newsTypeService.update(newsType);
 
         return R.ok();

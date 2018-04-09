@@ -1,6 +1,7 @@
 package com.platform.api;
 
 import com.platform.annotation.IgnoreAuth;
+import com.platform.entity.AdPositionVo;
 import com.platform.entity.AdVo;
 import com.platform.entity.GoodsVo;
 import com.platform.entity.StoreConfigureEntity;
@@ -120,6 +121,7 @@ public class ApiIndexController extends ApiBaseAction {
 	 */
     @Autowired
     private ApiAdService adService;
+
     /**
      * 广告类型
      */
@@ -145,7 +147,8 @@ public class ApiIndexController extends ApiBaseAction {
     @IgnoreAuth
     @RequestMapping("index")
     public Object index(@RequestParam Long storeId) {
- long identify =getStoreIdByDeptId(storeId);
+
+        long identify =getStoreIdByDeptId(storeId);
 
         Map<String, Object> resultObj = new HashMap<String, Object>();
         //轮播图

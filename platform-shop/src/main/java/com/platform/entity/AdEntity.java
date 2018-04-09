@@ -33,16 +33,14 @@ public class AdEntity implements Serializable {
     private Date endTime;
     //状态
     private Integer enabled;
-    /**
-     * 翻译字段用
-     */
-    //位置名称
+    //位置名称翻译字段用
     private String adPositionName;
-
     //身份标识
     private Long identify;
     //用户ID
     private Long sysUserId;
+
+
 
     public Long getIdentify() {
         return identify;

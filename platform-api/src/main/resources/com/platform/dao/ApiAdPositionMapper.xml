@@ -10,6 +10,8 @@
         <result property="width" column="width"/>
         <result property="height" column="height"/>
         <result property="desc" column="desc"/>
+        <result property="identify" column="identify"/>
+        <result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.AdPositionVo">
