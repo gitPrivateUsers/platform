@@ -177,4 +177,17 @@ public class ApiBaseAction {
         }
         return 9999999l;
     }
+
+    /**
+     * 查询店铺
+     * @param storeId
+     * @return
+     */
+    public   StoreConfigureEntity getStore(long storeId) {
+        StoreConfigureEntity store=  storeConfigureService.queryObject(storeId);
+        if(store!=null&&store.getDeptParentId()>0){
+            return store;
+        }
+        return null;
+    }
 }

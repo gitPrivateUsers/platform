@@ -3,6 +3,7 @@ package com.platform.api;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.AdVo;
 import com.platform.entity.GoodsVo;
+import com.platform.entity.StoreConfigureEntity;
 import com.platform.service.*;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.wechat.WechatConfig;
@@ -36,9 +37,10 @@ public class ApiIndexController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("pay_prepay1")
-    public Object payPrepay1() {
-        //
-    
+    public Object payPrepay1(long storeId) {
+        //查詢出商家信息
+        StoreConfigureEntity store=getStore(storeId);
+
         String nonceStr = CharUtil.getRandomString(32);
 
         //https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&index=3
@@ -46,8 +48,10 @@ public class ApiIndexController extends ApiBaseAction {
 
         try {
             Map<Object, Object> parame = new TreeMap<Object, Object>();
-            parame.put("appid", WechatConfig.appId);
-            parame.put("mch_id", WechatConfig.mchId);// 商家账号。
+            parame.put("appid", store.getAppId());
+//            parame.put("appid", WechatConfig.appId);
+//            parame.put("mch_id", WechatConfig.mchId);// 商家账号。
+            parame.put("mch_id",  store.getMuchId());// 商家账号。
             String randomStr = CharUtil.getRandomNum(18).toUpperCase();
             parame.put("nonce_str", randomStr);// 随机字符串
             parame.put("out_trade_no", "1111");// 商户订单编号
@@ -66,12 +70,15 @@ public class ApiIndexController extends ApiBaseAction {
             parame.put("spbill_create_ip", "119.23.71.39");
 
 //            parame.put("sign_type", "MD5");
-            String sign = WechatUtil.arraySign(parame, WechatConfig.paySignKey);
+
+            String sign = WechatUtil.arraySign(parame, store.getPaySingKey());
+//            String sign = WechatUtil.arraySign(parame, WechatConfig.paySignKey);
             parame.put("sign", sign);// 数字签证
 
             String xml = MapUtils.convertMap2Xml(parame);
             logger.info("xml:" + xml);
-            Map<String, Object> resultUn = XmlUtil.xmlStrToMap(WechatUtil.requestOnce(UNIFORMORDER, xml));
+
+            Map<String, Object> resultUn = XmlUtil.xmlStrToMap(WechatUtil.requestOnce(UNIFORMORDER, xml,getStore(storeId).getMuchId()));
             // 响应报文
             String return_code = MapUtils.getString("return_code", resultUn);
             String return_msg = MapUtils.getString("return_msg", resultUn);
@@ -87,12 +94,14 @@ public class ApiIndexController extends ApiBaseAction {
                 } else if (result_code.equalsIgnoreCase("SUCCESS")) {
                     String prepay_id = MapUtils.getString("prepay_id", resultUn);
                     // 先生成paySign 参考https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&index=5
-                    resultObj.put("appId", WechatConfig.appId);
+//                    resultObj.put("appId", WechatConfig.appId);
+                    resultObj.put("appId", store.getAppId());
                     resultObj.put("timeStamp", DateUtils.timeToStr(System.currentTimeMillis() / 1000, DateUtils.DATE_TIME_PATTERN));
                     resultObj.put("nonceStr", nonceStr);
                     resultObj.put("package", "prepay_id=" + prepay_id);
                     resultObj.put("signType", "MD5");
-                    String paySign = WechatUtil.arraySign(resultObj, WechatConfig.paySignKey);
+                    String paySign = WechatUtil.arraySign(resultObj, store.getPaySingKey());
+//                    String paySign = WechatUtil.arraySign(resultObj, WechatConfig.paySignKey);
                     resultObj.put("paySign", paySign);
          
                     return toResponsObject(0, "微信统一订单下单成功", resultObj);

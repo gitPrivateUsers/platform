@@ -40,6 +40,9 @@ public class ApiOrderController extends ApiBaseAction {
     @Autowired
     private ApiKdniaoService apiKdniaoService;
 
+    @Autowired
+    private WechatUtil  wechatUtil;
+
     /**
      */
     @IgnoreAuth
@@ -144,7 +147,7 @@ public class ApiOrderController extends ApiBaseAction {
      * 获取订单列表
      */
     @RequestMapping("cancelOrder")
-    public Object cancelOrder(@LoginUser UserVo loginUser, Integer orderId) {
+    public Object cancelOrder(@LoginUser UserVo loginUser, Integer orderId,long storeId) {
         try {
             OrderVo orderVo = orderService.queryObject(orderId);
             if (orderVo.getOrder_status() == 300) {
@@ -154,8 +157,8 @@ public class ApiOrderController extends ApiBaseAction {
             }
             // 需要退款
             if (orderVo.getPay_status() == 2) {
-                WechatRefundApiResult result = WechatUtil.wxRefund(orderVo.getId().toString(),
-                        0.01, 0.01);
+                WechatRefundApiResult result = wechatUtil.wxRefund(orderVo.getId().toString(),
+                        0.01, 0.01,storeId);
                 if (result.getResult_code().equals("SUCCESS")) {
                     if (orderVo.getOrder_status() == 201) {
                         orderVo.setOrder_status(401);

@@ -1,23 +1,30 @@
 package com.platform.util.wechat;
 
+import com.platform.service.StoreConfigureService;
+import com.platform.util.ApiBaseAction;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContexts;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
 import java.io.InputStream;
 import java.security.KeyStore;
 
 @SuppressWarnings("deprecation")
-public class WechatConfig {
+@Component
+public class WechatConfig extends ApiBaseAction{
 
+    @Autowired
+    private StoreConfigureService storeConfigureService;
     /**
      * 商户id
      */
-    public static String appId = "wxbc649f25caf7512e";
+//    public static String appId = "wxbc649f25caf7512e";
     /**
      * 商户号
      */
-    public static String mchId = "1496716192";
+//    public static String mchId = "1496716192";
     /**
      * 交易类型
      */
@@ -25,11 +32,13 @@ public class WechatConfig {
     /**
      * 签名
      */
-    public static String paySignKey = "726520f78a6d5cc0127e7da9fb778ff4";
+//    public static String paySignKey = "726520f78a6d5cc0127e7da9fb778ff4";
     /**
      * 证书名称，对应不同的商户号
      */
     public static String certName = "/cert/apiclient_cert.p12";
+
+
     /**
      * 支付回调地址
      */
@@ -37,25 +46,26 @@ public class WechatConfig {
 
     private static SSLConnectionSocketFactory sslcsf;
 
-    public static SSLConnectionSocketFactory getSslcsf() {
+//    public   Map<String, Object> getStore(long storeId) {
+    public  SSLConnectionSocketFactory getSslcsf( long storeId) {
         if (null == sslcsf) {
-            setSsslcsf();
+            setSsslcsf(storeId);
         }
         return sslcsf;
     }
 
-    private static void setSsslcsf() {
+    private  void setSsslcsf( long storeId) {
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
             Thread.currentThread().getContextClassLoader();
-            InputStream instream = new WechatRefundApiResult().getClass().getResourceAsStream(certName);
+            InputStream instream = new WechatRefundApiResult().getClass().getResourceAsStream(certName);/**/
 //            InputStream instream = new FileInputStream(certName);
             try {
-                keyStore.load(instream, mchId.toCharArray());
+                keyStore.load(instream,getStore(storeId).getMuchId().toCharArray());
             } finally {
                 instream.close();
             }
-            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, mchId.toCharArray()).build();
+            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, getStore(storeId).getMuchId().toCharArray()).build();
             sslcsf = new SSLConnectionSocketFactory(sslcontext, new String[]{"TLSv1"}, null, SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
         } catch (Exception e) {
             e.printStackTrace();

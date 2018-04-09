@@ -41,7 +41,7 @@ module.exports = {
 
 
 /**
- * ==========================评论未完待续===================================
+ * ==========================================================
  */
 
     CommentList: NewApiRootUrl + 'comment/list',  //评论列表
@@ -63,7 +63,7 @@ module.exports = {
     SearchClearHistory: NewApiRootUrl + 'search/clearhistory',  //搜索帮助
 
 /**
- * =====================地址未完待续========================================
+ * =======================================================
  */
 
     AddressList: NewApiRootUrl + 'address/list',  //收货地址列表
