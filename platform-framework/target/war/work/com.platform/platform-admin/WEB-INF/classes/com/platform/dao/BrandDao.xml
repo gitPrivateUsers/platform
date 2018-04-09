@@ -33,9 +33,7 @@
 			`app_list_pic_url`,
 			`is_new`,
 			`new_pic_url`,
-			`new_sort_order`,
-			`identify`,
-			`sys_user_id`
+			`new_sort_order`
 		from nideshop_brand
 		where id = #{id}
 	</select>
@@ -138,8 +136,8 @@
             <if test="appListPicUrl != null">`app_list_pic_url` = #{appListPicUrl},</if>
             <if test="isNew != null">`is_new` = #{isNew},</if>
             <if test="newPicUrl != null">`new_pic_url` = #{newPicUrl},</if>
-            <if test="newSortOrder != null">`new_sort_order` = #{newSortOrder}</if>
-            <if test="identify != null">`identify` = #{identify}</if>
+            <if test="newSortOrder != null">`new_sort_order` = #{newSortOrder},</if>
+            <if test="identify != null">`identify` = #{identify},</if>
             <if test="sysUserId != null">`sys_user_id` = #{sysUserId}</if>
         </set>
         where id = #{id}

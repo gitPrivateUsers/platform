@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>美平超市票据</title>
+    <title>发货单</title>
     #parse("sys/header.html")
 </head>
 <body class="gray-bg">
@@ -13,22 +13,22 @@
                     <div class="col-sm-6">
                         <address>
                             <strong>{{order.consignee}}</strong><br>
-                            {{order.address}}<br>
-                            <abbr title="Phone">联系方式：</abbr> {{order.mobile}}
+                            {{order.province}}&nbsp;&nbsp;  {{order.city}}&nbsp;&nbsp;   {{order.address}}<br>
+                            <abbr> <!--title="Phone"-->联系方式：</abbr> {{order.mobile}}
                         </address>
                     </div>
 
                     <div class="col-sm-6 text-right">
                         <h4>单据编号：</h4>
                         <h4 class="text-navy">{{order.orderSn}}</h4>
-                        <address>
+                    <!--    <address>
                             <strong>美平超市</strong><br>
                             美平超市地址<br>
                             <abbr title="Phone">总机：</abbr> (86) xxxxxxxx
-                        </address>
-                        <p>
-                            <span><strong>日期：</strong> {{nowDate}}</span>
-                        </p>
+                        </address>-->
+                        <!--<p>-->
+                            <!--<span><strong>日期：</strong> {{nowDate}}</span>-->
+                        <!--</p>-->
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
             order: {},
             orderGoods: {},
             sumRetailPrice: 0,
-            nowDate: transDate(new Date())
+            nowDate: new Date()
         },
         methods: {
             print: function () {

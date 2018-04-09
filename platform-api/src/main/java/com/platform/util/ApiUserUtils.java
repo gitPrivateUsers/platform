@@ -1,6 +1,8 @@
 package com.platform.util;
 
+import com.platform.entity.StoreConfigureEntity;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,13 +19,14 @@ import java.util.Map;
  * 时间: 2017-08-11 08:58<br>
  * 描述: ApiUserUtils <br>
  */
-public class ApiUserUtils {
+@Component
+public class ApiUserUtils extends ApiBaseAction{
     private static Logger logger = Logger.getLogger(ApiUserUtils.class);
     //获取code的请求地址
     public static String Get_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=STAT#wechat_redirect";
 
-    public static String APPID = "wxbc649f25caf7512e";
-    public static String SECRET = "c75ba2fa22f202e53d452fa916ffd31b";
+//    public static String APPID = "wxbc649f25caf7512e";
+//    public static String SECRET = "c75ba2fa22f202e53d452fa916ffd31b";
     private static final String EMPTY = "";
 
     //替换字符串
@@ -35,10 +38,11 @@ public class ApiUserUtils {
     public static String Web_access_tokenhttps = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
 
     //替换字符串
-    public static String getWebAccess(String CODE) {
+    public   String getWebAccess(String CODE,long storeId) {
+        StoreConfigureEntity store=getStore(storeId);
         return String.format(Web_access_tokenhttps,
-                APPID/*这里填小程序的appid*/,
-                SECRET/*这里填该小程序的SECRET*/,
+              store.getAppId()/*这里填小程序的appid*/,
+               store.getAppSecret()  /*这里填该小程序的SECRET*/,
                 CODE);
     }
 

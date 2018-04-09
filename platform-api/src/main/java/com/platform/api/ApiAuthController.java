@@ -39,6 +39,8 @@ public class ApiAuthController extends ApiBaseAction {
     private ApiUserService userService;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private ApiUserUtils apiUserUtils;
 
     /**
      * 登录
@@ -73,13 +75,14 @@ public class ApiAuthController extends ApiBaseAction {
         if (null != jsonParam.get("userInfo")) {
             fullUserInfo = jsonParam.getObject("userInfo", FullUserInfo.class);
         }
+        long storeId= Long.parseLong(jsonParam.getString("storeId"));
 
         Map<String, Object> resultObj = new HashMap<String, Object>();
         //
         UserInfo userInfo = fullUserInfo.getUserInfo();
 
         //获取openid
-        String requestUrl = ApiUserUtils.getWebAccess(code);//通过自定义工具类组合出小程序需要的登录凭证 code
+        String requestUrl = apiUserUtils.getWebAccess(code,storeId);//通过自定义工具类组合出小程序需要的登录凭证 code
         logger.info("》》》组合token为：" + requestUrl);
         JSONObject sessionData = CommonUtil.httpsRequest(requestUrl, "GET", null);
 
