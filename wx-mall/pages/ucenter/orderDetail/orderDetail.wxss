@@ -145,16 +145,18 @@ page{
 .order-goods .item .t .number{
     display: block;
     float: right;
-    height: 33rpx;
+    height: 100rpx;
     text-align: right;
-    line-height: 33rpx;
+    /* line-height: 33rpx; */
+    line-height: 100rpx;
     color: #333;
     font-size: 30rpx;
 }
 
 .order-goods .item .attr{
     height: 29rpx;
-    line-height: 29rpx;
+    /* line-height: 29rpx; */
+    line-height: 100rpx;
     color: #666;
     margin-bottom: 25rpx;
     font-size: 25rpx;
@@ -162,7 +164,7 @@ page{
 
 .order-goods .item .price{
     height: 30rpx;
-    line-height: 30rpx;
+    line-height: 68rpx;
     color: #333;
     font-size: 30rpx;
 }
