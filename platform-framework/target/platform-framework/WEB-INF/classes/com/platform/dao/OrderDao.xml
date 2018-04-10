@@ -64,7 +64,13 @@
         <if test="payStatus != null and payStatus.trim() != ''">
             AND o.pay_status = #{payStatus}
         </if>
-        <if test="orderStatus != null and orderStatus.trim() != ''">
+        <if test="notPayStatus != nul">
+            AND o.pay_status != #{notPayStatus}
+        </if>
+        <if test="minuteTime != null">
+            AND  o.add_time &lt;= (select date_sub(now(), interval #{minuteTime} MINUTE))
+        </if>
+        <if test="orderStatus != null ">
             AND o.order_status = #{orderStatus}
         </if>
         <if test="orderType != null and orderType.trim() != ''">

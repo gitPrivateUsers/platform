@@ -16,7 +16,7 @@ public class MyJob{
         private TaskService taskService;
     Logger logger  = LoggerFactory.getLogger(MyJob.class);
 
-    @Scheduled(cron = "0/5 * *  * * ?")
+    @Scheduled(cron = "0 0/10 * * * ?")
     public void initializerTimes(){
         logger.info("............timedTaskStart............");
         long t1 = System.currentTimeMillis();

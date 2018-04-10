@@ -14,8 +14,9 @@ import java.util.Map;
  */
 @Component
 public class TaskService {
-@Autowired
-private OrderService orderService;
+    @Autowired
+    private OrderService orderService;
+
     public void batchUpdateOrderCancelStatus() {
         Map<String,Object> map=new HashMap<>();
         /**

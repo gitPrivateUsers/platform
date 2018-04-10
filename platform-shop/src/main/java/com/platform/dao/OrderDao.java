@@ -2,6 +2,8 @@ package com.platform.dao;
 
 import com.platform.entity.OrderEntity;
 
+import java.util.List;
+
 /**
  * 
  * 
@@ -10,5 +12,5 @@ import com.platform.entity.OrderEntity;
  * @date 2017-08-13 10:41:09
  */
 public interface OrderDao extends BaseDao<OrderEntity> {
-	
+
 }
