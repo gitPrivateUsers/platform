@@ -171,7 +171,7 @@ var vm = new Vue({
                 return;
             }
             openWindow({
-                title: '收获地址',
+                title: '收货地址',
                 type: 2,
                 content: '../shop/address.html?userId=' + id
             })
