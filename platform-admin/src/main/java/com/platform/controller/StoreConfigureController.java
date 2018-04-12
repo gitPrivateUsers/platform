@@ -68,7 +68,7 @@ public class StoreConfigureController extends AbstractController{
     @RequestMapping("/save")
     @RequiresPermissions("storeconfigure:save")
     public R save(@RequestBody StoreConfigureEntity storeConfigure) {
-        storeConfigure.setDeptParentId(getOneDeptId());
+        //storeConfigure.setDeptParentId(getOneDeptId());
         storeConfigure.setCreateBy(getUser().getUsername());
         storeConfigure.setCreateTime(new Date());
         storeConfigure.setUpdateBy(getUser().getUsername());

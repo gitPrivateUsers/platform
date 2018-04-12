@@ -69,6 +69,9 @@ let vm = new Vue({
 			storeName: [
 				{required: true, message: '店铺名称不能为空', trigger: 'blur'}
 			],
+			deptParentId:[
+				{required: true, message: '部门ID不能为空', trigger: 'blur'}
+			],
 			appId: [
 				{required: true, message: 'AppId不能为空', trigger: 'blur'}
 			],
