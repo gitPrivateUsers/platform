@@ -4,11 +4,11 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '用户', name: 'userName', index: 'user_name', width: 80},
-            {label: '商品', name: 'valueName', index: 'value_name', width: 80},
-            {label: '添加时间', name: 'addTime', index: 'add_time', width: 80}
-            // {label: '提醒', name: 'isAttention', index: 'is_attention', width: 80}
-            // {label: '类型', name: 'typeId', index: 'type_id', width: 80}
+            {label: '用户', name: 'userName', index: 'user_name', width: 80,align:'center'},
+            {label: '商品', name: 'valueName', index: 'value_name', width: 80,align:'center'},
+            {label: '添加时间', name: 'addTime', index: 'add_time', width: 80,align:'center'},
+            {label: '提醒', name: 'isAttention', index: 'is_attention', width: 80, hidden:true,align:'center'},
+            {label: '类型', name: 'typeId', index: 'type_id', width: 80, hidden:true,align:'center'}
             ],
         viewrecords: true,
         height: 385,

@@ -4,14 +4,14 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '名称', name: 'name', index: 'name', width: 80},
-            {label: 'url', name: 'url', index: 'url', width: 80},
+            {label: '名称', name: 'name', index: 'name', width: 80,align:'center'},
+            {label: 'url', name: 'url', index: 'url', width: 80,align:'center'},
             {
-                label: 'iconUrl', name: 'iconUrl', index: 'icon_url', width: 80, formatter: function (value) {
+                label: 'iconUrl', name: 'iconUrl', index: 'icon_url', width: 80,align:'center', formatter: function (value) {
                 return transImg(value);
             }
             },
-            {label: '排序', name: 'sortOrder', index: 'sort_order', width: 80}],
+            {label: '排序', name: 'sortOrder', index: 'sort_order',align:'center', width: 80}],
         viewrecords: true,
         height: 385,
         rowNum: 10,

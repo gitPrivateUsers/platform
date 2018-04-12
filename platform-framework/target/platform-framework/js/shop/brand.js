@@ -5,39 +5,39 @@ $(function () {
         colModel: [{
             label: 'id', name: 'id', index: 'id', key: true, hidden: true
         }, {
-            label: '品牌名称', name: 'name', index: 'name', width: 80
+            label: '品牌名称', name: 'name', index: 'name', width: 80,align:'center'
         }, {
-            label: '图片', name: 'listPicUrl', index: 'list_pic_url', width: 80, formatter: function (value) {
+            label: '图片', name: 'listPicUrl', index: 'list_pic_url', width: 80,align:'center',formatter: function (value) {
                 return transImg(value);
             }
         }, {
-            label: '描述', name: 'simpleDesc', index: 'simple_desc', width: 80
+            label: '描述', name: 'simpleDesc', index: 'simple_desc', width: 80,align:'center'
         }, {
-            label: '图片', name: 'picUrl', index: 'pic_url', width: 80, formatter: function (value) {
+            label: '图片', name: 'picUrl', index: 'pic_url', width: 80,align:'center',formatter: function (value) {
                 return transImg(value);
             }
         }, {
-            label: '排序', name: 'sortOrder', index: 'sort_order', width: 80
+            label: '排序', name: 'sortOrder', index: 'sort_order',align:'center',width: 80
         }, {
-            label: '显示', name: 'isShow', index: 'is_show', width: 80, formatter: function (value) {
+            label: '显示', name: 'isShow', index: 'is_show', width: 80,align:'center',formatter: function (value) {
                 return transIsNot(value)
             }
         }, {
-            label: '展示价格', name: 'floorPrice', index: 'floor_Price', width: 80
+            label: '展示价格', name: 'floorPrice', index: 'floor_Price', width: 80,align:'center'
         }, {
-            label: 'app显示图片', name: 'appListPicUrl', index: 'app_list_pic_url', width: 80, formatter: function (value) {
+            label: 'app显示图片', name: 'appListPicUrl', index: 'app_list_pic_url', width: 80,align:'center',formatter: function (value) {
                 return transImg(value);
             }
         }, {
-            label: '新品牌', name: 'isNew', index: 'is_new', width: 80, formatter: function (value) {
+            label: '新品牌', name: 'isNew', index: 'is_new', width: 80,align:'center',formatter: function (value) {
                 return transIsNot(value)
             }
         }, {
-            label: '新品牌图片', name: 'newPicUrl', index: 'new_pic_url', width: 80, formatter: function (value) {
+            label: '新品牌图片', name: 'newPicUrl', index: 'new_pic_url', width: 80,align:'center',formatter: function (value) {
                 return transImg(value);
             }
         }, {
-            label: '新品牌排序', name: 'newSortOrder', index: 'new_sort_order', width: 80
+            label: '新品牌排序', name: 'newSortOrder', index: 'new_sort_order', width: 80,align:'center'
         }],
         viewrecords: true,
         height: 385,
@@ -64,6 +64,27 @@ $(function () {
         }
     });
 });
+//函数引入
+function transIsNot(value) {
+    if (value == 1) {
+        return '<span class="badge badge-info">是</span>';
+    }
+    return '<span class="badge badge-danger">否</span>';
+};
+
+/**
+ * 翻译图片
+ * @param url
+ * @returns {*}
+ */
+function transImg(url) {
+    if (url) {
+        return '<img width="50px" height="50px" src="' + url + '">';
+    } else {
+        return '-';
+    }
+};
+
 
 var vm = new Vue({
     el: '#rrapp',

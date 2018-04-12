@@ -4,10 +4,10 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '优惠券名称', name: 'name', index: 'name', width: 120},
-            {label: '金额', name: 'typeMoney', index: 'type_money', width: 80},
+            {label: '优惠券名称', name: 'name', index: 'name', width: 120,align:'center'},
+            {label: '金额', name: 'typeMoney', index: 'type_money', width: 80,align:'center'},
             {
-                label: '发放方式', name: 'sendType', index: 'send_type', width: 80, formatter: function (value) {
+                label: '发放方式', name: 'sendType', index: 'send_type', width: 80, align:'center', formatter: function (value) {
                 if (value == 0) {
                     return '按订单发放';
                 } else if (value == 1) {
@@ -26,19 +26,20 @@ $(function () {
                 return '-';
             }
             },
-            {label: '最小金额', name: 'minAmount', index: 'min_amount', width: 80},
-            {label: '最大金额', name: 'maxAmount', index: 'max_amount', width: 80},
+            {label: '最小金额', name: 'minAmount', index: 'min_amount', width: 80, align:'center'},
+            {label: '最大金额', name: 'maxAmount', index: 'max_amount', width: 80, align:'center'},
             {
                 label: '发放开始时间',
                 name: 'sendStartDate',
                 index: 'send_start_date',
                 width: 120,
+                align:'center',
                 formatter: function (value) {
                     return transDate(value);
                 }
             },
             {
-                label: '发放结束时间', name: 'sendEndDate', index: 'send_end_date', width: 120, formatter: function (value) {
+                label: '发放结束时间', name: 'sendEndDate', index: 'send_end_date', width: 120,align:'center',formatter: function (value) {
                 return transDate(value);
             }
             },
@@ -47,18 +48,19 @@ $(function () {
                 name: 'useStartDate',
                 index: 'use_start_date',
                 width: 120,
+                align:'center',
                 formatter: function (value) {
                     return transDate(value);
                 }
             },
             {
-                label: '使用结束时间', name: 'useEndDate', index: 'use_end_date', width: 120, formatter: function (value) {
+                label: '使用结束时间', name: 'useEndDate', index: 'use_end_date', width: 120,align:'center',formatter: function (value) {
                 return transDate(value);
             }
             },
-            {label: '最小商品金额', name: 'minGoodsAmount', index: 'min_goods_amount', width: 80},
+            {label: '最小商品金额', name: 'minGoodsAmount', index: 'min_goods_amount', width: 80,align:'center'},
             {
-                label: '操作', width: 70, sortable: false, formatter: function (value, col, row) {
+                label: '操作', width: 70, sortable: false,align:'center',formatter: function (value, col, row) {
                 if (row.sendType == 1 || row.sendType == 3) {
                     return '<button class="ivu-btn ivu-btn-primary ivu-btn-circle ivu-btn-small" onclick="vm.publish(' + row.id + ',' + row.sendType + ')"><i class="ivu-icon ivu-icon-android-send"></i>发放</button>';
                 }

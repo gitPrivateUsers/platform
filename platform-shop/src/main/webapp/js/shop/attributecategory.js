@@ -8,8 +8,8 @@ $(function () {
             {
                 label: '是否可用', name: 'enabled', index: 'enabled', width: 80,align:'center',formatter: function (value, options, row) {
                 return value === 0 ?
-                    '<span class="label label-danger">禁用</span>' :
-                    '<span class="label label-success">启用</span>';
+                    '<span class="badge badge-danger">禁用</span>' :
+                    '<span class="badge badge-info">启用</span>';
             }
             }],
         viewrecords: true,

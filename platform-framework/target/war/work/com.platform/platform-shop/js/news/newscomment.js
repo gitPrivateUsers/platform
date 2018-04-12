@@ -4,13 +4,13 @@ $(function () {
         datatype: "json",
         colModel: [
 			{label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-			{label: '新闻id', name: 'newsId', index: 'news_id', width: 80},
+			{label: '新闻id', name: 'newsId', index: 'news_id', width: 80,align:'center'},
 			{label: '评论内容', name: 'commentDetails', index: 'comment_details', width: 80},
-			{label: '评论时间', name: 'commentTime', index: 'comment_time', width: 80},
-			//{label: '用户的ip地址', name: 'commentIp', index: 'comment_ip', width: 80},
-			//{label: '用户id', name: 'commentUid', index: 'comment_uid', width: 80},
-			{label: '匿名信息', name: 'anonymityInfo', index: 'anonymity_info', width: 80},
-			//{label: '标识索引备注', name: 'identify', index: 'identify', width: 80}
+			{label: '评论时间', name: 'commentTime', index: 'comment_time', width: 80,align:'center'},
+			{label: '用户的ip地址', name: 'commentIp', index: 'comment_ip', width: 80,align:'center',hidden: true},
+			{label: '用户id', name: 'commentUid', index: 'comment_uid', width: 80,align:'center',hidden: true},
+			{label: '匿名信息', name: 'anonymityInfo', index: 'anonymity_info', width: 80,align:'center'},
+			{label: '标识索引备注', name: 'identify', index: 'identify', width: 80,align:'center',hidden: true}
 		],
 		viewrecords: true,
         height: 385,

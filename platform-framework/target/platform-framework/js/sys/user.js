@@ -5,18 +5,18 @@ $(function () {
         colModel: [
             {label: '用户ID', name: 'userId', index: "user_id", key: true, hidden: true},
             {label: '用户名', name: 'username', width: 75},
-            {label: '所属部门', name: 'deptName', width: 75},
-            {label: '邮箱', name: 'email', width: 90},
-            {label: '手机号', name: 'mobile', width: 100},
+            {label: '所属部门', name: 'deptName', width: 75,align:'center'},
+            {label: '邮箱', name: 'email', width: 90,align:'center'},
+            {label: '手机号', name: 'mobile', width: 100,align:'center'},
             {
-                label: '状态', name: 'status', width: 80, formatter: function (value) {
+                label: '状态', name: 'status', width: 80, align:'center',formatter: function (value) {
                 return value === 0 ?
-                    '<span class="label label-danger">禁用</span>' :
-                    '<span class="label label-success">正常</span>';
+                    '<span class="badge badge-disable">禁用</span>' :
+                    '<span class="badge badge-info">正常</span>';
             }
             },
             {
-                label: '创建时间', name: 'createTime', index: "create_time", width: 80, formatter: function (value) {
+                label: '创建时间', name: 'createTime', index: "create_time",align:'center',width: 80, formatter: function (value) {
                 return transDate(value);
             }
             }],

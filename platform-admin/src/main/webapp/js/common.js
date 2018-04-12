@@ -226,26 +226,26 @@ function transImg(url) {
  */
 function transGender(gender) {
     if (gender == 1) {
-        return '男';
+        return '<span class="badge badge-primary">男</span>';
     }
     if (gender == 2) {
-        return '女';
+        return '<span class="badge badge-danger">女</span>';
     }
-    return '未知';
+    return '<span class="badge badge-disable">女</span>';
 };
 
 function transIsNot(value) {
     if (value == 1) {
-        return '<span class="label label-success">是</span>';
+        return '<span class="badge badge-info">是</span>';
     }
-    return '<span class="label label-danger">否</span>';
+    return '<span class="badge badge-danger">否</span>';
 };
 
 function transStatus(value) {
     if (value == 1) {
-        return '<span class="label label-success">有效</span>';
+        return '<span class="badge badge-success">有效</span>';
     }
-    return '<span class="label label-danger">无效</span>';
+    return '<span class="badge badge-danger">无效</span>';
 };
 
 function toUrl(href) {

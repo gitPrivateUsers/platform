@@ -4,10 +4,10 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'msgId', name: 'msgId', index: 'msg_id', key: true, hidden: true},
-            {label: '会员名称', name: 'userName', index: 'user_name', width: 80},
+            {label: '会员名称', name: 'userName', index: 'user_name', width: 80,align:'center'},
             {label: '手机', name: 'mobile', index: 'mobile', width: 80},
             {
-                label: '反馈类型', name: 'feedType', index: 'feed_Type', width: 80, formatter: function (value) {
+                label: '反馈类型', name: 'feedType', index: 'feed_Type', width: 80,align:'center', formatter: function (value) {
                 if (value == 1) {
                     return '商品相关';
                 } else if (value == 2) {
@@ -27,7 +27,7 @@ $(function () {
             }
             },
             {label: '详细内容', name: 'content', index: 'content', width: 80},
-            {label: '反馈时间', name: 'addTime', index: 'add_time', width: 80,formatter:function (value) {
+            {label: '反馈时间', name: 'addTime', index: 'add_time', width: 80,align:'center',formatter:function (value) {
                 return transDate(value);
             }}],
         viewrecords: true,

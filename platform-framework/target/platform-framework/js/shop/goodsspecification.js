@@ -9,11 +9,11 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '商品', name: 'goodsName', index: 'goods_id', width: 80},
-            {label: '规格', name: 'specificationName', index: 'specification_id', width: 80},
+            {label: '商品', name: 'goodsName', index: 'goods_id', width: 80,align:'center'},
+            {label: '规格', name: 'specificationName', index: 'specification_id', width: 80,align:'center'},
             {label: '规格说明', name: 'value', index: 'value', width: 80},
             {
-                label: '规格图片', name: 'picUrl', index: 'pic_url', width: 80, formatter: function (value) {
+                label: '规格图片', name: 'picUrl', index: 'pic_url', width: 80,align:'center', formatter: function (value) {
                 return transImg(value);
             }
             }],

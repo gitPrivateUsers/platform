@@ -4,8 +4,8 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-			{label: '规格名称', name: 'name', index: 'name', width: 80 },
-			{label: '排序', name: 'sortOrder', index: 'sort_order', width: 80 }		],
+			{label: '规格名称', name: 'name', index: 'name', width: 80,align:'center' },
+			{label: '排序', name: 'sortOrder', index: 'sort_order', width: 80,align:'center' }		],
 		viewrecords: true,
         height: 385,
         rowNum: 10,

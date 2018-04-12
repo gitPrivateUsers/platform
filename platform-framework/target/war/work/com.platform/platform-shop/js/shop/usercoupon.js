@@ -9,20 +9,20 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '会员', name: 'userName', index: 'user_id', width: 80},
-            {label: '优惠券', name: 'couponName', index: 'coupon_id', width: 80},
-            {label: '优惠券序号', name: 'couponNumber', index: 'coupon_number', width: 80},
+            {label: '会员', name: 'userName', index: 'user_id', width: 80,align:'center'},
+            {label: '优惠券', name: 'couponName', index: 'coupon_id', width: 80,align:'center'},
+            {label: '优惠券序号', name: 'couponNumber', index: 'coupon_number', width: 80,align:'center'},
             {
-                label: '下发时间', name: 'addTime', index: 'add_time', width: 80, formatter: function (value) {
+                label: '下发时间', name: 'addTime', index: 'add_time', width: 80,align:'center', formatter: function (value) {
                 return transDate(value);
             }
             },
             {
-                label: '使用时间', name: 'usedTime', index: 'used_time', width: 80, formatter: function (value) {
+                label: '使用时间', name: 'usedTime', index: 'used_time', width: 80,align:'center', formatter: function (value) {
                 return transDate(value);
             }
             },
-            {label: '订单Id', name: 'orderId', index: 'order_id', width: 80}],
+            {label: '订单Id', name: 'orderId', index: 'order_id', width: 80,align:'center'}],
         viewrecords: true,
         height: 385,
         rowNum: 10,
