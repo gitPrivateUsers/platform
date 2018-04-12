@@ -79,7 +79,11 @@ var vm = new Vue({
         ruleValidate: {
             username: [
                 {required: true, message: '会员名称不能为空', trigger: 'blur'}
-            ]
+            ],
+            mobile: [
+                {required: true, message: '手机号码不能为空', trigger: 'blur'},
+                {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/, message: '请输入正确的11位手机号码'}
+            ],
         },
         q: {
             username: ''
@@ -171,7 +175,7 @@ var vm = new Vue({
                 return;
             }
             openWindow({
-                title: '收获地址',
+                title: '收货地址',
                 type: 2,
                 content: '../shop/address.html?userId=' + id
             })

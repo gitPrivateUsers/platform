@@ -4,19 +4,35 @@ $(function () {
         datatype: "json",
         colModel: [
 			{label: 'storeId', name: 'storeId', index: 'store_id', key: true, hidden: true},
-			{label: '店铺名称（一般为部门一级名称）', name: 'storeName', index: 'store_name', width: 80},
-			{label: '存放部门（店铺/公司）一级ID', name: 'deptParentId', index: 'dept_parent_id', width: 80},
-			{label: '小程序APPID', name: 'appId', index: 'app_id', width: 80},
-			{label: '小程序AppSecret', name: 'appSecret', index: 'app_secret', width: 80},
-			{label: '微信支付商户号', name: 'muchId', index: 'much_Id', width: 80},
-			{label: '微信支付秘钥', name: 'paySingKey', index: 'pay_sing_key', width: 80},
-			{label: '状态 （0 营业   1 休息  2 冻结 ）', name: 'status', index: 'status', width: 80},
-			{label: '逻辑删除（0 正常  1 删除）', name: 'isDelete', index: 'is_delete', width: 80},
-			{label: '创建者', name: 'createBy', index: 'create_by', width: 80},
-			{label: '创建时间', name: 'createTime', index: 'create_time', width: 80},
-			{label: '更新者', name: 'updateBy', index: 'update_by', width: 80},
-			{label: '更新时间', name: 'updateTime', index: 'update_time', width: 80},
-			{label: '备注', name: 'remark', index: 'remark', width: 80}],
+			{label: '店铺名称', name: 'storeName', index: 'store_name', width: 90},
+			//{label: '所属', name: 'deptParentId', index: 'dept_parent_id', width: 30},
+			{label: 'APPID', name: 'appId', index: 'app_id', width: 90},
+			{label: 'AppSecret', name: 'appSecret', index: 'app_secret', width:125},
+			{label: '支付商户号', name: 'muchId', index: 'much_Id', width: 50},
+			{label: '支付秘钥', name: 'paySingKey', index: 'pay_sing_key', width: 130},
+			{label: '状态', name: 'status', index: 'status',width: 30, formatter: function (value) {
+				if (value == 0) return '<span class="label label-info">营业</span>';
+				if (value == 1) return '<span class="label label-danger">休息</span>';
+				if (value == 2) return '<span class="label label-warning">冻结</span>';
+				}
+			},
+			{label: '标记', name: 'isDelete', index: 'is_delete', width: 30,formatter: function(value){
+				return (value === 0) ?
+					'<span class="label label-info">正常</span>': '<span class="label label-warning">删除</span>';
+				}
+			},
+			{label: '创建者', name: 'createBy', index: 'create_by', width: 55},
+			{label: '创建时间', name: 'createTime', index: 'create_time', width: 100,formatter: function (value) {
+				return transDate(value);
+				}
+			},
+			{label: '更新者', name: 'updateBy', index: 'update_by', width:55},
+			{label: '更新时间', name: 'updateTime', index: 'update_time', width: 100,formatter: function (value) {
+				return transDate(value);
+				}
+			},
+			//{label: '备注', name: 'remark', index: 'remark', width: 80}
+		],
 		viewrecords: true,
         height: 385,
         rowNum: 10,
@@ -50,8 +66,20 @@ let vm = new Vue({
         title: null,
 		storeConfigure: {},
 		ruleValidate: {
-			name: [
-				{required: true, message: '名称不能为空', trigger: 'blur'}
+			storeName: [
+				{required: true, message: '店铺名称不能为空', trigger: 'blur'}
+			],
+			appId: [
+				{required: true, message: 'AppId不能为空', trigger: 'blur'}
+			],
+			appSecret: [
+				{required: true, message: 'AppSecret不能为空', trigger: 'blur'}
+			],
+			muchId: [
+				{required: true, message: '支付商户号不能为空', trigger: 'blur'}
+			],
+			paySingKey: [
+				{required: true, message: '支付秘钥不能为空', trigger: 'blur'}
 			]
 		},
 		q: {
@@ -65,7 +93,7 @@ let vm = new Vue({
 		add: function () {
 			vm.showList = false;
 			vm.title = "新增";
-			vm.storeConfigure = {};
+			vm.storeConfigure = {status:'0',isDelete:'0'};
 		},
 		update: function (event) {
             let storeId = getSelectedRow();
