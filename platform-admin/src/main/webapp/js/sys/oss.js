@@ -4,9 +4,9 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', key: true, hidden: true},
-            {label: 'URL地址', name: 'url', width: 160},
+            {label: 'URL地址', name: 'url', width: 160,align:'center'},
             {
-                label: '创建时间', name: 'createDate', width: 40, formatter: function (value) {
+                label: '创建时间', name: 'createDate', width: 40,align:'center', formatter: function (value) {
                 return transDate(value);
             }
             }

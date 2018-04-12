@@ -4,26 +4,26 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '广告位置', name: 'adPositionName', index: 'ad_Position_id', width: 80},
-            {label: '形式', name: 'mediaType', index: 'media_type', width: 80},
-            {label: '广告名称', name: 'name', index: 'name', width: 80},
-            {label: '链接', name: 'link', index: 'link', width: 80},
+            {label: '广告位置', name: 'adPositionName', index: 'ad_Position_id', width: 80,align:'center'},
+            {label: '形式', name: 'mediaType', index: 'media_type', width: 80,align:'center'},
+            {label: '广告名称', name: 'name', index: 'name', width: 80,align:'center'},
+            {label: '链接', name: 'link', index: 'link', width: 80,align:'center'},
             {
-                label: '图片', name: 'imageUrl', index: 'image_url', width: 80, formatter: function (value) {
+                label: '图片', name: 'imageUrl', index: 'image_url', width: 80,align:'center',formatter: function (value) {
                 return transImg(value);
             }
             },
-            {label: '内容', name: 'content', index: 'content', width: 80},
+            {label: '内容', name: 'content', index: 'content', width: 80,align:'center'},
             {
-                label: '结束时间', name: 'endTime', index: 'end_time', width: 80, formatter: function (value) {
+                label: '结束时间', name: 'endTime', index: 'end_time', width: 80,align:'center',formatter: function (value) {
                 return transDate(value);
             }
             },
             {
-                label: '状态', name: 'enabled', index: 'enabled', width: 80, formatter: function (value) {
+                label: '状态', name: 'enabled', index: 'enabled', width: 80,align:'center',formatter: function (value) {
                 return value === 0 ?
                     '<span class="label label-danger">禁用</span>' :
-                    '<span class="label label-success">正常</span>';
+                    '<span class="label label-info">正常</span>';
             }
             }],
         viewrecords: true,

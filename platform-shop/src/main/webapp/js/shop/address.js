@@ -12,17 +12,17 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '会员', name: 'shopUserName', index: 'user_id', width: 90},
-            {label: '收货人姓名', name: 'userName', index: 'user_name', width: 80},
-            {label: '手机', name: 'telNumber', index: 'tel_number', width: 80},
-            //{label: '收货地址国家码', name: 'nationalCode', index: 'national_Code', width: 80},
-            {label: '省', name: 'provinceName', index: 'province_Name', width: 80},
-            {label: '市', name: 'cityName', index: 'city_Name', width: 80},
-            {label: '区', name: 'countyName', index: 'county_Name', width: 80},
+            {label: '会员', name: 'shopUserName', index: 'user_id', width: 90,align:'center'},
+            {label: '收货人姓名', name: 'userName', index: 'user_name', width: 80,align:'center'},
+            {label: '手机', name: 'telNumber', index: 'tel_number', width: 80,align:'center'},
+            {label: '收货地址国家码', name: 'nationalCode', index: 'national_Code', width: 80,align:'center',hidden:true},
+            {label: '省', name: 'provinceName', index: 'province_Name', width: 80,align:'center'},
+            {label: '市', name: 'cityName', index: 'city_Name', width: 80,align:'center'},
+            {label: '区', name: 'countyName', index: 'county_Name', width: 80,align:'center'},
             {label: '详细收货地址信息', name: 'detailInfo', index: 'detail_Info', width: 150},
-            {label: '邮编', name: 'postalCode', index: 'postal_Code', width: 80},
+            {label: '邮编', name: 'postalCode', index: 'postal_Code', width: 80,align:'center'},
             {
-                label: '是否为默认地址', name: 'isDefault', width: 80, formatter: function (value) {
+                label: '是否为默认地址', name: 'isDefault', width: 80,align:'center',formatter: function (value) {
                 return value === 0 ?
                     '<span class="label label-danger">否</span>' :
                     '<span class="label label-success">是</span>';

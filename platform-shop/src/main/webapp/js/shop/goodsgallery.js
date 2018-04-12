@@ -4,10 +4,10 @@ $(function () {
         datatype: "json",
         colModel: [
 			{label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-			{label: '商品名称', name: 'goodsName', index: 'goods_id', width: 80},
-			{label: '图片', name: 'imgUrl', index: 'img_url', width: 80},
+			{label: '商品名称', name: 'goodsName', index: 'goods_id', width: 80,align:'center'},
+			{label: '图片', name: 'imgUrl', index: 'img_url', width: 80,align:'center'},
 			{label: '描述', name: 'imgDesc', index: 'img_desc', width: 80},
-			{label: '排序', name: 'sortOrder', index: 'sort_order', width: 80}],
+			{label: '排序', name: 'sortOrder', index: 'sort_order', width: 80,align:'center'}],
 		viewrecords: true,
         height: 385,
         rowNum: 10,

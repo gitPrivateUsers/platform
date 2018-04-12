@@ -10,23 +10,23 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '类型', name: 'typeId', index: 'type_id', width: 80},
-            {label: '商品', name: 'valueName', index: 'value_id', width: 80},
+            {label: '类型', name: 'typeId', index: 'type_id', width: 80,align:'center'},
+            {label: '商品', name: 'valueName', index: 'value_id', width: 80,align:'center'},
             {label: '评价', name: 'content', index: 'content', width: 80},
             {
-                label: '评论时间', name: 'addTime', index: 'add_time', width: 80, formatter: function (value) {
+                label: '评论时间', name: 'addTime', index: 'add_time', width: 80,align:'center', formatter: function (value) {
                 return transDate(value);
             }
             },
             {
-                label: '状态', name: 'status', index: 'status', width: 80, formatter: function (value) {
+                label: '状态', name: 'status', index: 'status', width: 80,align:'center',formatter: function (value) {
                 if (value === 0) {
                     return '<span class="label label-success">显示</span>';
                 }
                 return '<span class="label label-danger">隐藏</span>';
             }
             },
-            {label: '会员', name: 'userName', index: 'user_id', width: 80}],
+            {label: '会员', name: 'userName', index: 'user_id', width: 80,align:'center'}],
         viewrecords: true,
         height: 385,
         rowNum: 10,
