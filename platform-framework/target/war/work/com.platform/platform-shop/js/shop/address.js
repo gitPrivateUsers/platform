@@ -24,8 +24,8 @@ $(function () {
             {
                 label: '是否为默认地址', name: 'isDefault', width: 80,align:'center',formatter: function (value) {
                 return value === 0 ?
-                    '<span class="label label-danger">否</span>' :
-                    '<span class="label label-success">是</span>';
+                    '<span class="badge badge-danger">否</span>' :
+                    '<span class="badge badge-info">是</span>';
             }
             },
         ],

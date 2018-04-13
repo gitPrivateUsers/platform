@@ -28,6 +28,12 @@ var TreeGrid = {
     layerIndex: -1
 };
 
+function transIsNot(value) {
+    if (value == 1) {
+        return '<span class="badge badge-info">是</span>';
+    }
+    return '<span class="badge badge-danger">否</span>';
+};
 /**
  * 初始化表格的列
  */
@@ -37,18 +43,18 @@ TreeGrid.initColumn = function () {
         {title: '分类目录', field: 'id', align: 'id', width: '50px'},
         {title: '分类名称', field: 'name', align: 'center', valign: 'middle', width: '100px'},
         {title: '描述', field: 'frontDesc', align: 'center', valign: 'middle', width: '150px'},
-        {title: '首页展示', field: 'showIndex', align: 'center', valign: 'middle', width: '50px'},
+        {title: '首页展示', field: 'showIndex', align: 'center', valign: 'middle', width: '50px',align:'center'},
         {
             title: '显示',
             field: 'isShow',
             align: 'center',
-            valign: 'middle',
+            //valign: 'middle',
             width: '50px',
             formatter: function (item, index) {
                 return transIsNot(item.show)
             }
         },
-        // {title: '类型', field: 'type', align: 'center', valign: 'middle', width: '50px'},
+        {title: '类型', field: 'type', align: 'center', valign: 'middle', width: '50px',hidden:true},
         {title: '级别', field: 'level', align: 'center', valign: 'middle', width: '50px'}]
     return columns;
 };

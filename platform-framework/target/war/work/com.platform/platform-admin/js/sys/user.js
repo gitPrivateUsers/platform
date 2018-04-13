@@ -11,8 +11,8 @@ $(function () {
             {
                 label: '状态', name: 'status', width: 80, align:'center',formatter: function (value) {
                 return value === 0 ?
-                    '<span class="label label-danger">禁用</span>' :
-                    '<span class="label label-success">正常</span>';
+                    '<span class="badge badge-disable">禁用</span>' :
+                    '<span class="badge badge-info">正常</span>';
             }
             },
             {

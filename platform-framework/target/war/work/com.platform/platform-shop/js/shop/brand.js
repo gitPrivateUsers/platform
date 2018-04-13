@@ -64,6 +64,27 @@ $(function () {
         }
     });
 });
+//函数引入
+function transIsNot(value) {
+    if (value == 1) {
+        return '<span class="badge badge-info">是</span>';
+    }
+    return '<span class="badge badge-danger">否</span>';
+};
+
+/**
+ * 翻译图片
+ * @param url
+ * @returns {*}
+ */
+function transImg(url) {
+    if (url) {
+        return '<img width="50px" height="50px" src="' + url + '">';
+    } else {
+        return '-';
+    }
+};
+
 
 var vm = new Vue({
     el: '#rrapp',
