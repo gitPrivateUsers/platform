@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="platform-shop:war">
-    <output-path>$PROJECT_DIR$/platform-shop/target</output-path>
+    <output-path>$PROJECT_DIR$/platform/platform-shop/target</output-path>
     <root id="archive" name="platform-shop-1.0.0.war">
       <element id="artifact" artifact-name="platform-shop:war exploded" />
     </root>
