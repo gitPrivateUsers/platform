@@ -33,7 +33,8 @@ public class ApiCatalogController extends ApiBaseAction {
     @RequestMapping("index")
     public Object index(@LoginUser UserVo loginUser, Integer id,
                         @RequestParam(value = "page", defaultValue = "1") Integer page,
-                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
+                        @RequestParam(value = "size", defaultValue = "10") Integer size,Long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap();
         Map params = new HashMap();
         params.put("page", page);
@@ -41,6 +42,8 @@ public class ApiCatalogController extends ApiBaseAction {
         params.put("sidx", "id");
         params.put("order", "desc");
         params.put("parent_id", 0);
+        params.put("identify", identify);
+        params.put("ids", null);//todo 报错 暂时添加
         //查询列表数据
         List<CategoryVo> data = categoryService.queryList(params);
         //
@@ -48,7 +51,7 @@ public class ApiCatalogController extends ApiBaseAction {
         if (null != id) {
             currentCategory = categoryService.queryObject(id);
         }
-        if (null == currentCategory) {
+        if (null == currentCategory&&data.size()>0) {
             currentCategory = data.get(0);
         }
 
@@ -67,7 +70,8 @@ public class ApiCatalogController extends ApiBaseAction {
      */
     @IgnoreAuth
     @RequestMapping("current")
-    public Object current(@LoginUser UserVo loginUser, Integer id) {
+    public Object current(@LoginUser UserVo loginUser, Integer id,Long storeId) {
+        long identify =getStoreIdByDeptId(storeId);
         Map<String, Object> resultObj = new HashMap();
         Map params = new HashMap();
         params.put("parent_id", 0);
@@ -78,6 +82,7 @@ public class ApiCatalogController extends ApiBaseAction {
         //获取子分类数据
         if (null != currentCategory && null != currentCategory.getId()) {
             params.put("parent_id", currentCategory.getId());
+            params.put("identify", identify);
             currentCategory.setSubCategoryList(categoryService.queryList(params));
         }
         resultObj.put("currentCategory", currentCategory);

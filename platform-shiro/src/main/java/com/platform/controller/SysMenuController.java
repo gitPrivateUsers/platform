@@ -33,6 +33,7 @@ public class SysMenuController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("sys:menu:list")
     public R list(@RequestParam Map<String, Object> params) {
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
         List<SysMenuEntity> menuList = sysMenuService.queryList(query);
@@ -48,6 +49,7 @@ public class SysMenuController extends AbstractController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        params.put("identify",getOneDeptId());
         //查询列表数据
         List<SysMenuEntity> menuList = sysMenuService.queryList(params);
 
@@ -110,6 +112,8 @@ public class SysMenuController extends AbstractController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:menu:save")
     public R save(@RequestBody SysMenuEntity menu) {
+
+        //menu.setIdentify(getOneDeptId());
         //数据校验
         verifyForm(menu);
 
@@ -125,6 +129,7 @@ public class SysMenuController extends AbstractController {
     @RequestMapping("/update")
     @RequiresPermissions("sys:menu:update")
     public R update(@RequestBody SysMenuEntity menu) {
+        //menu.setIdentify(getOneDeptId());
         //数据校验
         verifyForm(menu);
 

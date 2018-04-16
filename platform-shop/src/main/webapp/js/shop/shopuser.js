@@ -5,37 +5,37 @@ $(function () {
         colModel: [{
             label: 'id', name: 'id', index: 'id', key: true, hidden: true
         }, {
-            label: '会员名称', name: 'username', index: 'username', width: 80
+            label: '会员名称', name: 'username', index: 'username', width: 80,align:'center'
         }, {
             label: '会员密码', name: 'password', index: 'password', hidden: true
         }, {
-            label: '性别', name: 'gender', index: 'gender', width: 40, formatter: function (value) {
+            label: '性别', name: 'gender', index: 'gender', width: 40,align:'center', formatter: function (value) {
                 return transGender(value);
             }
         }, {
-            label: '出生日期', name: 'birthday', index: 'birthday', width: 80, formatter: function (value) {
+            label: '出生日期', name: 'birthday', index: 'birthday', width: 80,align:'center', formatter: function (value) {
                 return transDate(value);
             }
         }, {
-            label: '注册时间', name: 'registerTime', index: 'register_time', width: 80, formatter: function (value) {
+            label: '注册时间', name: 'registerTime', index: 'register_time', width: 80,align:'center', formatter: function (value) {
                 return transDate(value);
             }
         }, {
-            label: '最后登录时间', name: 'lastLoginTime', index: 'last_login_time', width: 80, formatter: function (value) {
+            label: '最后登录时间', name: 'lastLoginTime', index: 'last_login_time', width: 80,align:'center', formatter: function (value) {
                 return transDate(value);
             }
         }, {
-            label: '最后登录Ip', name: 'lastLoginIp', index: 'last_login_ip', hidden: true
+            label: '最后登录Ip', name: 'lastLoginIp', index: 'last_login_ip',align:'center', hidden: true
         }, {
-            label: '会员等级', name: 'levelName', width: 40
+            label: '会员等级', name: 'levelName', width: 40,align:'center'
         }, {
-            label: '微信名', name: 'nickname', index: 'nickname', width: 80
+            label: '微信名', name: 'nickname', index: 'nickname', width: 80,align:'center'
         }, {
-            label: '手机号码', name: 'mobile', index: 'mobile', width: 120
+            label: '手机号码', name: 'mobile', index: 'mobile', width: 120,align:'center'
         }, {
             label: '注册Ip', name: 'registerIp', index: 'register_ip', hidden: true
         }, {
-            label: '头像', name: 'avatar', index: 'avatar', width: 80, formatter: function (value) {
+            label: '头像', name: 'avatar', index: 'avatar', width: 80,align:'center', formatter: function (value) {
                 return transImg(value);
             }
         }, {
@@ -79,7 +79,11 @@ var vm = new Vue({
         ruleValidate: {
             username: [
                 {required: true, message: '会员名称不能为空', trigger: 'blur'}
-            ]
+            ],
+            mobile: [
+                {required: true, message: '手机号码不能为空', trigger: 'blur'},
+                {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/, message: '请输入正确的11位手机号码'}
+            ],
         },
         q: {
             username: ''
@@ -171,7 +175,7 @@ var vm = new Vue({
                 return;
             }
             openWindow({
-                title: '收获地址',
+                title: '收货地址',
                 type: 2,
                 content: '../shop/address.html?userId=' + id
             })

@@ -17,6 +17,8 @@
         <result property="is_new" column="is_new"/>
         <result property="new_pic_url" column="new_pic_url"/>
         <result property="new_sort_order" column="new_sort_order"/>
+        <result property="identify" column="identify"/>
+        <result property="sysUserId" column="sys_user_id"/>
     </resultMap>
 
     <select id="queryObject" resultMap="brandMap">
@@ -32,6 +34,14 @@
             *
         </if>
         from nideshop_brand
+        where 1=1
+
+        <if test="identify != null">
+            AND identify = #{identify}
+        </if>
+        <if test="sysUserId != null">
+            AND sys_user_id = #{sysUserId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

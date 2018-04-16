@@ -1,5 +1,6 @@
 package com.platform.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ import com.platform.utils.R;
  */
 @RestController
 @RequestMapping("storeconfigure")
-public class StoreConfigureController {
+public class StoreConfigureController extends AbstractController{
     @Autowired
     private StoreConfigureService storeConfigureService;
 
@@ -36,6 +37,9 @@ public class StoreConfigureController {
     @RequestMapping("/list")
     @RequiresPermissions("storeconfigure:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //添加权限验证
+        //params.put("deptParentId",getDeptId());
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -64,6 +68,11 @@ public class StoreConfigureController {
     @RequestMapping("/save")
     @RequiresPermissions("storeconfigure:save")
     public R save(@RequestBody StoreConfigureEntity storeConfigure) {
+        //storeConfigure.setDeptParentId(getOneDeptId());
+        storeConfigure.setCreateBy(getUser().getUsername());
+        storeConfigure.setCreateTime(new Date());
+        storeConfigure.setUpdateBy(getUser().getUsername());
+        storeConfigure.setUpdateTime(new Date());
         storeConfigureService.save(storeConfigure);
 
         return R.ok();
@@ -75,6 +84,8 @@ public class StoreConfigureController {
     @RequestMapping("/update")
     @RequiresPermissions("storeconfigure:update")
     public R update(@RequestBody StoreConfigureEntity storeConfigure) {
+        storeConfigure.setUpdateBy(getUser().getUsername());
+        storeConfigure.setUpdateTime(new Date());
         storeConfigureService.update(storeConfigure);
 
         return R.ok();
@@ -96,6 +107,8 @@ public class StoreConfigureController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        //权限过滤数据
+        params.put("identify",getOneDeptId());
 
         List<StoreConfigureEntity> list = storeConfigureService.queryList(params);
 

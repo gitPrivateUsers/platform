@@ -4,25 +4,25 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '团购主题', name: 'title', index: 'title', width: 80},
+            {label: '团购主题', name: 'title', index: 'title', width: 80,align:'center'},
             {
-                label: '活动图片', name: 'itemPicUrl', index: 'item_pic_url', width: 80, formatter: function (value) {
+                label: '活动图片', name: 'itemPicUrl', index: 'item_pic_url', width: 80,align:'center',formatter: function (value) {
                 return transImg(value);
             }
             },
-            {label: '开团次数', name: 'launchNum', index: 'launch_num', width: 80},
-            {label: '商品', name: 'goodsName', index: 'goods_id', width: 80},
-            {label: '排序', name: 'sortOrder', index: 'sort_order', width: 80},
-            {label: '最低开团人数', name: 'minOpenGroup', index: 'min_open_group', width: 80},
-            {label: '子标题', name: 'subtitle', index: 'subtitle', width: 80},
-            {label: '团购价格', name: 'retailMinPrice', index: 'retail_min_price', width: 80},
+            {label: '开团次数', name: 'launchNum', index: 'launch_num', width: 80,align:'center'},
+            {label: '商品', name: 'goodsName', index: 'goods_id', width: 80,align:'center'},
+            {label: '排序', name: 'sortOrder', index: 'sort_order', width: 80,align:'center'},
+            {label: '最低开团人数', name: 'minOpenGroup', index: 'min_open_group', width: 80,align:'center'},
+            {label: '子标题', name: 'subtitle', index: 'subtitle', width: 80,align:'center'},
+            {label: '团购价格', name: 'retailMinPrice', index: 'retail_min_price', width: 80,align:'center'},
             {
-                label: '开团时间', name: 'openTime', index: 'open_time', width: 80, formatter: function (value) {
+                label: '开团时间', name: 'openTime', index: 'open_time', width: 80,align:'center',formatter: function (value) {
                 return transDate(value);
             }
             },
             {
-                label: '结束时间', name: 'endTime', index: 'end_time', width: 80, formatter: function (value) {
+                label: '结束时间', name: 'endTime', index: 'end_time', width: 80,align:'center', formatter: function (value) {
                 return transDate(value);
             }
             },
@@ -31,6 +31,7 @@ $(function () {
                 name: 'openStatus',
                 index: 'open_status',
                 width: 80,
+                align:'center',
                 formatter: function (value) {
                     if (value == 1) {
                         return '开团中';
@@ -42,7 +43,7 @@ $(function () {
                     return '-';
                 }
             },
-            {label: '开团有效期', name: 'validDays', index: 'valid_days', width: 80}],
+            {label: '开团有效期', name: 'validDays', index: 'valid_days', width: 80,align:'center'}],
         viewrecords: true,
         height: 385,
         rowNum: 10,

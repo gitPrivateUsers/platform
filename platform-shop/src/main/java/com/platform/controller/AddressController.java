@@ -13,15 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ *  收货地址管理 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-16 17:22:46
  */
 @RestController
 @RequestMapping("address")
-public class AddressController {
+public class AddressController extends AbstractController{
     @Autowired
     private AddressService addressService;
 
@@ -31,6 +29,8 @@ public class AddressController {
     @RequestMapping("/list")
     @RequiresPermissions("address:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //添加权限验证过滤数据
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +60,9 @@ public class AddressController {
     @RequestMapping("/save")
     @RequiresPermissions("address:save")
     public R save(@RequestBody AddressEntity address) {
+        //添加权限过滤字段
+        address.setIdentify(getOneDeptId());
+        address.setSysUserId(getUserId());
         addressService.save(address);
 
         return R.ok();
@@ -71,6 +74,8 @@ public class AddressController {
     @RequestMapping("/update")
     @RequiresPermissions("address:update")
     public R update(@RequestBody AddressEntity address) {
+        address.setIdentify(getOneDeptId());
+        address.setSysUserId(getUserId());
         addressService.update(address);
 
         return R.ok();

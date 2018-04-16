@@ -22,11 +22,11 @@ public class BrandEntity implements Serializable {
     //图片
     private String listPicUrl;
     //描述
-    private String simpleDesc;
+    private String simpleDesc="";
     //图片
     private String picUrl;
     //排序
-    private Integer sortOrder;
+    private Integer sortOrder=0;
     //显示
     private Integer isShow;
     //
@@ -39,6 +39,27 @@ public class BrandEntity implements Serializable {
     private String newPicUrl;
     //排序
     private Integer newSortOrder;
+    //身份标识
+    private Long identify;
+    //用户ID
+    private Long sysUserId;
+
+
+    public Long getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(Long identify) {
+        this.identify = identify;
+    }
+
+    public Long getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
 
     /**
      * 设置：主键

@@ -5,10 +5,10 @@ $(function () {
         colModel: [
             {label: '角色ID', name: 'roleId', index: "role_id", key: true, hidden: true},
             {label: '角色名称', name: 'roleName', index: "role_name", width: 75},
-            {label: '所属部门', name: 'deptName', width: 75},
-            {label: '备注', name: 'remark', width: 100},
+            {label: '所属部门', name: 'deptName', width: 75,align:'center'},
+            {label: '备注', name: 'remark', width: 100,align:'center'},
             {
-                label: '创建时间', name: 'createTime', index: "create_time", width: 80, formatter: function (value) {
+                label: '创建时间', name: 'createTime', index: "create_time",align:'center', width: 80, formatter: function (value) {
                 return transDate(value);
             }
             }
@@ -173,7 +173,7 @@ var vm = new Vue({
 
                 //勾选角色所拥有的部门数据权限
                 var deptIds = vm.role.deptIdList;
-                debugger;
+                //debugger;
                 for (var i = 0; i < deptIds.length; i++) {
                     var node = data_ztree.getNodeByParam("deptId", deptIds[i]);
                     data_ztree.checkNode(node, true, false);

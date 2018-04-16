@@ -1,5 +1,6 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
+var city = require('../../../utils/city.js');
 var app = getApp();
 Page({
   data: {
@@ -81,16 +82,17 @@ Page({
     });
 
     //设置区域选择数据
-    let address = this.data.address;
-    if (address.province_id > 0 && address.city_id > 0 && address.district_id > 0) {
+    let address = city.cityData;
+    console.info(address);
+    if (address.pid > 0 && address.city_id > 0 && address.district_id > 0) {
       let selectRegionList = this.data.selectRegionList;
-      selectRegionList[0].id = address.province_id;
+      selectRegionList[0].id = address.pid;
       selectRegionList[0].name = address.province_name;
       selectRegionList[0].parent_id = 1;
 
       selectRegionList[1].id = address.city_id;
       selectRegionList[1].name = address.city_name;
-      selectRegionList[1].parent_id = address.province_id;
+      selectRegionList[1].parent_id = address.pid;
 
       selectRegionList[2].id = address.district_id;
       selectRegionList[2].name = address.district_name;
@@ -211,7 +213,7 @@ Page({
     if (this.data.selectRegionDone === false) {
       return false;
     }
-
+    console.info();
     let address = this.data.address;
     let selectRegionList = this.data.selectRegionList;
     address.province_id = selectRegionList[0].id;
@@ -238,25 +240,44 @@ Page({
 
   },
   getRegionList(regionId) {
+  
+
     let that = this;
     let regionType = that.data.regionType;
-    util.request(api.RegionList, { parentId: regionId }).then(function (res) {
-      if (res.errno === 0) {
-        that.setData({
-          regionList: res.data.map(item => {
+    that.setData({
+      regionList: city.cityData.map(item => {
 
-            //标记已选择的
-            if (regionType == item.type && that.data.selectRegionList[regionType - 1].id == item.id) {
-              item.selected = true;
-            } else {
-              item.selected = false;
-            }
+        //标记已选择的
+        if (regionType == item.type && that.data.selectRegionList[regionType - 1].id == item.id) {
+          item.selected = true;
+        } else {
+          item.selected = false;
+        }
 
-            return item;
-          })
-        });
-      }
+        return item;
+      })
     });
+
+
+
+    // util.request(api.RegionList, { parentId: regionId }).then(function (res) {
+    //   if (res.errno === 0) {
+
+    //     that.setData({
+    //       regionList: res.data.map(item => {
+
+    //         //标记已选择的
+    //         if (regionType == item.type && that.data.selectRegionList[regionType - 1].id == item.id) {
+    //           item.selected = true;
+    //         } else {
+    //           item.selected = false;
+    //         }
+
+    //         return item;
+    //       })
+    //     });
+    //   }
+    // });
   },
   cancelAddress(){
     wx.navigateTo({
@@ -299,7 +320,7 @@ Page({
       city_id: address.city_id,
       district_id: address.district_id,
       address: address.address,
-      is_default: address.is_default,
+      is_default: address.is_default, storeId: api.StoreId,
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         wx.navigateTo({

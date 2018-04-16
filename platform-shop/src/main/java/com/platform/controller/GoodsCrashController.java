@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 商品搭配减Controller
+ * 商品搭配减搭配 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-30 18:35:41
  */
 @RestController

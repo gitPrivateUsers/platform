@@ -1,6 +1,6 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
-
+const pay = require('../../../services/pay.js');
 Page({
   data: {
     orderId: 0,
@@ -47,25 +47,45 @@ Page({
     let that = this;
     util.request(api.PayPrepayId, {
       orderId: that.data.orderId || 15
-    }).then(function (res) {
+      , storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         const payParam = res.data;
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp,
-          'nonceStr': payParam.nonceStr,
-          'package': payParam.package,
-          'signType': payParam.signType,
-          'paySign': payParam.paySign,
-          'success': function (res) {
-            console.log(res)
-          },
-          'fail': function (res) {
-            console.log(res)
-          }
+        pay.payOrder(parseInt(that.data.orderId)).then(res => {
+          wx.redirectTo({
+            url: '/pages/payResult/payResult?status=1&orderId=' + that.data.orderId 
+          });
+        }).catch(res => {
+          wx.redirectTo({
+            url: '/pages/payResult/payResult?status=0&orderId=' + that.data.orderId 
+          }); 
         });
       }
     });
 
+  },
+  cancelOrder:function(res){//取消订单
+    let that = this;
+    util.request(api.cancelOrder, {
+      orderId: that.data.orderId,
+      storeId: api.StoreId
+    }).then(function (res) {
+    
+      if (res.errno==0){
+        wx.redirectTo({
+          url: '../order/order'
+        })
+      }
+    }
+    );
+  },
+  confirmOrder:function(res){
+    let that = this;
+    util.request(api.confirmOrder, {
+      orderId: that.data.orderId
+    }).then(function (res) {
+      console.info(res);
+    }
+      );
   },
   onReady: function () {
     // 页面渲染完成

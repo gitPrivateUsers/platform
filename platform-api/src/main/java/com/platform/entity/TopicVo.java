@@ -2,7 +2,6 @@ package com.platform.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 /**
@@ -37,6 +36,29 @@ public class TopicVo implements Serializable {
     private Integer topic_template_id;
     //活动标签Id
     private Integer topic_tag_id;
+
+    //身份标识
+    private Long identify;
+    //用户ID
+    private Long sysUserId;
+
+    public Long getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(Long identify) {
+        this.identify = identify;
+    }
+
+    public Long getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
+
+
 
     public Integer getId() {
         return id;

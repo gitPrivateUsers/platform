@@ -67,7 +67,8 @@
 			`mobile`, 
 			`register_ip`, 
 			`avatar`, 
-			`weixin_openid`
+			`weixin_openid`,
+			`store_id`
 		)
 		values
 		(
@@ -83,7 +84,8 @@
 			#{mobile},
 			#{register_ip},
 			#{avatar},
-			#{weixin_openid}
+			#{weixin_openid},
+			#{store_id}
 		)
 	</insert>
 

@@ -6,25 +6,24 @@ const user = require('../../services/user.js');
 const app = getApp()
 Page({
   data: {
-    newGoods: [],
-    hotGoods: [],
+    newGoodsList: [],
+    hotGoodsList: [],
     topics: [],
     brands: [],
     floorGoods: [],
-    banner: [],
-    channel: []
+    banner: []//广告图
   },
   onShareAppMessage: function () {
     return {
-      title: 'NideShop',
-      desc: '仿网易严选微信小程序商城',
+      title: '点客盈-首页',
+      desc: '点客盈微信小程序商城',
       path: '/pages/index/index'
     }
   },
 
   getIndexData: function () {
     let that = this;
-    util.request(api.IndexUrl).then(function (res) {
+    util.request(api.IndexUrl, { storeId:api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           newGoods: res.data.newGoodsList,
@@ -33,12 +32,16 @@ Page({
           brand: res.data.brandList,
           floorGoods: res.data.categoryList,
           banner: res.data.banner,
-          channel: res.data.channel
+          newGoodsList: res.data.newGoodsList,
+          hotGoodsList: res.data.hotGoodsList
         });
       }
     });
   },
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '首页'
+    })
     this.getIndexData();
   },
   onReady: function () {
@@ -53,4 +56,5 @@ Page({
   onUnload: function () {
     // 页面关闭
   },
-})
+});
+

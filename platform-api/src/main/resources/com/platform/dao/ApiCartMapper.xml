@@ -40,14 +40,14 @@
         <if test="goods_id != null">
             AND a.goods_id = #{goods_id}
         </if>
-        <if test="identify != null">
-            AND b.identify = #{identify}
-        </if>
         <if test="product_id != null">
             AND a.product_id = #{product_id}
         </if>
         <if test="checked != null">
             AND a.checked = #{checked}
+        </if>
+        <if test="identify != null">
+            AND b.identify = #{identify}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -126,9 +126,7 @@
             <if test="market_price != null">`market_price` = #{market_price},</if>
             <if test="retail_price != null">`retail_price` = #{retail_price},</if>
             <if test="number != null">`number` = #{number},</if>
-            <if test="goods_specifition_name_value != null">`goods_specifition_name_value` =
-                #{goods_specifition_name_value},
-            </if>
+            <if test="goods_specifition_name_value != null">`goods_specifition_name_value` =  #{goods_specifition_name_value}, </if>
             <if test="goods_specifition_ids != null">`goods_specifition_ids` = #{goods_specifition_ids},</if>
             <if test="checked != null">`checked` = #{checked},</if>
             <if test="list_pic_url != null">`list_pic_url` = #{list_pic_url}</if>
@@ -162,14 +160,6 @@
         <foreach item="id" collection="productIds" open="(" separator="," close=")">
             #{id}
         </foreach>
-    </delete>
-
-    <delete id="deleteByUserAndProductIds">
-        delete from nideshop_cart where product_id in
-          <foreach item="id" collection="productIds" open="(" separator= "," close=")">
-              #{id}
-          </foreach>
-              and user_id = #{user_id}
     </delete>
 
     <delete id="deleteByCart">

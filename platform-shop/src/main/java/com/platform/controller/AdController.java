@@ -13,15 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 广告列表 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-19 09:37:35
  */
 @RestController
 @RequestMapping("ad")
-public class AdController {
+public class AdController extends AbstractController{
     @Autowired
     private AdService adService;
 
@@ -31,6 +29,8 @@ public class AdController {
     @RequestMapping("/list")
     @RequiresPermissions("ad:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //添加权限验证
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +60,9 @@ public class AdController {
     @RequestMapping("/save")
     @RequiresPermissions("ad:save")
     public R save(@RequestBody AdEntity ad) {
+        //添加权限字段
+        ad.setIdentify(getOneDeptId());
+        ad.setSysUserId(getUserId());
         adService.save(ad);
 
         return R.ok();
@@ -71,6 +74,9 @@ public class AdController {
     @RequestMapping("/update")
     @RequiresPermissions("ad:update")
     public R update(@RequestBody AdEntity ad) {
+        //更新权限字段
+        ad.setIdentify(getOneDeptId());
+        ad.setSysUserId(getUserId());
         adService.update(ad);
 
         return R.ok();
@@ -92,6 +98,8 @@ public class AdController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        //添加权限验证
+        params = authorityParams(params);
 
         List<AdEntity> list = adService.queryList(params);
 

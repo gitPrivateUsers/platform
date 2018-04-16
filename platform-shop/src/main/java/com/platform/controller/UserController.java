@@ -5,6 +5,7 @@ import com.platform.service.UserService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import com.platform.utils.StringUtils;
 import com.platform.utils.excel.ExcelExport;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 会员管理 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-16 15:02:28
  */
 @RestController
 @RequestMapping("user")
-public class UserController {
+public class UserController extends AbstractController{
     @Autowired
     private UserService userService;
 
@@ -35,6 +34,8 @@ public class UserController {
     @RequestMapping("/list")
     @RequiresPermissions("user:list")
     public R list(@RequestParam Map<String, Object> params) {
+
+        params.put("storeId", getStoreIdByDeptId(params));
         //查询列表数据
         Query query = new Query(params);
 
@@ -42,8 +43,11 @@ public class UserController {
         int total = userService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(userList, total, query.getLimit(), query.getPage());
+        if(params.get("storeId")!=null){
 
-        return R.ok().put("page", pageUtil);
+            return R.ok().put("page", pageUtil);
+        }
+        return R.ok();
     }
 
 
@@ -64,6 +68,7 @@ public class UserController {
     @RequestMapping("/save")
     @RequiresPermissions("user:save")
     public R save(@RequestBody UserEntity user) {
+        user.setStoreId(getOneDeptId().toString());
         userService.save(user);
 
         return R.ok();

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 会员优惠券 Controller
  *
  * @author lipengjun
  * @email 939961241@qq.com

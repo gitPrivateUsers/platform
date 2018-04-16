@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 所有商品(商品主表) Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-21 21:19:49
  */
 @RestController
@@ -108,7 +106,7 @@ public class GoodsController extends AbstractController{
 
 
     /**
-     * 商品回收站
+     * 商品回收站请求
      *
      * @param params
      * @return

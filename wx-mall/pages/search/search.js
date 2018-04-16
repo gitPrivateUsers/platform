@@ -38,7 +38,7 @@ Page({
 
   getSearchKeyword() {
     let that = this;
-    util.request(api.SearchIndex).then(function (res) {
+    util.request(api.SearchIndex, {storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           historyKeyword: res.data.historyKeywordList,
@@ -59,7 +59,7 @@ Page({
   },
   getHelpKeyword: function () {
     let that = this;
-    util.request(api.SearchHelper, { keyword: that.data.keyword }).then(function (res) {
+    util.request(api.SearchHelper, { keyword: that.data.keyword, storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           helpKeyword: res.data
@@ -89,7 +89,7 @@ Page({
   },
   getGoodsList: function () {
     let that = this;
-    util.request(api.GoodsList, { keyword: that.data.keyword, page: that.data.page, size: that.data.size, sort: that.data.currentSortType, order: that.data.currentSortOrder, categoryId: that.data.categoryId }).then(function (res) {
+    util.request(api.GoodsList, { keyword: that.data.keyword, page: that.data.page, size: that.data.size, sort: that.data.currentSortType, order: that.data.currentSortOrder, categoryId: that.data.categoryId, storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           searchStatus: true,

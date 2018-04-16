@@ -19,7 +19,7 @@ import com.platform.utils.R;
 
 
 /**
- * 
+ *  会员收藏 Controller
  * 
  * @author lipengjun
  * @email 939961241@qq.com
@@ -27,7 +27,7 @@ import com.platform.utils.R;
  */
 @RestController
 @RequestMapping("collect")
-public class CollectController {
+public class CollectController extends AbstractController{
 	@Autowired
 	private CollectService collectService;
 	
@@ -37,6 +37,7 @@ public class CollectController {
 	@RequestMapping("/list")
 	@RequiresPermissions("collect:list")
 	public R list(@RequestParam Map<String, Object> params){
+		params=authorityParams(params);
 		//查询列表数据
         Query query = new Query(params);
 
@@ -44,8 +45,8 @@ public class CollectController {
 		int total = collectService.queryTotal(query);
 		
 		PageUtils pageUtil = new PageUtils(collectList, total, query.getLimit(), query.getPage());
-		
-		return R.ok().put("page", pageUtil);
+			return R.ok().put("page", pageUtil);
+
 	}
 	
 	

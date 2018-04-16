@@ -33,6 +33,9 @@
         </if>
         left join nideshop_goods g on f.goods_id = g.id
         <where>
+            <if test="identify != null">
+                and g.identify = #{identify}
+            </if>
             <if test="user_id != null">
                 and f.user_id = #{user_id}
             </if>
@@ -54,8 +57,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-        select count(*) from nideshop_footprint f
+        select count(*) from nideshop_footprint f left join nideshop_goods g on f.goods_id = g.id
         <where>
+            <if test="identify != null">
+                and g.identify = #{identify}
+            </if>
             <if test="user_id != null">
                 and f.user_id = #{user_id}
             </if>

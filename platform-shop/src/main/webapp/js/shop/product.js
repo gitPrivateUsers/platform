@@ -9,20 +9,21 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '商品', name: 'goodsName', index: 'goods_id', width: 120},
+            {label: '商品', name: 'goodsName', index: 'goods_id', width: 120,align:'center'},
             {
                 label: '商品规格',
                 name: 'specificationValue',
                 index: 'goods_specification_ids',
                 width: 100,
+                align:'center',
                 formatter: function (value, options, row) {
                     return value.replace(row.goodsName + " ", '');
                 }
             },
-            {label: '商品序列号', name: 'goodsSn', index: 'goods_sn', width: 80},
-            {label: '商品库存', name: 'goodsNumber', index: 'goods_number', width: 80},
-            {label: '零售价格(元)', name: 'retailPrice', index: 'retail_price', width: 80},
-            {label: '市场价格(元)', name: 'marketPrice', index: 'market_price', width: 80}],
+            {label: '商品序列号', name: 'goodsSn', index: 'goods_sn', width: 80,align:'center'},
+            {label: '商品库存', name: 'goodsNumber', index: 'goods_number', width: 80,align:'center'},
+            {label: '零售价格(元)', name: 'retailPrice', index: 'retail_price', width: 80,align:'center'},
+            {label: '市场价格(元)', name: 'marketPrice', index: 'market_price', width: 80,align:'center'}],
         viewrecords: true,
         height: 385,
         rowNum: 10,
@@ -49,6 +50,16 @@ $(function () {
     });
 });
 
+//验证价格开始
+//var validPrice=(rule, value,callback)=>{
+//    if (''==value || value==0){
+//        callback(new Error('价格不能为空'))
+//    }else{
+//        callback()
+//    }
+//}
+//验证价格结束
+
 let vm = new Vue({
     el: '#rrapp',
     data: {
@@ -58,7 +69,10 @@ let vm = new Vue({
         ruleValidate: {
             name: [
                 {required: true, message: '名称不能为空', trigger: 'blur'}
-            ]
+            ],
+            goodsSn: [
+                {required: true,message:'序列号不能为空',trigger:'blur'}
+            ],
         },
         q: {
             goodsName: ''

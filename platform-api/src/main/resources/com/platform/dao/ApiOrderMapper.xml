@@ -52,6 +52,12 @@
     <select id="queryList" resultMap="orderMap">
         select * from nideshop_order
         <where>
+
+
+            <if test="storeId != null">
+                AND  store_id = #{storeId}
+            </if>
+
             <if test="user_id != null">
                 and user_id = #{user_id}
             </if>
@@ -107,7 +113,8 @@
 			`parent_id`,
 			`coupon_price`,
 			`callback_status`,
-			`full_cut_price`
+			`full_cut_price`,
+			`store_id`
 		)
 		values
 		(
@@ -142,7 +149,8 @@
 			#{parent_id},
 			#{coupon_price},
 			#{callback_status},
-			#{full_cut_price}
+			#{full_cut_price},
+			#{storeId}
 		)
 	</insert>
 

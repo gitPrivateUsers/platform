@@ -3,6 +3,7 @@ package com.platform.api;
 import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.FullUserInfo;
+import com.platform.entity.Gs;
 import com.platform.entity.UserInfo;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiUserService;
@@ -10,7 +11,6 @@ import com.platform.service.TokenService;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiUserUtils;
 import com.platform.util.CommonUtil;
-import com.platform.util.StoreConfigureInfo;
 import com.platform.utils.CharUtil;
 import com.platform.utils.R;
 import com.platform.validator.Assert;
@@ -41,7 +41,7 @@ public class ApiAuthController extends ApiBaseAction {
     @Autowired
     private TokenService tokenService;
     @Autowired
-    private StoreConfigureInfo storeConfigureInfo;
+    private ApiUserUtils apiUserUtils;
 
     /**
      * 登录
@@ -76,13 +76,14 @@ public class ApiAuthController extends ApiBaseAction {
         if (null != jsonParam.get("userInfo")) {
             fullUserInfo = jsonParam.getObject("userInfo", FullUserInfo.class);
         }
+        long storeId = Long.parseLong(jsonParam.getString("storeId"));
 
-        Map<String, Object> resultObj = new HashMap();
+        Map<String, Object> resultObj = new HashMap<String, Object>();
         //
         UserInfo userInfo = fullUserInfo.getUserInfo();
 
         //获取openid
-        String requestUrl = ApiUserUtils.getWebAccess(code);//通过自定义工具类组合出小程序需要的登录凭证 code
+        String requestUrl = apiUserUtils.getWebAccess(code, storeId);//通过自定义工具类组合出小程序需要的登录凭证 code
         logger.info("》》》组合token为：" + requestUrl);
         JSONObject sessionData = CommonUtil.httpsRequest(requestUrl, "GET", null);
 
@@ -108,6 +109,10 @@ public class ApiAuthController extends ApiBaseAction {
             userVo.setAvatar(userInfo.getAvatarUrl());
             userVo.setGender(userInfo.getGender()); // //性别 0：未知、1：男、2：女
             userVo.setNickname(userInfo.getNickName());
+
+            if (!StringUtils.isNullOrEmpty(jsonParam.getString("storeId"))) {
+                userVo.setStore_id(jsonParam.getString("storeId"));
+            }
             userService.save(userVo);
         } else {
             userVo.setLast_login_ip(this.getClientIp());
@@ -121,20 +126,11 @@ public class ApiAuthController extends ApiBaseAction {
         if (null == userInfo || StringUtils.isNullOrEmpty(token)) {
             return toResponsFail("登录失败");
         }
-
+        Gs gs =new Gs();
         resultObj.put("token", token);
         resultObj.put("userInfo", userInfo);
+        resultObj.put("gs", gs);
         resultObj.put("userId", userVo.getUserId());
         return toResponsSuccess(resultObj);
     }
-
-    /**
-     * 获取多店铺信息
-     */
-    @IgnoreAuth
-    @RequestMapping("getStoreConfigure")
-    public R getStoreConfigureDetail(long storeId) {
-        return R.ok(storeConfigureInfo.getStoreConfigureAndDept(storeId));
-    }
-
 }

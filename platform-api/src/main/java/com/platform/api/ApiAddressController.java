@@ -28,7 +28,11 @@ public class ApiAddressController extends ApiBaseAction {
 	private ApiAddressService addressService;
 
 	/**
+<<<<<<< HEAD
 	 * 获取用户的收货地址··
+=======
+	 * 获取用户的收货地址
+>>>>>>> a10ea8d1583e59548cae4fec01833a5f34a4729f
 	 */
 	@RequestMapping("list")
 	public Object list(@LoginUser UserVo loginUser) {

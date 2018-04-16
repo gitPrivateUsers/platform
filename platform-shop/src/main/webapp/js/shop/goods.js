@@ -4,27 +4,27 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '商品类型', name: 'categoryName', index: 'category_id', width: 80},
-            {label: '名称', name: 'name', index: 'name', width: 160},
-            {label: '品牌', name: 'brandName', index: 'brand_id', width: 120},
+            {label: '商品类型', name: 'categoryName', index: 'category_id', width: 80,align:'center'},
+            {label: '名称', name: 'name', index: 'name', width: 160,align:'center'},
+            {label: '品牌', name: 'brandName', index: 'brand_id', width: 80,align:'center'},
             {
-                label: '上架', name: 'isOnSale', index: 'is_on_sale', width: 50,
+                label: '上架', name: 'isOnSale', index: 'is_on_sale', width: 50,align:'center',
                 formatter: function (value) {
                     return transIsNot(value);
                 }
             },
             {
-                label: '录入日期', name: 'addTime', index: 'add_time', width: 80, formatter: function (value) {
-                return transDate(value, 'yyyy-MM-dd');
+                label: '录入日期', name: 'addTime', index: 'add_time', width: 80,align:'center', formatter: function (value) {
+                return transDate(value, 'yyyy-MM-dd hh:mm:ss');
             }
             },
-            {label: '属性类别', name: 'attributeCategoryName', index: 'attribute_category', width: 80},
-            {label: '零售价格', name: 'retailPrice', index: 'retail_price', width: 80},
-            {label: '商品库存', name: 'goodsNumber', index: 'goods_number', width: 80},
-            {label: '销售量', name: 'sellVolume', index: 'sell_volume', width: 80},
-            {label: '市场价', name: 'marketPrice', index: 'market_price', width: 80},
+            {label: '属性类别', name: 'attributeCategoryName', index: 'attribute_category', width: 80,align:'center'},
+            {label: '零售价格', name: 'retailPrice', index: 'retail_price', width: 80,align:'center'},
+            {label: '商品库存', name: 'goodsNumber', index: 'goods_number', width: 80,align:'center'},
+            {label: '销售量', name: 'sellVolume', index: 'sell_volume', width: 80,align:'center'},
+            {label: '市场价', name: 'marketPrice', index: 'market_price', width: 80,align:'center'},
             {
-                label: '热销', name: 'isHot', index: 'is_hot', width: 80, formatter: function (value) {
+                label: '热销', name: 'isHot', index: 'is_hot', width: 80,align:'center',formatter: function (value) {
                 return transIsNot(value);
             }
             }],
@@ -68,6 +68,34 @@ $(function () {
         imagesLoadURL: '../sys/oss/queryAll'
     })
 });
+//函数引入
+function transIsNot(value) {
+    if (value == 1) {
+        return '<span class="badge badge-info">是</span>';
+    }
+    return '<span class="badge badge-danger">否</span>';
+};
+/**
+ * 翻译日期
+ * @param date
+ * @param fmt
+ * @returns {*}
+ */
+function transDate(date, fmt) {
+    if (date) {
+        if (typeof date == 'number') {
+            return new Date(date).dateFormat(fmt);
+        } else {
+            try {
+                return new Date(date.replace('-', '/').replace('-', '/')).dateFormat(fmt);
+            } catch (e) {
+                return '-';
+            }
+        }
+    } else {
+        return '-';
+    }
+};
 
 var ztree;
 

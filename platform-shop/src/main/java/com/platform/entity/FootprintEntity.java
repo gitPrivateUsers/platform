@@ -25,6 +25,7 @@ public class FootprintEntity implements Serializable {
     //记录时间
     private Long addTime;
 
+
     /**
      * 设置：主键
      */

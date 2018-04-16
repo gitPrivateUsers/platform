@@ -19,13 +19,15 @@ import com.platform.utils.R;
 
 
 /**
+ *  搜索历史 Controller
+ *
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-13 10:41:10
  */
 @RestController
 @RequestMapping("searchhistory")
-public class SearchHistoryController {
+public class SearchHistoryController extends AbstractController{
     @Autowired
     private SearchHistoryService searchHistoryService;
 
@@ -35,6 +37,7 @@ public class SearchHistoryController {
     @RequestMapping("/list")
     @RequiresPermissions("searchhistory:list")
     public R list(@RequestParam Map<String, Object> params) {
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 

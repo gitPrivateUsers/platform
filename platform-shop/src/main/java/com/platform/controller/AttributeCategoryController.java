@@ -13,15 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ *  商品属性种类 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-17 16:13:27
  */
 @RestController
 @RequestMapping("attributecategory")
-public class AttributeCategoryController {
+public class AttributeCategoryController extends AbstractController {
     @Autowired
     private AttributeCategoryService attributeCategoryService;
 
@@ -31,6 +29,8 @@ public class AttributeCategoryController {
     @RequestMapping("/list")
     @RequiresPermissions("attributecategory:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //添加权限验证
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +60,8 @@ public class AttributeCategoryController {
     @RequestMapping("/save")
     @RequiresPermissions("attributecategory:save")
     public R save(@RequestBody AttributeCategoryEntity attributeCategory) {
+        attributeCategory.setIdentify(getOneDeptId());
+        attributeCategory.setSysUserId(getUserId());
         attributeCategoryService.save(attributeCategory);
 
         return R.ok();
@@ -71,6 +73,8 @@ public class AttributeCategoryController {
     @RequestMapping("/update")
     @RequiresPermissions("attributecategory:update")
     public R update(@RequestBody AttributeCategoryEntity attributeCategory) {
+        attributeCategory.setIdentify(getOneDeptId());
+        attributeCategory.setSysUserId(getUserId());
         attributeCategoryService.update(attributeCategory);
 
         return R.ok();
@@ -92,6 +96,8 @@ public class AttributeCategoryController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        //添加权限过滤
+        params = authorityParams(params);
 
         List<AttributeCategoryEntity> list = attributeCategoryService.queryList(params);
 

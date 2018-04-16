@@ -1,80 +1,62 @@
-<view class="container">
-  <view class="profile-info" bindtap="goLogin">
-    <image class="avatar" src="{{userInfo.avatar}}"></image>
-    <view class="info">
-      <text class="name">{{userInfo.nickname}}</text>
-      <!-- <text class="level">{{userInfo.username}}</text> -->
+          <view class="container">
+  <view class="profile-info">
+    <view>
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+      <text class="name">{{userInfo.nickName}}</text>
     </view>
   </view>
 
-  <view class="user-menu">
-    <view class="item">
-      <navigator url="/pages/ucenter/order/order" class="a">
-        <text class="icon order"></text>
-        <text class="txt">我的订单</text>
-      </navigator>
+  <view class="menu">
+    <navigator url="/pages/ucenter/order/order">
+      <view class="item">
+        <image class="icon" src='/static/images/ic_order.png'></image>
+        <text>我的订单</text>
+        <image class="icon_right" src='/static/images/go.png'></image>
+      </view>
+    </navigator>
+    <navigator url="../address/address">
+      <view class="item">
+        <image class="icon" src='/static/images/ic_address.png'></image>
+        <text>地址管理</text>
+        <image class="icon_right" src='/static/images/go.png'></image>
+      </view>
+    </navigator>
+    <navigator url="/pages/ucenter/collect/collect">
+      <view class="item">
+        <image class="icon" src='/static/images/ic_collect.png'></image>
+        <text>我的收藏</text>
+        <image class="icon_right" src='/static/images/go.png'></image>
+      </view>
+    </navigator>
+    <navigator url="/pages/ucenter/footprint/footprint" >
+      <view class="item">
+        <image class="icon" src='/static/images/ic_footprint.png'></image>
+        <text>我的足迹</text>
+        <image class="icon_right" src='/static/images/go.png'></image>
+      </view>
+    </navigator>
+  </view>
+
+  <view class="menu">
+    <!-- <navigator url="/pages/ucenter/feedback/feedback">
+      <view class="item">
+        <image class="icon" src='/static/images/ic_feedback.png'></image>
+        <text>意见反馈</text>
+        <image class="icon_right" src='/static/images/go.png'></image>
+      </view>
+    </navigator> -->
+    <view class="item" bindtap='gh'>
+      <image class="icon" src='/static/images/ic_contact.png'></image>
+      <text>联系我们</text><text>{{gs.ph}}</text>
+      <image class="icon_right" src='/static/images/go.png'></image>
     </view>
-    <view class="item">
-      <navigator url="/pages/ucenter/coupon/coupon" class="a">
-        <text class="icon coupon"></text>
-        <text class="txt">优惠券</text>
-      </navigator>
-    </view>
-    <view class="item no-border">
-      <navigator url="url" class="a">
-        <text class="icon gift"></text>
-        <text class="txt">礼品卡</text>
-      </navigator>
-    </view>
-    <view class="item">
-      <navigator url="/pages/ucenter/collect/collect" class="a">
-        <text class="icon address"></text>
-        <text class="txt">我的收藏</text>
-      </navigator>
-    </view>
-    <view class="item">
-      <navigator url="/pages/ucenter/footprint/footprint" class="a">
-        <text class="icon security"></text>
-        <text class="txt">我的足迹</text>
-      </navigator>
-    </view>
-    <view class="item no-border">
-      <navigator url="url" class="a">
-        <text class="icon kefu"></text>
-        <text class="txt">会员福利</text>
-      </navigator>
-    </view>
-    <view class="item">
-      <navigator url="../address/address" class="a">
-        <text class="icon address"></text>
-        <text class="txt">地址管理</text>
-      </navigator>
-    </view>
-    <view class="item">
-      <navigator url="url" class="a">
-        <text class="icon security"></text>
-        <text class="txt">账号安全</text>
-      </navigator>
-    </view>
-    <view class="item no-border">
-      <navigator url="url" class="a">
-        <text class="icon kefu"></text>
-        <text class="txt">联系客服</text>
-      </navigator>
-    </view>
-    <view class="item item-bottom">
-      <navigator url="url" class="a">
-        <text class="icon help"></text>
-        <text class="txt">帮助中心</text>
-      </navigator>
-    </view>
-    <view class="item item-bottom">
-      <navigator url="/pages/ucenter/feedback/feedback" class="a">
-        <text class="icon feedback"></text>
-        <text class="txt">意见反馈</text>
-      </navigator>
+    <view class="item" bindtap='dh'>
+      <image class="icon" src='/static/images/ic_about.png'></image>
+      <text>地址导航</text><text class="gs">{{gs.address}}</text>
+      <image class="icon_right" src='/static/images/go.png'></image>
     </view>
   </view>
 
-  <!--<view class="logout" bindtap="exitLogin">退出登录</view>-->
+
+
 </view>

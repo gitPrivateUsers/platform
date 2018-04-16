@@ -29,11 +29,14 @@ public class ApiCollectController extends ApiBaseAction {
      * 获取用户收藏
      */
     @RequestMapping("list")
-    public Object list(@LoginUser UserVo loginUser, Integer typeId) {
+    public Object list(@LoginUser UserVo loginUser, Integer typeId ,long storeId) {
+
+        long identify =getStoreIdByDeptId(storeId);
 
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
         param.put("type_id", typeId);
+        param.put("identify", identify);
         List<CollectVo> collectEntities = collectService.queryList(param);
 
 //        Query query = new Query(param);
@@ -50,11 +53,18 @@ public class ApiCollectController extends ApiBaseAction {
         JSONObject jsonParam = getJsonRequest();
         Integer typeId = jsonParam.getInteger("typeId");
         Integer valueId = jsonParam.getInteger("valueId");
-
+        String storeId =jsonParam.getString("storeId");
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
         param.put("type_id", typeId);
         param.put("value_id", valueId);
+
+        if (!com.qiniu.util.StringUtils.isNullOrEmpty(storeId)) {
+            long identify =getStoreIdByDeptId(Long.valueOf(storeId));
+            param.put("identify", identify);
+        } else{
+            param.put("identify", 9999999);//没有店铺标识 添加过滤
+        }
         List<CollectVo> collectEntities = collectService.queryList(param);
         //
         Integer collectRes = null;

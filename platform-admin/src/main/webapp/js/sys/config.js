@@ -4,9 +4,9 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'ID', name: 'id', key: true, hidden: true},
-            {label: '参数名', name: 'key', width: 60},
-            {label: '参数值', name: 'value', width: 100},
-            {label: '备注', name: 'remark', width: 80}
+            {label: '参数名', name: 'key', width: 60,align:'center'},
+            {label: '参数值', name: 'value', width: 100,align:'center'},
+            {label: '备注', name: 'remark', width: 80,align:'center'}
         ],
         viewrecords: true,
         height: 385,

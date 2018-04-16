@@ -33,7 +33,8 @@ Page({
     util.request(api.CommentPost, {
       typeId: that.data.typeId,
       valueId: that.data.valueId,
-      content: that.data.content
+      content: that.data.content,
+      storeId: api.StoreId
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         wx.showToast({

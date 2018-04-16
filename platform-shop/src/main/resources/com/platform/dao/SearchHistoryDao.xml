@@ -21,6 +21,10 @@
         select a.* ,b.username as user_name
         from nideshop_search_history a
         left join nideshop_user b on a.user_id = b.id
+        WHERE 1=1
+        <if test="storeId != null">
+            and b.store_id = #{storeId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

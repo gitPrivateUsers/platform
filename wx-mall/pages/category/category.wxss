@@ -70,7 +70,7 @@
 
 .cate-item .b{
   width: 750rpx;
-  padding: 0 6.25rpx;
+  padding:  6.25rpx 0;
   height: auto;
   overflow: hidden;
 }

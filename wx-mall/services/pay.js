@@ -11,7 +11,8 @@ const api = require('../config/api.js');
 function payOrder(orderId) {
   return new Promise(function (resolve, reject) {
     util.request(api.PayPrepayId, {
-      orderId: orderId
+      orderId: orderId,
+      storeId: api.StoreId
     }).then((res) => {
       console.log(res)
       if (res.errno === 0) {
@@ -24,9 +25,24 @@ function payOrder(orderId) {
           'paySign': payParam.paySign,
           'success': function (res) {
             resolve(res);
+            util.request(api.notify, {
+              'result_code': "SUCCESS",
+              out_trade_no: orderId,
+              storeId: api.StoreId
+            }, 'POST').then(function (res) {
+              console.info(res);
+            });
           },
           'fail': function (res) {
+            util.request(api.notify, {
+              'result_code': "FAIL",
+              out_trade_no: orderId,
+              storeId: api.StoreId
+            }, 'POST').then(function (res) {
+              console.info(res);
+            });
             reject(res);
+
           },
           'complete': function (res) {
             reject(res);

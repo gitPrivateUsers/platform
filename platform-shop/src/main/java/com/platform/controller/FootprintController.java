@@ -14,6 +14,8 @@ import java.util.Map;
 
 
 /**
+ * 会员足迹 Controller
+ *
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-13 10:41:08
@@ -30,7 +32,8 @@ public class FootprintController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("footprint:list")
     public R list(@RequestParam Map<String, Object> params) {
-        params=authorityParams(params);
+
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -38,8 +41,8 @@ public class FootprintController extends AbstractController {
         int total = footprintService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(footprintList, total, query.getLimit(), query.getPage());
+            return R.ok().put("page", pageUtil);
 
-        return R.ok().put("page", pageUtil);
     }
 
 

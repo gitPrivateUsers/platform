@@ -18,6 +18,7 @@
         <result property="registerIp" column="register_ip"/>
         <result property="avatar" column="avatar"/>
         <result property="weixinOpenid" column="weixin_openid"/>
+        <result property="storeId" column="store_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.UserEntity">
@@ -35,7 +36,8 @@
 			mobile,
 			register_ip,
 			avatar,
-			weixin_openid
+			weixin_openid,
+			store_id
 		from nideshop_user
 		where id = #{id}
 	</select>
@@ -56,11 +58,15 @@
         nideshop_user.register_ip,
         nideshop_user.avatar,
         nideshop_user.weixin_openid,
+        nideshop_user.store_id,
         nideshop_user_level.name levelName
         from nideshop_user LEFT JOIN nideshop_user_level ON nideshop_user.user_level_id=nideshop_user_level.id
         WHERE 1=1
         <if test="username != null and username.trim() != ''">
             and username like concat('%',#{username},'%')
+        </if>
+        <if test="storeId != null">
+            and store_id =#{storeId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -97,7 +103,8 @@
 			`mobile`,
 			`register_ip`,
 			`avatar`,
-			`weixin_openid`)
+			`weixin_openid`,
+			`store_id`)
 		values(
 			#{username},
 			#{password},
@@ -111,7 +118,8 @@
 			#{mobile},
 			#{registerIp},
 			#{avatar},
-			#{weixinOpenid})
+			#{weixinOpenid},
+			#{soteId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.UserEntity">
@@ -129,7 +137,8 @@
             <if test="mobile != null">`mobile` = #{mobile},</if>
             <if test="registerIp != null">`register_ip` = #{registerIp},</if>
             <if test="avatar != null">`avatar` = #{avatar},</if>
-            <if test="weixinOpenid != null">`weixin_openid` = #{weixinOpenid}</if>
+            <if test="weixinOpenid != null">`weixin_openid` = #{weixinOpenid},</if>
+            <if test="storeId != null">`store_id` = #{storeId}</if>
         </set>
         where id = #{id}
     </update>

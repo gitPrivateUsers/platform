@@ -15,8 +15,6 @@ import java.util.Map;
 /**
  * 新闻类型表Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2018-01-27 11:33:50
  */
 @RestController
@@ -74,6 +72,8 @@ public class NewsTypeController extends AbstractController {
     @RequestMapping("/update")
     @RequiresPermissions("newstype:update")
     public R update(@RequestBody NewsTypeEntity newsType) {
+        newsType.setIdentify(getOneDeptId());
+        newsType.setSysUserId(getUserId());
         newsTypeService.update(newsType);
 
         return R.ok();

@@ -40,6 +40,16 @@ public class UserVo implements Serializable {
     private String avatar;
     //微信Id
     private String weixin_openid;
+    //微信Id
+    private String store_id;
+
+    public String getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
+    }
 
     public Long getUserId() {
         return userId;

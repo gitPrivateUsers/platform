@@ -10,7 +10,6 @@ import com.platform.service.ApiOrderGoodsService;
 import com.platform.service.ApiOrderService;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiPageUtils;
-import com.platform.util.StoreConfigureInfo;
 import com.platform.util.wechat.WechatRefundApiResult;
 import com.platform.util.wechat.WechatUtil;
 import com.platform.utils.Query;
@@ -21,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 作者: @author Harmon <br>
@@ -39,8 +41,7 @@ public class ApiOrderController extends ApiBaseAction {
     private ApiKdniaoService apiKdniaoService;
 
     @Autowired
-    private StoreConfigureInfo storeConfigureInfo;
-
+    private WechatUtil  wechatUtil;
 
     /**
      */
@@ -57,21 +58,16 @@ public class ApiOrderController extends ApiBaseAction {
     @RequestMapping("list")
     public Object list(@LoginUser UserVo loginUser,
                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                       @RequestParam(value = "size", defaultValue = "10") Integer size, Long storeId) {
-        //
-        //添加店铺权限
-        Map<String, Object> params = storeConfigureInfo.authorityStore(storeId);
+                       @RequestParam(value = "size", defaultValue = "10") Integer size,long storeId) {
 
-        //店铺标识为空则返回空数据
-        if (params.get("identify") == null) {
-            return toResponsSuccess(new ArrayList<>());
-        }
-//        Map params = new HashMap();
-       params.put("user_id", loginUser.getUserId());
+        //
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("user_id", loginUser.getUserId());
         params.put("page", page);
         params.put("limit", size);
+        params.put("storeId", storeId);
         params.put("sidx", "id");
-        params.put("order", "asc");
+        params.put("order", "desc");
         //查询列表数据
         Query query = new Query(params);
         List<OrderVo> orderEntityList = orderService.queryList(query);
@@ -79,7 +75,7 @@ public class ApiOrderController extends ApiBaseAction {
         ApiPageUtils pageUtil = new ApiPageUtils(orderEntityList, total, query.getLimit(), query.getPage());
         //
         for (OrderVo item : orderEntityList) {
-            Map orderGoodsParam = new HashMap();
+            Map<String,Object> orderGoodsParam = new HashMap<String,Object>();
             orderGoodsParam.put("order_id", item.getId());
             //订单的商品
             List<OrderGoodsVo> goodsList = orderGoodsService.queryList(orderGoodsParam);
@@ -89,8 +85,8 @@ public class ApiOrderController extends ApiBaseAction {
                 item.setGoodsCount(goodsCount);
             }
         }
-            return toResponsSuccess(pageUtil);
-        }
+        return toResponsSuccess(pageUtil);
+    }
 
     /**
      * 获取订单详情
@@ -151,7 +147,7 @@ public class ApiOrderController extends ApiBaseAction {
      * 获取订单列表
      */
     @RequestMapping("cancelOrder")
-    public Object cancelOrder(@LoginUser UserVo loginUser, Integer orderId) {
+    public Object cancelOrder(@LoginUser UserVo loginUser, Integer orderId,long storeId) {
         try {
             OrderVo orderVo = orderService.queryObject(orderId);
             if (orderVo.getOrder_status() == 300) {
@@ -161,8 +157,8 @@ public class ApiOrderController extends ApiBaseAction {
             }
             // 需要退款
             if (orderVo.getPay_status() == 2) {
-                WechatRefundApiResult result = WechatUtil.wxRefund(orderVo.getId().toString(),
-                        0.01, 0.01);
+                WechatRefundApiResult result = wechatUtil.wxRefund(orderVo.getId().toString(),
+                        0.01, 0.01,storeId);
                 if (result.getResult_code().equals("SUCCESS")) {
                     if (orderVo.getOrder_status() == 201) {
                         orderVo.setOrder_status(401);

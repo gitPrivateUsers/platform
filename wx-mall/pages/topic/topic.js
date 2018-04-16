@@ -58,7 +58,7 @@ Page({
             duration: 2000
         });
 
-        util.request(api.TopicList, { page: that.data.page, size: that.data.size }).then(function (res) {
+        util.request(api.TopicList, { page: that.data.page, size: that.data.size, storeId: api.StoreId}).then(function (res) {
           if (res.errno === 0) {
 
             that.setData({

@@ -19,7 +19,7 @@ Page({
   },
   getAddressList (){
     let that = this;
-    util.request(api.AddressList).then(function (res) {
+    util.request(api.AddressList, { storeId: api.StoreId }).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           addressList: res.data

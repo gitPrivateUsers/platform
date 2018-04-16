@@ -18,7 +18,7 @@ Page({
   },
   getCommentCount: function () {
     let that = this;
-    util.request(api.CommentCount, { valueId: that.data.valueId, typeId: that.data.typeId}).then(function (res) {
+    util.request(api.CommentCount, { valueId: that.data.valueId, typeId: that.data.typeId, storeId: api.StoreId}).then(function (res) {
       if (res.errno === 0) {
 
         that.setData({
@@ -35,7 +35,8 @@ Page({
       typeId: that.data.typeId, 
       size: that.data.size,
       page: (that.data.showType == 0 ? that.data.allPage : that.data.picPage),
-      showType: that.data.showType 
+      showType: that.data.showType,
+      storeId: api.StoreId
       }).then(function (res) {
       if (res.errno === 0) {
 

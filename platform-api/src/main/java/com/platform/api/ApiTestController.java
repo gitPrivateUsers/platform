@@ -4,7 +4,9 @@ import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiUserService;
+import com.platform.util.ApiBaseAction;
 import com.platform.utils.R;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/test")
-public class ApiTestController {
+public class ApiTestController  extends ApiBaseAction {
+	   private Logger logger = Logger.getLogger(getClass());
 
     @Autowired
     private ApiUserService userService;
@@ -53,4 +56,11 @@ public class ApiTestController {
         UserVo userEntity = userService.queryByMobile(mobile);
         return R.ok().put("dto", userEntity);
     }
+    
+    
+    
+    
+    
+    
+
 }

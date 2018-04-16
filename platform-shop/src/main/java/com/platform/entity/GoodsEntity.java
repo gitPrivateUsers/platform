@@ -40,9 +40,9 @@ public class GoodsEntity implements Serializable {
     //修改时间
     private Date updateTime;
     //排序
-    private Integer sortOrder;
+    private Integer sortOrder=100;
     //删除状态
-    private Integer isDelete;
+    private Integer isDelete=0;
     //属性类别
     private Integer attributeCategory;
     //专柜价格

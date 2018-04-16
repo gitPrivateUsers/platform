@@ -34,6 +34,39 @@ public class AddressEntity implements Serializable {
     private String countyName;
     //详细收货地址信息
     private String detailInfo;
+    //是否默认收货地址(0:不默认 1:默认收货地址)
+    //private String idDefault = "0";
+    //默认收货地址字段错误
+    private  Integer isDefault = 0;
+
+    public Integer getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(Integer isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    //添加身份标识
+    private Long identify;
+    //添加用户ID
+    private Long sysUserId;
+
+    public Long getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(Long identify) {
+        this.identify = identify;
+    }
+
+    public Long getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Long sysUserId) {
+        this.sysUserId = sysUserId;
+    }
 
     /**
      * 翻译会员名
@@ -187,4 +220,17 @@ public class AddressEntity implements Serializable {
     public String getDetailInfo() {
         return detailInfo;
     }
+
+    /**
+     * 设置：默认收货地址
+     */
+    //public String getIdDefault() {
+    //    return idDefault;
+    //}
+    /**
+     * 获取：默认收货地址
+     */
+    //public void setIdDefault(String idDefault) {
+    //    this.idDefault = idDefault;
+    //}
 }

@@ -15,15 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller
+ * 商品类型 Controller
  *
- * @author lipengjun
- * @email 939961241@qq.com
  * @date 2017-08-21 15:32:31
  */
 @RestController
 @RequestMapping("category")
-public class CategoryController {
+public class CategoryController extends AbstractController{
     @Autowired
     private CategoryService categoryService;
 
@@ -33,6 +31,8 @@ public class CategoryController {
     @RequestMapping("/list")
     @RequiresPermissions("category:list")
     public R list(@RequestParam Map<String, Object> params) {
+        //权限过滤
+        params = authorityParams(params);
         //查询列表数据
         Query query = new Query(params);
 
@@ -61,6 +61,8 @@ public class CategoryController {
     @RequestMapping("/save")
     @RequiresPermissions("category:save")
     public R save(@RequestBody CategoryEntity category) {
+        category.setIdentify(getOneDeptId());
+        category.setSysUserId(getUserId());
         categoryService.save(category);
 
         return R.ok();
@@ -72,6 +74,8 @@ public class CategoryController {
     @RequestMapping("/update")
     @RequiresPermissions("category:update")
     public R update(@RequestBody CategoryEntity category) {
+        category.setIdentify(getOneDeptId());
+        category.setSysUserId(getUserId());
         categoryService.update(category);
 
         return R.ok();
@@ -93,6 +97,8 @@ public class CategoryController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
+        //添加权限验证
+        params = authorityParams(params);
 
         List<CategoryEntity> list = categoryService.queryList(params);
         //添加顶级菜单
@@ -110,7 +116,13 @@ public class CategoryController {
      */
     @RequestMapping("/getAreaTree")
     public R getAreaTree() {
-        List<CategoryEntity> list = categoryService.queryList(new HashMap<String, Object>());
+        //添加权限过滤数据
+        Map<String,Object> map = new HashMap<>();
+        map.put("identify",getOneDeptId());
+        map.put("sysUserId",getUserId());
+        List<CategoryEntity> list = categoryService.queryList(map);
+
+        //List<CategoryEntity> list = categoryService.queryList(new HashMap<String, Object>());
         for (CategoryEntity sysRegionEntity : list) {
             sysRegionEntity.setValue(sysRegionEntity.getId() + "");
             sysRegionEntity.setLabel(sysRegionEntity.getName());
@@ -129,6 +141,9 @@ public class CategoryController {
     public R getCategorySelect() {
         Map<String, Object> map = new HashMap<>();
         map.put("parentId", "0");
+        //添加权限过滤
+        map.put("identify",getOneDeptId());
+        map.put("sysUserId",getUserId());
         List<CategoryEntity> list = categoryService.queryList(map);
         return R.ok().put("list", list);
     }

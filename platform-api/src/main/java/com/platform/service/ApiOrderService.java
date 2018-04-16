@@ -29,7 +29,8 @@ public class ApiOrderService {
     private ApiOrderGoodsMapper apiOrderGoodsMapper;
     @Autowired
     private ApiUserCouponMapper apiUserCouponMapper;
-
+    @Autowired
+    private StoreConfigureService storeConfigureService;
 
     public OrderVo queryObject(Integer id) {
         return orderDao.queryObject(id);
@@ -72,16 +73,29 @@ public class ApiOrderService {
 
         Integer couponId = jsonParam.getInteger("couponId");
         String couponNumber = jsonParam.getString("couponNumber");
-        BigDecimal fullCutCouponDec = jsonParam.getBigDecimal("fullCutCouponDec");
+//        BigDecimal fullCutCouponDec = jsonParam.getBigDecimal("fullCutCouponDec");
         String postscript = jsonParam.getString("postscript");
-        AddressVo addressVo = jsonParam.getObject("checkedAddress",AddressVo.class);
+        String storeId =jsonParam.getString("storeId");
 
-        Integer freightPrice = 10;
+//        AddressVo addressVo = jsonParam.getObject("checkedAddress",AddressVo.class);
+        AddressVo addressVo = apiAddressMapper.queryObject(jsonParam.getString("checkedAddress"));
+  
+
+        Integer freightPrice = 0;
         //获取要购买的商品
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
         param.put("session_id", 1);
         param.put("checked", 1);
+
+        if (!com.qiniu.util.StringUtils.isNullOrEmpty(storeId)) {
+            StoreConfigureEntity store=   storeConfigureService.queryObject(Long.valueOf(storeId));
+            if(store==null){
+                param.put("identify", 9999999);//没有店铺标识 添加过滤商品
+            }else
+                param.put("identify", store.getDeptParentId());
+        }else
+            param.put("identify", 9999999);//没有店铺标识 添加过滤商品
         List<CartVo> checkedGoodsList = apiCartMapper.queryList(param);
         if (null == checkedGoodsList) {
             resultObj.put("errno", 400);
@@ -118,13 +132,23 @@ public class ApiOrderService {
         }
         //订单价格计算
         BigDecimal orderTotalPrice = goodsTotalPrice.add(new BigDecimal(freightPrice)); //订单的总价
-
-        BigDecimal actualPrice = orderTotalPrice.subtract(fullCutCouponDec).subtract(couponPrice);  //减去其它支付的金额后，要实际支付的金额
+        BigDecimal actualPrice = orderTotalPrice.subtract(couponPrice);  //减去其它支付的金额后，要实际支付的金额
+//        BigDecimal actualPrice = orderTotalPrice.subtract(fullCutCouponDec).subtract(couponPrice);  //减去其它支付的金额后，要实际支付的金额
 
         Long currentTime = System.currentTimeMillis() / 1000;
 
         //
         OrderVo orderInfo = new OrderVo();
+
+//        String length = "1";
+//        for (int i =0;i<4;i++){
+//            length += "0";
+//        }
+//        Random randow = new Random();
+//
+//        int orderInfoId = randow.nextInt(Integer.parseInt(length));
+
+//        orderInfo.setId(orderInfoId);
         orderInfo.setOrder_sn(CommonUtil.generateOrderNumber());
         orderInfo.setUser_id(loginUser.getUserId());
         //收货地址和运费
@@ -140,7 +164,7 @@ public class ApiOrderService {
         //留言
         orderInfo.setPostscript(postscript);
         //使用的优惠券
-        orderInfo.setFull_cut_price(fullCutCouponDec);
+//        orderInfo.setFull_cut_price(fullCutCouponDec);
         orderInfo.setCoupon_id(couponId);
         orderInfo.setCoupon_price(couponPrice);
         orderInfo.setAdd_time(new Date());
@@ -155,6 +179,7 @@ public class ApiOrderService {
         orderInfo.setShipping_fee(new BigDecimal(0));
         orderInfo.setIntegral(0);
         orderInfo.setIntegral_money(new BigDecimal(0));
+        orderInfo.setStoreId(Long.valueOf(storeId));
 
         //开启事务，插入订单信息和订单商品
         apiOrderMapper.save(orderInfo);

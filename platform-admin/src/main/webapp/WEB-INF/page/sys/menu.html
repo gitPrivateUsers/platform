@@ -68,19 +68,19 @@
             <Form-item label="状态" prop="status">
                 <Radio-group v-model="menu.status">
                     <Radio label="0">
-                        <span>有效</span>
+                        <span>启用</span>
                     </Radio>
                     <Radio label="1">
-                        <span>无效</span>
+                        <span>隐藏</span>
                     </Radio>
                 </Radio-group>
             </Form-item>
             <!-- 添加身份标识字段 -->
-            <Form-item label="身份标识" prop="identify" style="width: 268px;">
-                <i-select v-model="menu.identify" filterable>
-                    //<i-option v-for="userLevel in userLevels" :value="userLevel.id" :key="userLevel.id">{{userLevel.name}}</i-option>
-                </i-select>
-            </Form-item>
+            <!--<Form-item label="身份标识" prop="identify" style="width: 268px;">-->
+                <!--<i-select v-model="menu.identify" filterable>-->
+                    <!--//<i-option v-for="userLevel in userLevels" :value="userLevel.id" :key="userLevel.id">{{userLevel.name}}</i-option>-->
+                <!--</i-select>-->
+            <!--</Form-item>-->
             <!-- 添加身份标识 -->
 
             </Form-item>

@@ -11,23 +11,33 @@ Page({
     goodsCount: 0,
     scrollHeight: 0
   },
+  onShareAppMessage: function () {
+    return {
+      title: '点客盈-分类',
+      desc: '分类',
+      path: '/pages/catalog/catalog'
+    }
+  },
   onLoad: function (options) {
     this.getCatalog();
   },
   getCatalog: function () {
+    wx.setNavigationBarTitle({
+      title: '分类'
+    })
     //CatalogList
     let that = this;
     wx.showLoading({
       title: '加载中...',
     });
-    util.request(api.CatalogList).then(function (res) {
+    util.request(api.CatalogList, { storeId: api.StoreId }).then(function (res) {
         that.setData({
           navList: res.data.categoryList,
           currentCategory: res.data.currentCategory
         });
         wx.hideLoading();
       });
-    util.request(api.GoodsCount).then(function (res) {
+    util.request(api.GoodsCount, {storeId: api.StoreId}).then(function (res) {
       that.setData({
         goodsCount: res.data.goodsCount
       });
@@ -36,7 +46,7 @@ Page({
   },
   getCurrentCategory: function (id) {
     let that = this;
-    util.request(api.CatalogCurrent, { id: id })
+    util.request(api.CatalogCurrent, { id: id, storeId: api.StoreId})
       .then(function (res) {
         that.setData({
           currentCategory: res.data.currentCategory

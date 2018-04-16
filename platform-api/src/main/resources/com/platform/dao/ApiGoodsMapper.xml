@@ -37,6 +37,7 @@
         <result property="is_limited" column="is_limited"/>
         <result property="is_hot" column="is_hot"/>
         <result property="product_id" column="product_id"/>
+        <result property="identify" column="identify"/>
     </resultMap>
 
     <select id="queryObject" resultMap="goodsMap">
@@ -53,9 +54,6 @@
         </if>
         from nideshop_goods
         where 1 = 1
-        <if test="identify != null and identify!=''">
-            AND identify = #{identify}
-        </if>
         <if test="is_new != null and is_new != ''">
             and is_new = #{is_new}
         </if>
@@ -76,6 +74,9 @@
         </if>
         <if test="is_delete != null">
             and is_delete = #{is_delete}
+        </if>
+        <if test="identify != null">
+            and identify = #{identify}
         </if>
         <if test="categoryIds != null">
             and category_id in
@@ -210,6 +211,16 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_goods 
+		select count(*) from nideshop_goods where 1=1
+
+        <if test="is_on_sale != null">
+            and is_on_sale = #{is_on_sale}
+        </if>
+        <if test="is_delete != null">
+            and is_delete = #{is_delete}
+        </if>
+        <if test="identify != null">
+            and identify = #{identify}
+        </if>
 	</select>
 </mapper>
