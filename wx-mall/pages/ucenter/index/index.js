@@ -24,6 +24,7 @@ Page({
       console.info(res);
       thad.setData({
         userInfo: res.data.userInfo,
+        gs:res.data.gs,
         token: res.data.token
       });
       console.info(this.data);
@@ -37,9 +38,9 @@ Page({
   onReady: function () {
 
   },
-  onShow: function () {
- 
+  onShow: function () { 
     let userInfo = wx.getStorageSync('userInfo');
+    let gs = wx.getStorageSync('gs');//tianjia
     let token = wx.getStorageSync('token');
 
     // 页面显示
@@ -60,7 +61,7 @@ Page({
   onUnload: function () {
     // 页面关闭
   },
-  gh:function(){
+  gh:function(){ 
     wx.makePhoneCall({
       phoneNumber: this.data.gs.ph
     });
