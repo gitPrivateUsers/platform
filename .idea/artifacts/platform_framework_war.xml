@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="platform-framework:war">
-    <output-path>$PROJECT_DIR$/platform/platform-framework/target</output-path>
+    <output-path>$PROJECT_DIR$/platform-framework/target</output-path>
     <root id="archive" name="platform-framework.war">
       <element id="artifact" artifact-name="platform-framework:war exploded" />
     </root>

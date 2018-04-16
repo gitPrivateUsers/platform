@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="platform-admin:war exploded">
-    <output-path>$PROJECT_DIR$/platform/platform-admin/target/platform-admin-1.0.0</output-path>
+    <output-path>$PROJECT_DIR$/platform-admin/target/platform-admin-1.0.0</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -98,7 +98,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/platform/platform-admin/target/platform-admin-1.0.0/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/platform-admin/target/platform-admin-1.0.0/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="platform-admin/web/Web" />
       <element id="artifact" artifact-name="platform-shop:war exploded" />
