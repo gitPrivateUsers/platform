@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.StoreConfigureDao">
+
+    <resultMap type="com.platform.entity.StoreConfigureEntity" id="storeConfigureMap">
+        <result property="storeId" column="store_id"/>
+        <result property="storeName" column="store_name"/>
+        <result property="deptParentId" column="dept_parent_id"/>
+        <result property="appId" column="app_id"/>
+        <result property="appSecret" column="app_secret"/>
+        <result property="muchId" column="much_Id"/>
+        <result property="paySingKey" column="pay_sing_key"/>
+        <result property="status" column="status"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.platform.entity.StoreConfigureEntity">
+		select
+			`store_id`,
+			`store_name`,
+			`dept_parent_id`,
+			`app_id`,
+			`app_secret`,
+			`much_Id`,
+			`pay_sing_key`,
+			`status`,
+			`is_delete`,
+			`create_by`,
+			`create_time`,
+			`update_by`,
+			`update_time`,
+			`remark`
+		from nideshop_store_configure
+		where store_id = #{id}
+	</select>
+
+	<select id="queryList" resultType="com.platform.entity.StoreConfigureEntity">
+		select
+    		`store_id`,
+    		`store_name`,
+    		`dept_parent_id`,
+    		`app_id`,
+    		`app_secret`,
+    		`much_Id`,
+    		`pay_sing_key`,
+    		`status`,
+    		`is_delete`,
+    		`create_by`,
+    		`create_time`,
+    		`update_by`,
+    		`update_time`,
+    		`remark`
+		from nideshop_store_configure
+		WHERE 1=1
+		<if test="identify != null ">
+			AND dept_parent_id =#{identify}
+		</if>
+		<if test="name != null and name.trim() != ''">
+			AND name LIKE concat('%',#{name},'%')
+		</if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by store_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from nideshop_store_configure
+		WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+		<if test="identify != null ">
+			AND dept_parent_id =#{identify}
+		</if>
+	</select>
+	 
+	<insert id="save" parameterType="com.platform.entity.StoreConfigureEntity" useGeneratedKeys="true" keyProperty="storeId">
+		insert into nideshop_store_configure(
+			`store_name`,
+			`dept_parent_id`,
+			`app_id`,
+			`app_secret`,
+			`much_Id`,
+			`pay_sing_key`,
+			`status`,
+			`is_delete`,
+			`create_by`,
+			`create_time`,
+			`update_by`,
+			`update_time`,
+			`remark`)
+		values(
+			#{storeName},
+			#{deptParentId},
+			#{appId},
+			#{appSecret},
+			#{muchId},
+			#{paySingKey},
+			#{status},
+			#{isDelete},
+			#{createBy},
+			#{createTime},
+			#{updateBy},
+			#{updateTime},
+			#{remark})
+	</insert>
+	 
+	<update id="update" parameterType="com.platform.entity.StoreConfigureEntity">
+		update nideshop_store_configure 
+		<set>
+			<if test="storeName != null">`store_name` = #{storeName}, </if>
+			<if test="deptParentId != null">`dept_parent_id` = #{deptParentId}, </if>
+			<if test="appId != null">`app_id` = #{appId}, </if>
+			<if test="appSecret != null">`app_secret` = #{appSecret}, </if>
+			<if test="muchId != null">`much_Id` = #{muchId}, </if>
+			<if test="paySingKey != null">`pay_sing_key` = #{paySingKey}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="isDelete != null">`is_delete` = #{isDelete}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}</if>
+		</set>
+		where store_id = #{storeId}
+	</update>
+	
+	<delete id="delete">
+		delete from nideshop_store_configure where store_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from nideshop_store_configure where store_id in 
+		<foreach item="storeId" collection="array" open="(" separator="," close=")">
+			#{storeId}
+		</foreach>
+	</delete>
+
+</mapper>
