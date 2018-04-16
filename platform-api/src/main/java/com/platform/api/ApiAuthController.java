@@ -3,6 +3,7 @@ package com.platform.api;
 import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.FullUserInfo;
+import com.platform.entity.Gs;
 import com.platform.entity.UserInfo;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiUserService;
@@ -75,14 +76,14 @@ public class ApiAuthController extends ApiBaseAction {
         if (null != jsonParam.get("userInfo")) {
             fullUserInfo = jsonParam.getObject("userInfo", FullUserInfo.class);
         }
-        long storeId= Long.parseLong(jsonParam.getString("storeId"));
+        long storeId = Long.parseLong(jsonParam.getString("storeId"));
 
         Map<String, Object> resultObj = new HashMap<String, Object>();
         //
         UserInfo userInfo = fullUserInfo.getUserInfo();
 
         //获取openid
-        String requestUrl = apiUserUtils.getWebAccess(code,storeId);//通过自定义工具类组合出小程序需要的登录凭证 code
+        String requestUrl = apiUserUtils.getWebAccess(code, storeId);//通过自定义工具类组合出小程序需要的登录凭证 code
         logger.info("》》》组合token为：" + requestUrl);
         JSONObject sessionData = CommonUtil.httpsRequest(requestUrl, "GET", null);
 
@@ -125,9 +126,10 @@ public class ApiAuthController extends ApiBaseAction {
         if (null == userInfo || StringUtils.isNullOrEmpty(token)) {
             return toResponsFail("登录失败");
         }
-
+        Gs gs =new Gs();
         resultObj.put("token", token);
         resultObj.put("userInfo", userInfo);
+        resultObj.put("gs", gs);
         resultObj.put("userId", userVo.getUserId());
         return toResponsSuccess(resultObj);
     }
